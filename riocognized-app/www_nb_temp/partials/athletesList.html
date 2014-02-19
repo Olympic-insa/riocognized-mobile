@@ -1,0 +1,6 @@
+<ul class="athletes">
+    <li ng-repeat="athlete in athletes | orderBy:orderProp">
+        <a href="#/athletes/{{athlete.id}}">{{athlete.name}}</a>
+        <p>{{athlete.content}}</p>
+    </li>
+</ul>
