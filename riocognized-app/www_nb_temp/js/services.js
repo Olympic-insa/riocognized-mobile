@@ -8,8 +8,8 @@ angular.module('starter.services', [])
       return $http.get(url);
     },
     get: function(athleteId) {
-      url = url +"/"+athleteId;
+      url = url +"/"+athleteId.toString();
       return $http.get(url);
     }
-  }
+  };
 });

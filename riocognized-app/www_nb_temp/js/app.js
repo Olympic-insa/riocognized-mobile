@@ -35,9 +35,9 @@ angular.module('starter', ['ionic', 'starter.services', 'starter.controllers'])
     })
 
     .state('tab.athlete-detail', {
-      url: '/atlete/:athleteId',
+      url: '/athlete/:athleteId',
       views: {
-        'pets-tab': {
+        'athletes-tab': {
           templateUrl: 'templates/athlete-detail.html',
           controller: 'PetDetailCtrl'
         }
