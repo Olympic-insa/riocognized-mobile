@@ -1,38 +1,15 @@
-'use strict';
+angular.module('starter.controllers', [])
 
-/* Controllers */
 
-var riocognizedAppControllers = angular.module('riocognizedAppControllers', []);
- 
-riocognizedAppControllers.factory('AthletesData', function($http){
-    var athletesData;
-    $http.get('data/data.json').success(function(data) {
-      athletesData = data;
-    });
-    return athletesData;
+// A simple controller that fetches a list of data from a service
+.controller('PetIndexCtrl', function($scope, PetService) {
+  // "Pets" is a service returning mock data (services.js)
+  $scope.athletes = PetService.all();
+})
+
+
+// A simple controller that shows a tapped item's data
+.controller('PetDetailCtrl', function($scope, $stateParams, PetService) {
+  // "Pets" is a service returning mock data (services.js)
+  $scope.athlete = PetService.get($stateParams.athleteId);
 });
- 
-riocognizedAppControllers.controller('AthleteListCtrl', ['$scope', '$http',
-  function ($scope, $http) {
-      $http.get('data/data.json').success(function(data) {
-      $scope.athletes = data;
-    });
-    
-    $scope.orderProp = 'age';
-  }]);
- 
-riocognizedAppControllers.controller('AthleteDetailsCtrl', ['$scope', '$routeParams', '$http',
-  function($scope, $routeParams, $http) {
-    $scope.athleteid = $routeParams.athleteId;
-    $http.get('data/data.json').success(function(data) {
-        for (var i=0;i<data.length;i++){
-            if(data[i].id==$scope.athleteid){
-                $scope.athlete=data[i];
-                break;
-            }
-        }
-    });
-
-    
-    
-  }]);
