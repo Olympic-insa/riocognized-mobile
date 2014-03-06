@@ -1,0 +1,28 @@
+
+<!-- 
+  Create tabs with an icon and label, using the tabs-positive style. 
+  Each tab's child <ion-nav-view> directive will have its own 
+  navigation history that also transitions its views in and out.
+-->
+<ion-tabs tabs-style="tabs-icon-top" tabs-type="tabs-default">
+
+
+  <!-- Pets Tab -->
+  <ion-tab title="Athletes" icon="icon ion-home" href="#/tab/athletes">
+    <ion-nav-view name="athletes-tab"></ion-nav-view>
+  </ion-tab>
+
+
+  <!-- Adopt Tab -->
+  <ion-tab title="Picture" icon="icon ion-camera" href="#/tab/adopt">
+    <ion-nav-view name="adopt-tab"></ion-nav-view>
+  </ion-tab>
+
+
+  <!-- About Tab -->
+  <ion-tab title="About" icon="icon ion-search" href="#/tab/about">
+    <ion-nav-view name="about-tab"></ion-nav-view>
+  </ion-tab>
+
+
+</ion-tabs>
