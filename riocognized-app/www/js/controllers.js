@@ -33,4 +33,21 @@ angular.module('starter.controllers', [])
     $http.get(url).success(function(data){
         $scope.athlete=data;
     });
-});
+})
+
+// A simple controller that shows a tapped item's data
+        .controller('IdentifyCtrl', function($scope) {
+            if (!navigator.camera) {
+                alert("Camera API not supported", "Error");
+                return;
+            }
+            // Take picture using device camera and retrieve image as base64-encoded string
+            navigator.camera.getPicture(
+                    function(imageData) {
+                        document.getElementById('smallImage').src = "data:image/jpeg;base64," + imageData;
+                    },
+                    function(mesage) {
+                        alert("Fail because : " + message);
+                    },
+                    {quality: 50});
+        });

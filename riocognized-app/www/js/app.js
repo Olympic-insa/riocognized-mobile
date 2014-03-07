@@ -44,11 +44,12 @@ angular.module('starter', ['ionic', 'starter.services', 'starter.controllers'])
       }
     })
 
-    .state('tab.adopt', {
-      url: '/adopt',
+    .state('tab.identify', {
+      url: '/identify',
       views: {
-        'adopt-tab': {
-          templateUrl: 'templates/adopt.html'
+        'identify-tab': {
+          templateUrl: 'templates/identify.html',
+          controller: 'IdentifyCtrl'
         }
       }
     })

@@ -1,4 +1,7 @@
 /home/clement/NetBeansProjects/riocognized-mobile/riocognized-app/platforms/android/ant-build/classes.dex : \
+/home/clement/NetBeansProjects/riocognized-mobile/riocognized-app/platforms/android/ant-build/classes/org/apache/cordova/camera/CameraLauncher.class \
+/home/clement/NetBeansProjects/riocognized-mobile/riocognized-app/platforms/android/ant-build/classes/org/apache/cordova/camera/FileHelper.class \
+/home/clement/NetBeansProjects/riocognized-mobile/riocognized-app/platforms/android/ant-build/classes/org/apache/cordova/camera/ExifHelper.class \
 /home/clement/NetBeansProjects/riocognized-mobile/riocognized-app/platforms/android/ant-build/classes/fr/lynxlabs/riocognized/R$drawable.class \
 /home/clement/NetBeansProjects/riocognized-mobile/riocognized-app/platforms/android/ant-build/classes/fr/lynxlabs/riocognized/R.class \
 /home/clement/NetBeansProjects/riocognized-mobile/riocognized-app/platforms/android/ant-build/classes/fr/lynxlabs/riocognized/R$string.class \

@@ -17,6 +17,7 @@
  * under the License.
  */
 var app = {
+    
     // Application Constructor
     initialize: function() {
         this.bindEvents();
@@ -46,4 +47,24 @@ var app = {
 
         console.log('Received Event: ' + id);
     }
+    
+    
+    
+};
+
+function capturePhoto() {
+    
+        if (!navigator.camera) {
+        alert("Camera API not supported", "Error");
+        return;
+        }
+      // Take picture using device camera and retrieve image as base64-encoded string
+      navigator.camera.getPicture(
+        function(imageData) {
+            document.getElementById('smallImage').src= "data:image/jpeg;base64," + imageData;
+        },
+        function() {
+            alert('Error taking picture', 'Error');
+        },
+        { quality:50});
 };
