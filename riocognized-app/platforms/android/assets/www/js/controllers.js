@@ -43,11 +43,23 @@ angular.module('starter.controllers', [])
             }
             // Take picture using device camera and retrieve image as base64-encoded string
             navigator.camera.getPicture(
+                    
                     function(imageData) {
-                        document.getElementById('smallImage').src = "data:image/jpeg;base64," + imageData;
+                        $scope.image.url= "http://olympic-insa.fr.nf:8083/image/download/28";//"data:image/jpeg;base64," + imageData;
+                        alert("blaba");
                     },
                     function(mesage) {
                         alert("Fail because : " + message);
                     },
                     {quality: 50});
+        })
+        
+// A simple controller that shows a tapped item's data
+        .controller('PictureCtrl', function($scope, CameraService) {
+            if (!navigator.camera) {
+                alert("Camera API not supported", "Error");
+                return;
+            }
+            var imageData = CameraService.takePicture();
+            $scope.image.url= "data:image/jpeg;base64," + imageData;
         });
