@@ -1,3 +1,4 @@
+'use strict';
 angular.module('starter.controllers', [])
 
 
@@ -62,4 +63,13 @@ angular.module('starter.controllers', [])
             }
             var imageData = CameraService.takePicture();
             $scope.image.url= "data:image/jpeg;base64," + imageData;
+        })
+
+        .controller('MyCtrl1', function($scope) {
+            $scope.myPictures = [];
+            $scope.$watch('myPicture', function(value) {
+                if (value) {
+                    $scope.myPictures.push(value);
+                }
+            }, true);
         });
