@@ -5,7 +5,13 @@
 -->
 <ion-view title="'Athletes Information'">
   <ion-content has-header="true" has-tabs="true">
-    Search: <input ng-model="searchText">  
+
+          <label class="item-input-wrapper">
+              <i class="icon ion-ios7-search placeholder-icon"></i>
+              <input ng-model="searchText" type="search" placeholder="Search">
+          </label>
+
+
     <div class="list">
       <a ng-repeat="athlete in athletes | filter:searchText" class="item item-thumbnail-left" href="#/tab/athlete/{{athlete.id}}">
         <img ng-src="{{athlete.image_url}}">
