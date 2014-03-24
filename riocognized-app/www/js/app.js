@@ -6,7 +6,7 @@
 // 'starter.services' is found in services.js
 // 'starter.controllers' is found in controllers.js
 'use strict';
-angular.module('starter', ['ionic', 'starter.services', 'starter.controllers', 'starter.directives'])
+angular.module('starter', ['ionic', 'starter.services', 'starter.controllers', 'starter.directives', 'starter.filters'])
 
 
 .config(function($stateProvider, $urlRouterProvider) {

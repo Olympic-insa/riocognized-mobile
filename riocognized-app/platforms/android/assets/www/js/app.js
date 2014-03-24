@@ -30,7 +30,7 @@ angular.module('starter', ['ionic', 'starter.services', 'starter.controllers', '
       views: {
         'athletes-tab': {
           templateUrl: 'templates/athlete-index.html',
-          controller: 'MainController'
+          controller: 'AthleteIndexCtrl'
         }
       }
     })
@@ -60,7 +60,7 @@ angular.module('starter', ['ionic', 'starter.services', 'starter.controllers', '
       views: {
         'about-tab': {
           templateUrl: 'templates/about.html',
-          controller : 'DemoController'
+          controller : 'AthleteIndexCtrl'
         }
       }
     });

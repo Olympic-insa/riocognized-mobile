@@ -21,6 +21,8 @@
       </a>
       
      </div>
+     <ion-infinite-scroll ng-if="hasMoreData()" on-infinite="loadMoreItems()">      
+     </ion-infinite-scroll>
 
   </ion-content>
 </ion-view>
