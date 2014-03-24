@@ -2,30 +2,6 @@
 angular.module('starter.controllers', [])
 
 
-// A simple controller that fetches a list of data from a service
-.controller('PetIndexCtrl', function($scope, AthleteService) {
-    AthleteService.all().success(function(athletes){
-        $scope.athletes=athletes;
-    });
-})
-
-
-// A simple controller that shows a tapped item's data
-.controller('PetDetailCtrl', function($scope, $stateParams, AthleteService) {
-    AthleteService.get($stateParams.athleteId).success(function(athlete){
-        $scope.athlete=athlete;
-    });
-})
-
-// A simple controller that fetches a list of data from a service
-.controller('AthleteIndexCtrl',['$scope', '$http' ,function($scope,$http) {
-    var url = "http://olympic-insa.fr.nf:8083/api/athletes";
-    $http.get(url,{ cache: true}).success(function(data){
-        $scope.athletes=data;  
-    });
-    
-}])
-
 
 // A simple controller that shows a tapped item's data
 .controller('AthleteDetailCtrl', function($scope, $stateParams, $http) {
@@ -36,7 +12,8 @@ angular.module('starter.controllers', [])
     });
 })
 
-// A simple controller that shows a tapped item's data
+
+// A controller that take a picture
         .controller('IdentifyCtrl', function($scope) {
             if (!navigator.camera) {
                 alert("Camera API not supported", "Error");
@@ -65,11 +42,37 @@ angular.module('starter.controllers', [])
             $scope.image.url= "data:image/jpeg;base64," + imageData;
         })
 
-        .controller('MyCtrl1', function($scope) {
-            $scope.myPictures = [];
-            $scope.$watch('myPicture', function(value) {
-                if (value) {
-                    $scope.myPictures.push(value);
+        .controller('AthleteIndexCtrl', function($rootScope, $scope, $http) {
+            $rootScope.counter = 1;
+            var url = "http://olympic-insa.fr.nf:8083/api/athletes";
+            $http.get(url, { cache: true}).success(function(data){
+                $scope.athletes = data;
+                $scope.max = data.length;
+            });
+
+            $scope.loadMoreItems = function() {
+                $rootScope.counter += 1;
+                $scope.$broadcast('scroll.infiniteScrollComplete');
+            };
+            
+            $scope.hasMoreData = function() {
+                if ($rootScope.counter >= $scope.max){
+                    return false;
+                }else{
+                    return true;
                 }
-            }, true);
+            };
+
+        })
+        
+        
+        .filter('lazyLoad', function($rootScope) {
+            
+            return function(athletes) {
+                if (athletes) {
+                    return athletes.slice(0, $rootScope.counter);
+                }
+                ;
+            };
+
         });

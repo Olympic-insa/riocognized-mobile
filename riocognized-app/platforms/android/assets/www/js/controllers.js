@@ -20,10 +20,38 @@ angular.module('starter.controllers', [])
 // A simple controller that fetches a list of data from a service
 .controller('AthleteIndexCtrl',['$scope', '$http' ,function($scope,$http) {
     var url = "http://olympic-insa.fr.nf:8083/api/athletes";
-    $http.get(url,{ cache: true}).success(function(data){
-        $scope.athletes=data;  
+    $http.get(url, { cache: true}).success(function(data){
+        $scope.athleteslist = data;
+        if (data.length > 2){
+            $scope.athletes = data.slice(0,2);
+        }else{
+            $scope.athletes = data;
+        }
     });
-    
+  
+                $scope.loadMore = function() {
+                    if (!$scope.athletes) {
+                        alert("athletes is empty");
+                    } else {
+                        
+                        var actualLength = $scope.athletes.length;
+                        
+                        var maxLength = $scope.athleteslist.length;
+                        
+                        alert(actualLength+"  "+maxLength);
+                        var test = $scope.athleteslist;
+                        if (maxLength - actualLength > 2) {
+                            $scope.athletes = test.slice(0, actualLength+2);
+                            var newLength = $scope.athletes.length;
+                            alert(newLength);
+                        } else {
+                            $scope.athletes = $scope.athleteslist;
+                        }
+                    }
+                    ;
+
+
+                };
 }])
 
 
@@ -72,4 +100,85 @@ angular.module('starter.controllers', [])
                     $scope.myPictures.push(value);
                 }
             }, true);
+        })
+        
+        .controller('MainController', function($rootScope, $scope, $http, $window, $document, $timeout) {
+            $rootScope.counter = 1;
+            var url = "http://olympic-insa.fr.nf:8083/api/athletes";
+            $http.get(url, { cache: true}).success(function(data){
+                $scope.athletes = data;
+            });
+
+
+            $scope.loadMoreItems = function() {
+                alert("in loadMoreItems");
+                $rootScope.counter += 1;
+            };
+
+
+            // Fix 'scroll' event not trigger issue
+            $rootScope.resetCounter = function() {
+                alert("in resetCounter");
+                $rootScope.counter = 1;
+                adjustCounter();
+            };
+
+            function adjustCounter() {
+                alert("in adjustCounter");
+                $timeout(function() {
+                    if ($window.innerHeight > $document.find('body').outerHeight()) {
+                        $rootScope.counter++;
+                        adjustCounter();
+                    }
+                }, 200);
+            }
+
+
+            //$scope.$watch('predicate', function() {
+            //    $rootScope.resetCounter();
+            //});
+
+            //$scope.$watch('reverse', function() {
+            //    $rootScope.resetCounter();
+            //});
+        })
+  
+
+
+
+        .controller('DemoController', function($rootScope, $scope, $http,$window, $document, $timeout) {
+            $rootScope.counter = 5;
+            var url = "http://olympic-insa.fr.nf:8083/api/athletes";
+            $http.get(url, { cache: true}).success(function(data){
+                $scope.athletes = data;
+                $scope.max = data.length;
+            });
+
+            $scope.loadMoreItems = function() {
+                $rootScope.counter += 1;
+                $scope.$broadcast('scroll.infiniteScrollComplete');
+            };
+            
+            $scope.hasMoreData = function() {
+                if ($rootScope.counter >= $scope.max){
+                    return false
+                }else{
+                    return true;
+                }
+            };
+
+        })
+        
+        
+        .filter('lazyLoad', function($rootScope) {
+            
+            return function(athletes) {
+                if (athletes) {
+                    
+                    // set step to 2 to illustrate the scroll event problem
+                    return athletes.slice(0, $rootScope.counter);
+                }
+                ;
+            };
+
         });

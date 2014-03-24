@@ -59,7 +59,8 @@ angular.module('starter', ['ionic', 'starter.services', 'starter.controllers', '
       url: '/about',
       views: {
         'about-tab': {
-          templateUrl: 'templates/about.html'
+          templateUrl: 'templates/about.html',
+          controller : 'AthleteIndexCtrl'
         }
       }
     });

@@ -3,17 +3,17 @@
   It was wired up in the app config (app.js) 
   The 'pets' data comes from its $scope within PetIndexCtrl (controller.js)
 -->
-<ion-view title="'Athletes Information'">
-  <ion-content has-header="true" has-tabs="true">
+<ion-view title="Athletes Information">
+  <ion-content has-header="true" has-tabs="true" scroll="true">
 
           <label class="item-input-wrapper">
               <i class="icon ion-ios7-search placeholder-icon"></i>
-              <input ng-model="searchText" type="search" placeholder="Search">
+              <input type="search" placeholder="Search" ng-model="searchText" style="background:inherit">
           </label>
 
 
     <div class="list">
-      <a ng-repeat="athlete in athletes | filter:searchText" class="item item-thumbnail-left" href="#/tab/athlete/{{athlete.id}}">
+      <a ng-repeat="athlete in athletes | filter:searchText | lazyLoad" class="item item-thumbnail-left" href="#/tab/athlete/{{athlete.id}}">
         <img ng-src="{{athlete.image_url}}">
         <h2>{{athlete.name}} {{athlete.surname}}</h2>
         <h4>{{athlete.country}}</h4>

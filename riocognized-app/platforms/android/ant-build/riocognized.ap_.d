@@ -50,6 +50,7 @@
 /home/clement/NetBeansProjects/riocognized-mobile/riocognized-app/platforms/android/assets/www/lib/fonts \
 /home/clement/NetBeansProjects/riocognized-mobile/riocognized-app/platforms/android/assets/www/lib/js/ionic-angular.js \
 /home/clement/NetBeansProjects/riocognized-mobile/riocognized-app/platforms/android/assets/www/lib/js/angular \
+/home/clement/NetBeansProjects/riocognized-mobile/riocognized-app/platforms/android/assets/www/lib/js/ng-infinite-scroll.js \
 /home/clement/NetBeansProjects/riocognized-mobile/riocognized-app/platforms/android/assets/www/lib/js/ionic-angular.min.js \
 /home/clement/NetBeansProjects/riocognized-mobile/riocognized-app/platforms/android/assets/www/lib/js/angular-ui \
 /home/clement/NetBeansProjects/riocognized-mobile/riocognized-app/platforms/android/assets/www/lib/js/ionic.js \
