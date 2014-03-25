@@ -8,12 +8,12 @@
 
           <label class="item-input-wrapper">
               <i class="icon ion-ios7-search placeholder-icon"></i>
-              <input type="search" placeholder="Search" ng-model="searchText" style="background:inherit">
+              <input type="search" placeholder="Search Name" ng-model="stringToSearch" style="background:inherit">
           </label>
 
 
     <div class="list">
-      <a ng-repeat="athlete in athletes | filter:searchText | lazyLoad" class="item item-thumbnail-left" href="#/tab/athlete/{{athlete.id}}">
+      <a ng-repeat="athlete in athletes | anySearch:stringToSearch | lazyLoad" class="item item-thumbnail-left" href="#/tab/athlete/{{athlete.id}}">
         <img ng-src="{{athlete.image_url}}">
         <h2>{{athlete.name}} {{athlete.surname}}</h2>
         <h4>{{athlete.country}}</h4>
