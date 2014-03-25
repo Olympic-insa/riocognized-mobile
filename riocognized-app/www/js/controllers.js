@@ -63,6 +63,34 @@ angular.module('starter.controllers', [])
                 }
             };
 
+        })
+        
+        .controller('AboutCtrl', function($rootScope, $scope, $http) {
+            $rootScope.counter = 1;
+            $scope.searchMenuVisible = false;
+            var url = "http://olympic-insa.fr.nf:8083/api/athletes";
+            $http.get(url, { cache: true}).success(function(data){
+                $scope.athletes = data;
+                $scope.max = data.length;
+            });
+
+            $scope.loadMoreItems = function() {
+                $rootScope.counter += 1;
+                $scope.$broadcast('scroll.infiniteScrollComplete');
+            };
+            
+            $scope.hasMoreData = function() {
+                if ($rootScope.counter >= $scope.max){
+                    return false;
+                }else{
+                    return true;
+                }
+            };
+            
+            $scope.showSearchMenu = function(){
+                $scope.searchMenuVisible = !$scope.searchMenuVisible;
+            }
+
         });
         
         

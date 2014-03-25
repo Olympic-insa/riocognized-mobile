@@ -24,6 +24,7 @@
 /home/clement/NetBeansProjects/riocognized-mobile/riocognized-app/platforms/android/assets/www/lib \
 /home/clement/NetBeansProjects/riocognized-mobile/riocognized-app/platforms/android/assets/www/cordova_plugins.js \
 /home/clement/NetBeansProjects/riocognized-mobile/riocognized-app/platforms/android/assets/www/index_old.html \
+/home/clement/NetBeansProjects/riocognized-mobile/riocognized-app/platforms/android/assets/www/js/filters.js \
 /home/clement/NetBeansProjects/riocognized-mobile/riocognized-app/platforms/android/assets/www/js/services.js \
 /home/clement/NetBeansProjects/riocognized-mobile/riocognized-app/platforms/android/assets/www/js/controllers.js \
 /home/clement/NetBeansProjects/riocognized-mobile/riocognized-app/platforms/android/assets/www/js/directives.js \
