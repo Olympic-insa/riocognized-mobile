@@ -93,7 +93,7 @@ angular.module('starter.controllers', [])
             $scope.showSearchMenu = function() {
                 $scope.searchMenuVisible = !$scope.searchMenuVisible;
                 if ($scope.searchMenuVisible) {
-                    $scope.hasSubSub.top = '155px';
+                    $scope.hasSubSub.top = '137px';
                 } else {
                     $scope.hasSubSub.top = '';
                 }

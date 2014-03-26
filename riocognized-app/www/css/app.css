@@ -16,3 +16,13 @@
     display:block;
     position: absolute;
 }
+
+.centrage{
+  margin-left: auto;
+  margin-right: auto;
+  width: 100%;
+}
+
+.nopad{
+    padding: 0px;
+}
