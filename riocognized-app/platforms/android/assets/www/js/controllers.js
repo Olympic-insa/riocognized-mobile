@@ -4,13 +4,13 @@ angular.module('starter.controllers', [])
 
 
 // A simple controller that shows a tapped item's data
-.controller('AthleteDetailCtrl', function($scope, $stateParams, $http) {
-    var url = "http://olympic-insa.fr.nf:8083/api/athletes";
-    url = url +"/"+$stateParams.athleteId.toString();
-    $http.get(url).success(function(data){
-        $scope.athlete=data;
-    });
-})
+        .controller('AthleteDetailCtrl', function($scope, $stateParams, $http) {
+            var url = "http://olympic-insa.fr.nf:8083/api/athletes";
+            url = url + "/" + $stateParams.athleteId.toString();
+            $http.get(url).success(function(data) {
+                $scope.athlete = data;
+            });
+        })
 
 
 // A controller that take a picture
@@ -21,9 +21,8 @@ angular.module('starter.controllers', [])
             }
             // Take picture using device camera and retrieve image as base64-encoded string
             navigator.camera.getPicture(
-                    
                     function(imageData) {
-                        $scope.image.url= "http://olympic-insa.fr.nf:8083/image/download/28";//"data:image/jpeg;base64," + imageData;
+                        $scope.image.url = "http://olympic-insa.fr.nf:8083/image/download/28";//"data:image/jpeg;base64," + imageData;
                         alert("blaba");
                     },
                     function(mesage) {
@@ -31,7 +30,7 @@ angular.module('starter.controllers', [])
                     },
                     {quality: 50});
         })
-        
+
 // A simple controller that shows a tapped item's data
         .controller('PictureCtrl', function($scope, CameraService) {
             if (!navigator.camera) {
@@ -39,13 +38,14 @@ angular.module('starter.controllers', [])
                 return;
             }
             var imageData = CameraService.takePicture();
-            $scope.image.url= "data:image/jpeg;base64," + imageData;
+            $scope.image.url = "data:image/jpeg;base64," + imageData;
         })
 
         .controller('AthleteIndexCtrl', function($rootScope, $scope, $http) {
             $rootScope.counter = 1;
+            $scope.searchMenuVisible = false;
             var url = "http://olympic-insa.fr.nf:8083/api/athletes";
-            $http.get(url, { cache: true}).success(function(data){
+            $http.get(url, {cache: true}).success(function(data) {
                 $scope.athletes = data;
                 $scope.max = data.length;
             });
@@ -54,22 +54,25 @@ angular.module('starter.controllers', [])
                 $rootScope.counter += 1;
                 $scope.$broadcast('scroll.infiniteScrollComplete');
             };
-            
+
             $scope.hasMoreData = function() {
-                if ($rootScope.counter >= $scope.max){
+                if ($rootScope.counter >= $scope.max) {
                     return false;
-                }else{
+                } else {
                     return true;
                 }
             };
+            $scope.showSearchMenu = function() {
+                $scope.searchMenuVisible = !$scope.searchMenuVisible;
+            }
 
         })
-        
+
         .controller('AboutCtrl', function($rootScope, $scope, $http) {
             $rootScope.counter = 1;
             $scope.searchMenuVisible = false;
             var url = "http://olympic-insa.fr.nf:8083/api/athletes";
-            $http.get(url, { cache: true}).success(function(data){
+            $http.get(url, {cache: true}).success(function(data) {
                 $scope.athletes = data;
                 $scope.max = data.length;
             });
@@ -78,19 +81,25 @@ angular.module('starter.controllers', [])
                 $rootScope.counter += 1;
                 $scope.$broadcast('scroll.infiniteScrollComplete');
             };
-            
+
             $scope.hasMoreData = function() {
-                if ($rootScope.counter >= $scope.max){
+                if ($rootScope.counter >= $scope.max) {
                     return false;
-                }else{
+                } else {
                     return true;
                 }
             };
-            
-            $scope.showSearchMenu = function(){
+
+            $scope.showSearchMenu = function() {
                 $scope.searchMenuVisible = !$scope.searchMenuVisible;
+                if ($scope.searchMenuVisible) {
+                    $scope.hasSubSub.top = '155px';
+                } else {
+                    $scope.hasSubSub.top = '';
+                }
+
             }
 
         });
-        
-        
+
+

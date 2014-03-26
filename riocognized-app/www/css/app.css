@@ -9,5 +9,10 @@
 
     line-height:20px;
     opacity:1;
-    padding:10px;
+}
+
+.bar-sub-slide-subheader {
+    top: 88px;
+    display:block;
+    position: absolute;
 }

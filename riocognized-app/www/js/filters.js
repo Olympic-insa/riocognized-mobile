@@ -22,11 +22,11 @@ angular.module('starter.filters', [])
                         athletesFiltered.push(athlete);
                     }else if(athlete.surname.toLowerCase().indexOf(stringToSearch.toLowerCase()) !== -1){
                         athletesFiltered.push(athlete);
-                    }else if( athlete.country.toLowerCase().indexOf(stringToSearch.toLowerCase()) !== -1){
-                        athletesFiltered.push(athlete);
-                    }else if(athlete.sport.toLowerCase().indexOf(stringToSearch.toLowerCase()) !== -1){
-                        athletesFiltered.push(athlete);
-                    }
+                    }//else if( athlete.country.toLowerCase().indexOf(stringToSearch.toLowerCase()) !== -1){
+                     //   athletesFiltered.push(athlete);
+                    //}else if(athlete.sport.toLowerCase().indexOf(stringToSearch.toLowerCase()) !== -1){
+                    //    athletesFiltered.push(athlete);
+                    //}
 
                 });
                 return athletesFiltered;
