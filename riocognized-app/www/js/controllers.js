@@ -68,7 +68,7 @@ angular.module('starter.controllers', [])
 
         })
 
-        .controller('AboutCtrl', function($rootScope, $scope, $http) {
+        .controller('AboutCtrl', function($rootScope, $scope, $http, $ionicModal) {
             $rootScope.counter = 1;
             $scope.searchMenuVisible = false;
             var url = "http://olympic-insa.fr.nf:8083/api/athletes";
@@ -98,8 +98,21 @@ angular.module('starter.controllers', [])
                     $scope.hasSubSub.top = '';
                 }
 
-            }
+            };
 
+
+            $ionicModal.fromTemplateUrl('templates/modal-list.html', function(modal) {
+                $scope.modal = modal;
+            }, {
+                animation: 'slide-in-up',
+                focusFirstInput: true
+            });
+
+        })
+        .controller('ModalCtrl', function($scope, $http) {
+            $http.get('lib/country/country-list-en.json').success(function(data) {
+                $scope.countries = data;
+            });
         });
 
 
