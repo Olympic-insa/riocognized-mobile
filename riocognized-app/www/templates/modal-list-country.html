@@ -2,12 +2,12 @@
 <div class="modal" ng-controller="ModalCtrl">
         <div class="bar bar-header bar-assertive">
             <h1 class="title">Countries</h1>
-            <button class="button button-clear button-primary" ng-click="modal.hide()">Cancel</button>
+            <button class="button button-clear button-primary" ng-click="modalCountry.hide()">Cancel</button>
 
         </div>
         <ion-content has-header='true' scroll='true'>
             <div class="list">
-                <a ng-repeat="country in countries" class="item" ng-click="modal.hide()">
+                <a ng-repeat="country in countries" class="item" ng-click="chooseCountry(country)">
                     {{country}}
                 </a>
 
