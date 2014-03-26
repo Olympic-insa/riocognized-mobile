@@ -114,7 +114,7 @@ angular.module('starter.controllers', [])
 
         })
         .controller('ModalCtrl', function($scope, $http) {
-            $http.get('lib/country/country-list-en.json').success(function(data) {
+            $http.get('lib/country/country-list-fr.json').success(function(data) {
                 $scope.countries = data;
             });
             
