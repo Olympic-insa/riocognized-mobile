@@ -31,6 +31,23 @@ angular.module('starter.controllers', [])
                     {quality: 50});
         })
 
+        .controller('IdentifyCtrl2', function($scope, Camera) {
+            Camera.getPicture(function(image) {
+                $scope.$apply(function() {
+                    $scope.imageData = "data:image/jpeg;base64,"+image;
+                });
+            }, function(error) {
+                $scope.$apply(function() {
+                    $scope.error = error;
+                });
+            }, {
+                destinationType: Camera.DestinationType.DATA_URL,
+                sourceType: Camera.PictureSourceType.CAMERA,
+                encodingType: Camera.EncodingType.JPEG,
+                quality: 20
+            });
+        })
+
 // A simple controller that shows a tapped item's data
         .controller('PictureCtrl', function($scope, CameraService) {
             if (!navigator.camera) {
@@ -41,7 +58,18 @@ angular.module('starter.controllers', [])
             $scope.image.url = "data:image/jpeg;base64," + imageData;
         })
 
-        .controller('AthleteIndexCtrl', function($rootScope, $scope, $http) {
+        .controller('MyCtrl1', function($scope) {
+
+            $scope.myPictures = [];
+            $scope.$watch('myPicture', function(value) {
+                alert($scope.myPicture);
+                if (value) {
+                    $scope.myPictures.push(value);
+                }
+            }, true);
+        })
+
+        .controller('AthleteIndexCtrl', function($rootScope, $scope, $http, $ionicModal) {
             $rootScope.counter = 1;
             $scope.searchMenuVisible = false;
             var url = "http://olympic-insa.fr.nf:8083/api/athletes";
@@ -64,14 +92,27 @@ angular.module('starter.controllers', [])
             };
             $scope.showSearchMenu = function() {
                 $scope.searchMenuVisible = !$scope.searchMenuVisible;
+                if ($scope.searchMenuVisible) {
+                    $scope.hasSubSub.top = '137px';
+                } else {
+                    $scope.hasSubSub.top = '';
+                }
             };
+
+            $ionicModal.fromTemplateUrl('templates/modal-list-country.html', function(modal) {
+                $scope.modalCountry = modal;
+            }, {
+                scope: $scope,
+                animation: 'slide-in-up',
+                focusFirstInput: true
+            });
 
         })
 
         .controller('AboutCtrl', function($rootScope, $scope, $http, $ionicModal) {
             $rootScope.counter = 1;
             $scope.searchMenuVisible = false;
-            $scope.search={};
+            $scope.search = {};
             var url = "http://olympic-insa.fr.nf:8083/api/athletes";
             $http.get(url, {cache: true}).success(function(data) {
                 $scope.athletes = data;
@@ -109,22 +150,21 @@ angular.module('starter.controllers', [])
                 animation: 'slide-in-up',
                 focusFirstInput: true
             });
-            
+
 
 
         })
         .controller('ModalCtrl', function($scope, $http) {
-            $scope.searchText={};
             $http.get('lib/country/country-list-fr.json').success(function(data) {
                 $scope.countries = data;
             });
-            
-            $scope.chooseCountry = function(count){
-                
+
+            $scope.chooseCountry = function(count) {
+
                 $scope.search.country = count;
                 $scope.modalCountry.hide();
             };
-            
+
         });
 
 

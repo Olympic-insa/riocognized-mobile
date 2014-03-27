@@ -3,13 +3,14 @@ angular.module('starter.directives', [])
 .directive('camera', function() {
     return {
         restrict: 'A',
-        require: 'ngModel',
+        require: '?ngModel',
         link: function(scope, elm, attrs, ctrl) {
             elm.bind('click', function() {
                 navigator.camera.getPicture(
                     function(imageURI) {
                         scope.$apply(function() {
-                            ctrl.$setViewValue(imageURI);
+                            scope.ctrl.$setViewValue(imageURI);
+                            alert(imageURI);
                         });
                     },
                     function(err) {

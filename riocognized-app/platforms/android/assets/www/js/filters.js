@@ -33,4 +33,20 @@ angular.module('starter.filters', [])
                
             };
 
+        })
+        .filter('countryFilter', function() {
+            return function(countries, countryToSearch) {
+                var countriesFiltered = new Array();
+                if(!countryToSearch){return countries;};
+                if(!countries){return countriesFiltered;};
+                angular.forEach(countries, function(country){
+                    if(country.toLowerCase().indexOf(countryToSearch.toLowerCase()) !== -1){
+                        countriesFiltered.push(country);
+                    }
+
+                });
+                return countriesFiltered;
+               
+            };
+
         });
