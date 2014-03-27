@@ -36,8 +36,7 @@
 /home/clement/NetBeansProjects/riocognized-mobile/riocognized-app/platforms/android/assets/www/templates/tabs.html \
 /home/clement/NetBeansProjects/riocognized-mobile/riocognized-app/platforms/android/assets/www/templates/identify.html \
 /home/clement/NetBeansProjects/riocognized-mobile/riocognized-app/platforms/android/assets/www/templates/athlete-detail.html \
-/home/clement/NetBeansProjects/riocognized-mobile/riocognized-app/platforms/android/assets/www/templates/partial1.html \
-/home/clement/NetBeansProjects/riocognized-mobile/riocognized-app/platforms/android/assets/www/templates/partial2.html \
+/home/clement/NetBeansProjects/riocognized-mobile/riocognized-app/platforms/android/assets/www/templates/modal-list-country.html \
 /home/clement/NetBeansProjects/riocognized-mobile/riocognized-app/platforms/android/assets/www/templates/athlete-index.html \
 /home/clement/NetBeansProjects/riocognized-mobile/riocognized-app/platforms/android/assets/www/templates/about.html \
 /home/clement/NetBeansProjects/riocognized-mobile/riocognized-app/platforms/android/assets/www/plugins/org.apache.cordova.camera \
@@ -49,6 +48,7 @@
 /home/clement/NetBeansProjects/riocognized-mobile/riocognized-app/platforms/android/assets/www/lib/js \
 /home/clement/NetBeansProjects/riocognized-mobile/riocognized-app/platforms/android/assets/www/lib/css \
 /home/clement/NetBeansProjects/riocognized-mobile/riocognized-app/platforms/android/assets/www/lib/fonts \
+/home/clement/NetBeansProjects/riocognized-mobile/riocognized-app/platforms/android/assets/www/lib/country \
 /home/clement/NetBeansProjects/riocognized-mobile/riocognized-app/platforms/android/assets/www/lib/js/ionic-angular.js \
 /home/clement/NetBeansProjects/riocognized-mobile/riocognized-app/platforms/android/assets/www/lib/js/angular \
 /home/clement/NetBeansProjects/riocognized-mobile/riocognized-app/platforms/android/assets/www/lib/js/ng-infinite-scroll.js \
@@ -74,4 +74,6 @@
 /home/clement/NetBeansProjects/riocognized-mobile/riocognized-app/platforms/android/assets/www/lib/fonts/ionicons.ttf \
 /home/clement/NetBeansProjects/riocognized-mobile/riocognized-app/platforms/android/assets/www/lib/fonts/ionicons.eot \
 /home/clement/NetBeansProjects/riocognized-mobile/riocognized-app/platforms/android/assets/www/lib/fonts/ionicons.svg \
+/home/clement/NetBeansProjects/riocognized-mobile/riocognized-app/platforms/android/assets/www/lib/country/country-list-en.json \
+/home/clement/NetBeansProjects/riocognized-mobile/riocognized-app/platforms/android/assets/www/lib/country/country-list-fr.json \
 /home/clement/NetBeansProjects/riocognized-mobile/riocognized-app/platforms/android/ant-build/AndroidManifest.xml \

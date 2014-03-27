@@ -64,13 +64,14 @@ angular.module('starter.controllers', [])
             };
             $scope.showSearchMenu = function() {
                 $scope.searchMenuVisible = !$scope.searchMenuVisible;
-            }
+            };
 
         })
 
-        .controller('AboutCtrl', function($rootScope, $scope, $http) {
+        .controller('AboutCtrl', function($rootScope, $scope, $http, $ionicModal) {
             $rootScope.counter = 1;
             $scope.searchMenuVisible = false;
+            $scope.search={};
             var url = "http://olympic-insa.fr.nf:8083/api/athletes";
             $http.get(url, {cache: true}).success(function(data) {
                 $scope.athletes = data;
@@ -98,8 +99,31 @@ angular.module('starter.controllers', [])
                     $scope.hasSubSub.top = '';
                 }
 
-            }
+            };
 
+
+            $ionicModal.fromTemplateUrl('templates/modal-list-country.html', function(modal) {
+                $scope.modalCountry = modal;
+            }, {
+                scope: $scope,
+                animation: 'slide-in-up',
+                focusFirstInput: true
+            });
+            
+
+
+        })
+        .controller('ModalCtrl', function($scope, $http) {
+            $http.get('lib/country/country-list-fr.json').success(function(data) {
+                $scope.countries = data;
+            });
+            
+            $scope.chooseCountry = function(count){
+                
+                $scope.search.country = count;
+                $scope.modalCountry.hide();
+            };
+            
         });
 
 
