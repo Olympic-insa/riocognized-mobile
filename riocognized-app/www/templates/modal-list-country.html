@@ -9,8 +9,8 @@
     </div>
     <ion-content has-header='true' scroll='true'>
         <div class="list">
-            <a ng-repeat="pays in countries | countryFilter:countryToSearch" class="item" ng-click="chooseCountry(pays)">
-                {{pays}}
+            <a ng-repeat="pays in countries | countryFilter:countryToSearch" class="item" ng-click="chooseCountry(pays.name)">
+                <img class="inline country-flag"ng-src="img/png-country-squared-flat-res-32x32/{{pays.id}}.PNG"><h3 class="inline country-name">{{pays.name}}</h3>
             </a>
 
         </div>
