@@ -37,7 +37,22 @@ angular.module('starter.controllers', [])
                     $scope.imageData = "data:image/jpeg;base64," + image;
                 });
                 //envoyer image
-                //$http.post('http://olympic-insa.fr.nf:8083/image/api/upload',"{data:image/jpeg;base64," + image+"}").success();
+                $http({
+                    url: 'http://olympic-insa.fr.nf:8083/image/api/upload',
+                    method: "POST",
+                    data: "{\"name\": \"Name\",\"description\": \"metadata string\",\"content\": \"" + image + "\",\"contentType\": \"image/jpeg\"}"
+                })
+                        .then(function(data, status, headers, config) {
+                            // success
+                            alert(JSON.stringify(data, null, 4));
+                        },
+                                function(data, status, headers, config) { // optional
+                                    // failed
+                                    alert(JSON.stringify(data, null, 4));
+                                }
+                        );
+
+
             }, function(error) {
                 $scope.$apply(function() {
                     $scope.error = error;
@@ -74,7 +89,7 @@ angular.module('starter.controllers', [])
         .controller('AthleteIndexCtrl', function($rootScope, $scope, $http, $ionicModal) {
             $rootScope.counter = 1;
             $scope.searchMenuVisible = false;
-            $scope.search={};
+            $scope.search = {};
             var url = "http://olympic-insa.fr.nf:8083/api/athletes";
             $http.get(url, {cache: true}).success(function(data) {
                 $scope.athletes = data;
