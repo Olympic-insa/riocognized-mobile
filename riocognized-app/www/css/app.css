@@ -26,3 +26,11 @@
 .nopad{
     padding: 0px;
 }
+
+.country-flag{
+    margin-right: 15px;
+}
+
+.country-name{
+    vertical-align: super;
+}

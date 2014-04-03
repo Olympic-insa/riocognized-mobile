@@ -31,11 +31,13 @@ angular.module('starter.controllers', [])
                     {quality: 50});
         })
 
-        .controller('IdentifyCtrl2', function($scope, Camera) {
+        .controller('IdentifyCtrl2', function($scope, Camera, $http) {
             Camera.getPicture(function(image) {
                 $scope.$apply(function() {
-                    $scope.imageData = "data:image/jpeg;base64,"+image;
+                    $scope.imageData = "data:image/jpeg;base64," + image;
                 });
+                //envoyer image
+                //$http.post('http://olympic-insa.fr.nf:8083/image/api/upload',"{data:image/jpeg;base64," + image+"}").success();
             }, function(error) {
                 $scope.$apply(function() {
                     $scope.error = error;
@@ -72,6 +74,7 @@ angular.module('starter.controllers', [])
         .controller('AthleteIndexCtrl', function($rootScope, $scope, $http, $ionicModal) {
             $rootScope.counter = 1;
             $scope.searchMenuVisible = false;
+            $scope.search={};
             var url = "http://olympic-insa.fr.nf:8083/api/athletes";
             $http.get(url, {cache: true}).success(function(data) {
                 $scope.athletes = data;
@@ -107,55 +110,18 @@ angular.module('starter.controllers', [])
                 focusFirstInput: true
             });
 
-        })
-
-        .controller('AboutCtrl', function($rootScope, $scope, $http, $ionicModal) {
-            $rootScope.counter = 1;
-            $scope.searchMenuVisible = false;
-            $scope.search = {};
-            var url = "http://olympic-insa.fr.nf:8083/api/athletes";
-            $http.get(url, {cache: true}).success(function(data) {
-                $scope.athletes = data;
-                $scope.max = data.length;
-            });
-
-            $scope.loadMoreItems = function() {
-                $rootScope.counter += 1;
-                $scope.$broadcast('scroll.infiniteScrollComplete');
-            };
-
-            $scope.hasMoreData = function() {
-                if ($rootScope.counter >= $scope.max) {
-                    return false;
-                } else {
-                    return true;
-                }
-            };
-
-            $scope.showSearchMenu = function() {
-                $scope.searchMenuVisible = !$scope.searchMenuVisible;
-                if ($scope.searchMenuVisible) {
-                    $scope.hasSubSub.top = '137px';
-                } else {
-                    $scope.hasSubSub.top = '';
-                }
-
-            };
-
-
-            $ionicModal.fromTemplateUrl('templates/modal-list-country.html', function(modal) {
-                $scope.modalCountry = modal;
+            $ionicModal.fromTemplateUrl('templates/modal-list-sport.html', function(modal) {
+                $scope.modalSport = modal;
             }, {
                 scope: $scope,
                 animation: 'slide-in-up',
                 focusFirstInput: true
             });
 
-
-
         })
-        .controller('ModalCtrl', function($scope, $http) {
-            $http.get('lib/country/country-list-fr.json').success(function(data) {
+
+        .controller('ModalCtrlCountry', function($scope, $http) {
+            $http.get('http://olympic-insa.fr.nf:8083/api/countries').success(function(data) {
                 $scope.countries = data;
             });
 
@@ -163,6 +129,19 @@ angular.module('starter.controllers', [])
 
                 $scope.search.country = count;
                 $scope.modalCountry.hide();
+            };
+
+        })
+
+        .controller('ModalCtrlSport', function($scope, $http) {
+            $http.get('http://olympic-insa.fr.nf:8083/api/sports').success(function(data) {
+                $scope.sports = data;
+            });
+
+            $scope.chooseSport = function(count) {
+
+                $scope.search.sport = count;
+                $scope.modalSport.hide();
             };
 
         });

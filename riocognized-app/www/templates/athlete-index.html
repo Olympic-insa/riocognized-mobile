@@ -31,7 +31,8 @@
             <a ng-repeat="athlete in athletes| filter:search | anySearch:stringToSearch | lazyLoad" class="item item-thumbnail-left" href="#/tab/athlete/{{athlete.id}}">
                 <img ng-src="{{athlete.image_url}}">
                 <h2>{{athlete.name}} {{athlete.surname}}</h2>
-                <h4>{{athlete.country}}</h4>
+                
+                <img class="inline country-flag"ng-src="img/png-country-squared-flat-res-32x32/{{athlete.country.id}}.PNG"><h4 class="inline country-name">{{athlete.country.name}}</h4>
                 <p>{{athlete.sport}}</p>
             </a>
 
