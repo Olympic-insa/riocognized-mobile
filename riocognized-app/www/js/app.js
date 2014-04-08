@@ -33,7 +33,7 @@ angular.module('starter', ['ionic', 'starter.services', 'starter.controllers', '
                             }
                         }
                     })
-                    // RioHome tabe
+                    // RioHome tab
                     .state('tab.home', {
                         url: '/riohome',
                         views: {
@@ -43,7 +43,7 @@ angular.module('starter', ['ionic', 'starter.services', 'starter.controllers', '
                             }
                         }
                     })
-                    // RioHome tabe
+                    // Picture tab
                     .state('tab.recognize', {
                         url: '/picturesrecognizer',
                         views: {

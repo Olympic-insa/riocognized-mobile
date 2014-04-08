@@ -34,3 +34,7 @@
 .country-name{
     vertical-align: super;
 }
+
+.has-subheader {
+top: 88px;
+}
