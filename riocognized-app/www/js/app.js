@@ -9,64 +9,82 @@
 angular.module('starter', ['ionic', 'starter.services', 'starter.controllers', 'starter.directives', 'starter.filters'])
 
 
-.config(function($stateProvider, $urlRouterProvider) {
+        .config(function($stateProvider, $urlRouterProvider) {
 
-  // Ionic uses AngularUI Router which uses the concept of states
-  // Learn more here: https://github.com/angular-ui/ui-router
-  // Set up the various states which the app can be in.
-  // Each state's controller can be found in controllers.js
-  $stateProvider
+            // Ionic uses AngularUI Router which uses the concept of states
+            // Learn more here: https://github.com/angular-ui/ui-router
+            // Set up the various states which the app can be in.
+            // Each state's controller can be found in controllers.js
+            $stateProvider
 
-    // setup an abstract state for the tabs directive
-    .state('tab', {
-      url: "/tab",
-      abstract: true,
-      templateUrl: "templates/tabs.html"
-    })
+                    // setup an abstract state for the tabs directive
+                    .state('tab', {
+                        url: "/tab",
+                        abstract: true,
+                        templateUrl: "templates/tabs.html"
+                    })
+                    // History tab
+                    .state('tab.history', {
+                        url: '/history',
+                        views: {
+                            'history-tab': {
+                                templateUrl: 'templates/history.html',
+                                controller: 'HistoryCtrl'
+                            }
+                        }
+                    })
+                    // RioHome tabe
+                    .state('tab.home', {
+                        url: '/riohome',
+                        views: {
+                            'home-tab': {
+                                templateUrl: 'templates/riohome.html',
+                                controller: 'RioHomeCtrl'
+                            }
+                        }
+                    })
+                    // RioHome tabe
+                    .state('tab.recognize', {
+                        url: '/picturesrecognizer',
+                        views: {
+                            'recognize-tab': {
+                                templateUrl: 'templates/picturesrecognizer.html',
+                                controller: 'PicturesRecognizeCtrl'
+                            }
+                        }
+                    })
 
-    // the pet tab has its own child nav-view and history
-    .state('tab.athlete-index', {
-      url: '/athletes',
-      views: {
-        'athletes-tab': {
-          templateUrl: 'templates/athlete-index.html',
-          controller: 'AthleteIndexCtrl'
-        }
-      }
-    })
+                    .state('favorite', {
+                        url: '/favorite',
+                        views: {
+                            'identify-tab': {
+                                templateUrl: 'templates/favorite.html',
+                                controller: 'FavoriteCtrl'
+                            }
+                        }
+                    })
 
-    .state('tab.athlete-detail', {
-      url: '/athlete/:athleteId',
-      views: {
-        'athletes-tab': {
-          templateUrl: 'templates/athlete-detail.html',
-          controller: 'AthleteDetailCtrl'
-        }
-      }
-    })
+                    .state('about', {
+                        url: '/about',
+                        templateUrl: 'templates/about.html',
+                        controller: 'AboutCtrl'
 
-    .state('tab.identify', {
-      url: '/identify',
-      views: {
-        'identify-tab': {
-          templateUrl: 'templates/identify.html',
-          controller: 'MyCtrl1'
-        }
-      }
-    })
+                    })
 
-    .state('tab.about', {
-      url: '/about',
-      views: {
-        'about-tab': {
-          templateUrl: 'templates/about.html',
-          controller : 'IdentifyCtrl2'
-        }
-      }
-    });
+                    .state('athletes-index', {
+                        url: '/athletes',
+                        templateUrl: 'templates/athlete-index.html',
+                        controller: 'AthleteIndexCtrl'
+                    })
 
-  // if none of the above states are matched, use this as the fallback
-  $urlRouterProvider.otherwise('/tab/athletes');
+                    .state('athlete-detail', {
+                        url: '/athlete/:athleteId',
+                        templateUrl: 'templates/athlete-detail.html',
+                        controller: 'AthleteDetailCtrl'
+                    });
 
-});
+            // if none of the above states are matched, use this as the fallback
+            $urlRouterProvider.otherwise('/tab/riohome');
+
+        });
 
