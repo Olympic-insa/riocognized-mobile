@@ -14,8 +14,15 @@ angular.module('starter.controllers', [])
         .controller('RioHomeCtrl', function($scope) {
             //TODO
         })
+        
+        .controller('QuestionsCtrl', function($scope) {
+            //TODO
+        })
 
-
+        .controller('ParametersCtrl', function($scope) {
+            //TODO
+        })
+        
         .controller('PicturesRecognizeCtrl', function($scope, Camera, $http) {
             Camera.getPicture(function(image) {
                 $scope.$apply(function() {

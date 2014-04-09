@@ -54,7 +54,7 @@ angular.module('starter', ['ionic', 'starter.services', 'starter.controllers', '
                         }
                     })
 
-                    .state('favorite', {
+                    .state('tab.favorite', {
                         url: '/favorite',
                         views: {
                             'identify-tab': {
@@ -64,20 +64,32 @@ angular.module('starter', ['ionic', 'starter.services', 'starter.controllers', '
                         }
                     })
 
-                    .state('about', {
+                    .state('tab.about', {
                         url: '/about',
                         templateUrl: 'templates/about.html',
                         controller: 'AboutCtrl'
 
                     })
 
-                    .state('athletes-index', {
+                    .state('tab.athletes-index', {
                         url: '/athletes',
                         templateUrl: 'templates/athlete-index.html',
                         controller: 'AthleteIndexCtrl'
                     })
+                    
+                    .state('tab.parameters', {
+                        url: '/parameters',
+                        templateUrl: 'templates/parameters.html',
+                        controller: 'ParametersCtrl'
+                    })
+                    
+                    .state('tab.questionrecognize', {
+                        url: '/questionrecognize',
+                        templateUrl: 'templates/questionsrecognizer.html',
+                        controller: 'QuestionsCtrl'
+                    })
 
-                    .state('athlete-detail', {
+                    .state('tab.athlete-detail', {
                         url: '/athlete/:athleteId',
                         templateUrl: 'templates/athlete-detail.html',
                         controller: 'AthleteDetailCtrl'
