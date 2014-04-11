@@ -14,7 +14,7 @@ angular.module('starter.controllers', [])
         .controller('RioHomeCtrl', function($scope) {
             //TODO
         })
-        
+
         .controller('QuestionsCtrl', function($scope) {
             //TODO
         })
@@ -22,7 +22,15 @@ angular.module('starter.controllers', [])
         .controller('ParametersCtrl', function($scope) {
             //TODO
         })
-        
+
+        .controller('AboutCtrl', function($scope) {
+            //TODO
+        })
+
+        .controller('FavoriteCtrl', function($scope) {
+            //TODO
+        })
+
         .controller('PicturesRecognizeCtrl', function($scope, Camera, $http) {
             Camera.getPicture(function(image) {
                 $scope.$apply(function() {
@@ -64,8 +72,9 @@ angular.module('starter.controllers', [])
             $http.get(url).success(function(data) {
                 $scope.athlete = data;
             });
+            $scope.showMenuButton = false;
         })
-        
+
         .controller('AthleteIndexCtrl', function($rootScope, $scope, $http, $ionicModal) {
             $rootScope.counter = 1;
             $scope.searchMenuVisible = false;

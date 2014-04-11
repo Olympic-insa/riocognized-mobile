@@ -54,14 +54,11 @@ angular.module('starter', ['ionic', 'starter.services', 'starter.controllers', '
                         }
                     })
 
-                    .state('tab.favorite', {
+                    .state('favorite', {
                         url: '/favorite',
-                        views: {
-                            'identify-tab': {
-                                templateUrl: 'templates/favorite.html',
-                                controller: 'FavoriteCtrl'
-                            }
-                        }
+                        templateUrl: 'templates/favorite.html',
+                        controller: 'FavoriteCtrl'
+
                     })
 
                     .state('tab.about', {
@@ -71,25 +68,25 @@ angular.module('starter', ['ionic', 'starter.services', 'starter.controllers', '
 
                     })
 
-                    .state('tab.athletes-index', {
+                    .state('athletes-index', {
                         url: '/athletes',
                         templateUrl: 'templates/athlete-index.html',
                         controller: 'AthleteIndexCtrl'
                     })
-                    
-                    .state('tab.parameters', {
+
+                    .state('parameters', {
                         url: '/parameters',
                         templateUrl: 'templates/parameters.html',
                         controller: 'ParametersCtrl'
                     })
-                    
-                    .state('tab.questionrecognize', {
+
+                    .state('questionrecognize', {
                         url: '/questionrecognize',
                         templateUrl: 'templates/questionsrecognizer.html',
                         controller: 'QuestionsCtrl'
                     })
 
-                    .state('tab.athlete-detail', {
+                    .state('athlete-detail', {
                         url: '/athlete/:athleteId',
                         templateUrl: 'templates/athlete-detail.html',
                         controller: 'AthleteDetailCtrl'

@@ -48,8 +48,8 @@
             <ion-nav-bar class="bar-assertive">
                 <ion-nav-back-button class="button-icon button-clear ion-ios7-arrow-back">
                 </ion-nav-back-button>
-                <ion-nav-buttons side="left">
-                    <button menu-toggle="left" class="button button-icon icon ion-navicon"></button>
+                <ion-nav-buttons side="left" >
+                    <button menu-toggle="left" ng-show="showMenuButton" class="button button-icon icon ion-navicon" id="menu-button"></button>
                 </ion-nav-buttons>
             </ion-nav-bar>
             <ion-nav-view animation="slide-left-right"></ion-nav-view>
@@ -62,24 +62,24 @@
                     <div class="item item-divider">
                         Rio'Cognized
                     </div>
-                    <a class="item item-icon-left" ui-sref='tab.home'>
+                    <a class="item item-icon-left " nav-clear menu-close ui-sref='tab.home'>
                         <i class="icon ion-email"></i>
                         Rio'cognized Home
                     </a>
                     <div class="item item-divider">
                         Athletes
                     </div>
-                    <a class="item item-icon-left" ui-sref='tab.history'>
+                    <a class="item item-icon-left" nav-clear menu-close ui-sref='tab.history'>
                         <i class="icon ion-ios7-pricetag"></i>
                         History of your reco
                     </a>
 
-                    <a class="item item-icon-left" ui-sref='favorite'>
+                    <a class="item item-icon-left" nav-clear menu-close ui-sref='favorite'>
                         <i class="icon ion-ios7-heart"></i>
                         Favorites Athletes
                     </a>
 
-                    <a class="item item-icon-left" ui-sref='athletes-index'>
+                    <a class="item item-icon-left" nav-clear menu-close ui-sref='athletes-index'>
                         <i class="icon ion-ios7-people"></i>
                         All Athletes
                     </a>
@@ -87,24 +87,24 @@
                     <div class="item item-divider">
                         Recognition
                     </div>
-                    <a class="item item-icon-left" ui-sref='tab.recognize'>
+                    <a class="item item-icon-left" nav-clear menu-close ui-sref='tab.recognize'>
                         <i class="icon ion-ios7-camera"></i>
                         With Camera
                     </a>
 
-                    <a class="item item-icon-left" ui-sref='tab.recognize'>
+                    <a class="item item-icon-left" nav-clear menu-close ui-sref='questionrecognize'>
                         <i class="icon ion-help"></i>
                         With Questions
                     </a>
                     <div class="item item-divider">
                         Others
                     </div>
-                    <a class="item item-icon-left" ui-sref='parameters'>
+                    <a class="item item-icon-left" nav-clear menu-close ui-sref='parameters'>
                         <i class="icon ion-gear-a"></i>
                         Parameters
                     </a>
 
-                    <a class="item item-icon-left" ui-sref='about'>
+                    <a class="item item-icon-left" nav-clear menu-close ui-sref='about'>
                         <i class="icon ion-email"></i>
                         About
                     </a>
