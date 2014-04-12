@@ -48,17 +48,17 @@
             <ion-nav-bar class="bar-assertive">
                 <ion-nav-back-button class="button-icon button-clear ion-ios7-arrow-back">
                 </ion-nav-back-button>
-                <ion-nav-buttons side="left" >
-                    <button menu-toggle="left" ng-show="showMenuButton" class="button button-icon icon ion-navicon" id="menu-button"></button>
+                <ion-nav-buttons side="right" >
+                    <button menu-toggle="'right'" ng-hide="showMenuButton" class="button button-icon icon ion-navicon" id="menu-button"></button>
                 </ion-nav-buttons>
             </ion-nav-bar>
             <ion-nav-view animation="slide-left-right"></ion-nav-view>
         </ion-side-menu-content>
 
         <!-- Left menu -->
-        <ion-side-menu side="left">
+        <ion-side-menu side="right">
             <content>
-                <ul class="list" ng-click="toggleLeft()">
+                <ul class="list" ng-click="toggleRight()">
                     <div class="item item-divider">
                         Rio'Cognized
                     </div>

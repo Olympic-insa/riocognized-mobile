@@ -1,0 +1,23 @@
+
+
+$assertive:             #BF3826;
+$stable:                #3F3F3F;
+$light:                 #F3F3F3;
+
+.tab-item .icon{
+    color: white;
+}
+
+.tab-item .tab-title{
+    color: white;
+}
+.item-divider{
+    background-color: $stable;
+    color: $light;
+}
+
+.pane, .view {
+    background-color: $light;
+    background-image: ;
+}
+@import "ionic/ionic";
