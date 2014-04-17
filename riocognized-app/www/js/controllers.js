@@ -70,7 +70,7 @@ angular.module('starter.controllers', [])
 
 // A simple controller that shows a tapped item's data
         .controller('AthleteDetailCtrl', function($scope, $stateParams, $http) {
-            var url = "http://olympic-insa.fr.nf:8085/api/athletes";
+            var url = "http://olympic-insa.fr.nf:8083/api/athletes";
             url = url + "/" + $stateParams.athleteId.toString();
             $http.get(url).success(function(data) {
                 $scope.athlete = data;
@@ -82,7 +82,7 @@ angular.module('starter.controllers', [])
             $rootScope.counter = 1;
             $scope.searchMenuVisible = false;
             $scope.search = {};
-            var url = "http://olympic-insa.fr.nf:8085/api/athletes";
+            var url = "http://olympic-insa.fr.nf:8083/api/athletes";
             $http.get(url, {cache: true}).success(function(data) {
                 $scope.athletes = data;
                 $scope.max = data.length;

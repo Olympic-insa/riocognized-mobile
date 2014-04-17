@@ -4,9 +4,8 @@
 .tab-item .tab-title {
   color: white; }
 
-.item-divider {
-  background-color: #3f3f3f;
-  color: #f3f3f3; }
+.pane, .view {
+  background-color: #f3f3f3; }
 
 /*!
   Ionicons, v1.4.1
@@ -7253,5 +7252,15 @@ a.button {
   top: 157px; }
 .platform-ios7.platform-cordova.status-bar-hide {
   margin-bottom: 20px; }
+
+.item-divider {
+  background-color: #3f3f3f;
+  color: #f3f3f3; }
+
+ion-side-menu .item .icon {
+  color: #bf3826; }
+
+a.item:after, button.item:after {
+  color: #bf3826; }
 
 /*# sourceMappingURL=app.css.map */

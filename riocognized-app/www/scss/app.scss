@@ -11,13 +11,23 @@ $light:                 #F3F3F3;
 .tab-item .tab-title{
     color: white;
 }
+
+
+.pane, .view {
+    background-color: $light;
+    //background-image: ;
+}
+@import "ionic/ionic";
+
 .item-divider{
     background-color: $stable;
     color: $light;
 }
 
-.pane, .view {
-    background-color: $light;
-    background-image: ;
+ion-side-menu .item .icon{
+    color: $assertive;
 }
-@import "ionic/ionic";
+
+a.item:after, button.item:after{
+    color: $assertive;
+}
