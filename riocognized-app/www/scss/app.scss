@@ -31,3 +31,46 @@ ion-side-menu .item .icon{
 a.item:after, button.item:after{
     color: $assertive;
 }
+
+.animate-show {
+    -webkit-transition: 575ms cubic-bezier(0.250, 0.250, 0.750, 0.750) all;
+    -moz-transition: 575ms cubic-bezier(0.250, 0.250, 0.750, 0.750) all;
+    -ms-transition: 575ms cubic-bezier(0.250, 0.250, 0.750, 0.750) all;
+    -o-transition: 575ms cubic-bezier(0.250, 0.250, 0.750, 0.750) all;
+    transition: 575ms cubic-bezier(0.250, 0.250, 0.750, 0.750) all;
+
+    line-height:20px;
+    opacity:1;
+}
+
+.bar-sub-slide-subheader {
+    top: 88px;
+    display:block;
+    position: absolute;
+}
+
+.centrage{
+  margin-left: auto;
+  margin-right: auto;
+  width: 100%;
+}
+
+.nopad{
+    padding: 0px;
+}
+
+.country-flag{
+    margin-right: 15px;
+}
+
+.country-name{
+    vertical-align: super;
+}
+
+.has-subheader {
+top: 88px;
+}
+
+.has-header {
+top: 44px;
+}
