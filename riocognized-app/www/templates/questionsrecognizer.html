@@ -1,8 +1,102 @@
-<ion-view title="'Recognize an Athlete'">
-  <ion-content has-header="true" has-tabs="true">
-      
-      
-      Test
+<ion-view title="Question {{question.id}}">
+    <ion-content has-header="true" has-tabs="true">
+        <div class="list">
 
-  </ion-content>
+            <!-- Question 1 -->
+            <div class="item item-divider">Is your athlete a men or a women?</div>
+            <label class="item item-radio">
+                <input type="radio" name="gender" required>
+                <div class="item-content">
+                    Male
+                </div>
+                <i class="radio-icon ion-checkmark"></i>
+            </label>
+            <label class="item item-radio">
+                <input type="radio" name="gender" required>
+                <div class="item-content">
+                    Female
+                </div>
+                <i class="radio-icon ion-checkmark"></i>
+            </label>
+
+            <!-- Question 2 -->
+            <div class="item item-divider">Is she competing right now?</div>
+            <label class="item item-radio">
+                <input type="radio" name="compete" required>
+                <div class="item-content">
+                    Yes
+                </div>
+                <i class="radio-icon ion-checkmark"></i>
+            </label>
+            <label class="item item-radio">
+                <input type="radio" name="compete" required>
+                <div class="item-content">
+                    No
+                </div>
+                <i class="radio-icon ion-checkmark"></i>
+            </label>
+
+            <!-- Question 3 -->
+            <div class="item item-divider">Which sport he/she doing ? (leave blank if you don't know)</div>
+            <label class="item item-icon-right nopad">
+                <i class="button button-icon icon ion-ios7-arrow-down" ng-click="modalSport.show()" style="margin-top:-6px"></i>
+                <input type="text" placeholder="Sport" ng-model="search.sport">
+            </label>
+
+            <!-- Question 4 -->
+            <div class="item item-divider">What is his/her bib number ? (leave blank if you don't know)</div>
+            <label class="item nopad">
+                <input type="text" placeholder="Bib number">
+            </label>
+
+            <!-- Question 5 -->
+            <div class="item item-divider">Where does he/she come from?</div>
+            <label class="item item-icon-right nopad">
+                <input type="text" placeholder="Country" ng-model="search.country">
+                <i class="button button-icon icon ion-ios7-arrow-down" ng-click="modalCountry.show()" style="margin-top:-6px"></i>
+            </label>
+            <!-- Question 6 -->
+            <div class="item item-divider">What color is his/her track suit or racing suit ?</div>
+            <div class="item item-input item-select">
+                <div class="input-label">
+                    Suit color
+                </div>
+                <select>
+                    <option>Black</option>
+                    <option>White</option>
+                    <option>Red</option>
+                    <option>Blue</option>
+                    <option>Green</option>
+                    <option>Yellow</option>
+                    <option>Orange</option>
+                    <option>Pink</option>
+                    <option>Other</option>
+                </select>
+            </div>
+
+            <!-- Question 7 -->
+            <div class="item item-divider">What type of skin does he/she have?</div>
+
+            <div class="item item-input item-select">
+                <div class="input-label">
+                    Skin-Color
+                </div>
+                <select>
+                    <option>Black</option>
+                    <option selected>White</option>
+                    <option>Asian</option>
+                    <option>Tanned</option>
+                </select>
+            </div>
+
+            <!-- Question 8 -->
+            <div class="item item-divider">Move the range to his/her approximate hair's length</div>
+            <div class="range">
+                Long
+                <input type="range" name="hairlength" min="0" max="100" value="20">
+                Bald/Shaved
+            </div>
+        </div>
+
+    </ion-content>
 </ion-view>

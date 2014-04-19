@@ -7285,16 +7285,16 @@ a.item:after, button.item:after {
 .nopad {
   padding: 0px; }
 
+.nopad input {
+  padding-left: 10px; }
+
 .country-flag {
   margin-right: 15px; }
 
 .country-name {
   vertical-align: super; }
 
-.has-subheader {
-  top: 88px; }
-
-.has-header {
-  top: 44px; }
+.item-select {
+  background-color: white; }
 
 /*# sourceMappingURL=app.css.map */

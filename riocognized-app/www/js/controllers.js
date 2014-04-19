@@ -18,8 +18,27 @@ angular.module('starter.controllers', [])
             //TODO
         })
 
-        .controller('QuestionsCtrl', function($scope) {
-            //TODO
+        .controller('QuestionsCtrl', function($scope, $http, $ionicModal) {
+            $http.get('data/questions.json').success(function(data) {
+                $scope.question = data;
+            });
+            $scope.search = {};
+            $ionicModal.fromTemplateUrl('templates/modal-list-sport.html', function(modal) {
+                $scope.modalSport = modal;
+            }, {
+                scope: $scope,
+                animation: 'slide-in-up',
+                focusFirstInput: true
+            });
+
+            $ionicModal.fromTemplateUrl('templates/modal-list-country.html', function(modal) {
+                $scope.modalCountry = modal;
+            }, {
+                scope: $scope,
+                animation: 'slide-in-up',
+                focusFirstInput: true
+            });
+
         })
 
         .controller('ParametersCtrl', function($scope) {

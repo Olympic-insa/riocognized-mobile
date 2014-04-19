@@ -59,6 +59,9 @@ a.item:after, button.item:after{
     padding: 0px;
 }
 
+.nopad input{
+    padding-left: 10px;
+}
 .country-flag{
     margin-right: 15px;
 }
@@ -67,10 +70,7 @@ a.item:after, button.item:after{
     vertical-align: super;
 }
 
-.has-subheader {
-top: 88px;
+.item-select{
+    background-color: white;
 }
 
-.has-header {
-top: 44px;
-}
