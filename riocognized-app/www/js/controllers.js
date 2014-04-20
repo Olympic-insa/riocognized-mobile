@@ -19,10 +19,14 @@ angular.module('starter.controllers', [])
         })
 
         .controller('QuestionsCtrl', function($scope, $http, $ionicModal) {
+
             $http.get('data/questions.json').success(function(data) {
                 $scope.question = data;
             });
             $scope.search = {};
+            // we will store our form data in this object
+            $scope.form = {};
+
             $ionicModal.fromTemplateUrl('templates/modal-list-sport.html', function(modal) {
                 $scope.modalSport = modal;
             }, {
@@ -38,6 +42,42 @@ angular.module('starter.controllers', [])
                 animation: 'slide-in-up',
                 focusFirstInput: true
             });
+
+            $scope.recognize = function() {
+                var url = "http://olympic-insa.fr.nf:8083/api/athletes";
+                url = url + "?gender=" + $scope.form.gender;
+                url = url + "&racing=" + $scope.form.racing;
+                if ($scope.search.sport != null) {
+                    url = url + "&sport=" + $scope.search.sport;
+                }
+                if ($scope.form.bib != null) {
+                    url = url + "&bib=" + $scope.form.bib;
+                }
+                if ($scope.search.country != null) {
+                    url = url + "&country=" + $scope.search.country;
+                }
+                if ($scope.form.race_suit != null) {
+                    url = url + "&race_suit=" + $scope.form.race_suit;
+                }
+                if ($scope.form.skin_color != null) {
+                    url = url + "&skin_color=" + $scope.form.skin_color;
+                }
+                if ($scope.form.hair_length != null) {
+                    alert($scope.search.hair_length);
+                    url = url + "&hair_length=" + $scope.form.hair_length;
+                }
+                if ($scope.form.hair_color != null) {
+                    url = url + "&hair_color=" + $scope.form.hair_color;
+                }
+                if ($scope.form.fit != null) {
+              
+                    url = url + "&fit=" + $scope.form.fit;
+                }
+                $http.get(url).success(function(data) {
+                    $scope.form.gender = null;
+                    alert("done");
+                });
+            };
 
         })
 
