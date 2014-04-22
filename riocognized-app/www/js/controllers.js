@@ -18,11 +18,8 @@ angular.module('starter.controllers', [])
             //TODO
         })
 
-        .controller('QuestionsCtrl', function($scope, $http, $ionicModal) {
+        .controller('QuestionsCtrl', function($scope, $http, $ionicModal,Athlete, Athletes) {
 
-            $http.get('data/questions.json').success(function(data) {
-                $scope.question = data;
-            });
             $scope.search = {};
             // we will store our form data in this object
             $scope.form = {};
@@ -70,13 +67,28 @@ angular.module('starter.controllers', [])
                     url = url + "&hair_color=" + $scope.form.hair_color;
                 }
                 if ($scope.form.fit != null) {
-              
+
                     url = url + "&fit=" + $scope.form.fit;
                 }
-                $http.get(url).success(function(data) {
-                    $scope.form.gender = null;
-                    alert("done");
-                });
+                if ($scope.form.heigth != null) {
+
+                    url = url + "&heigth=" + $scope.form.heigth;
+                }
+                $http.get(url)
+                        .success(function(data) {
+                            if (data.length == 1){
+                                alert ("We have an uique answer");
+                                $scope.athlete = Athlete;
+                                $scope.athlete = data[0];
+                            }else{
+                                alert("We have multiple answers");
+                                $scope.athletes = Athletes;
+                                $scope.athletes = data;
+                            }
+                        })
+                        .error(function(data,status) {
+                            alert(status, data);
+                        });
             };
 
         })

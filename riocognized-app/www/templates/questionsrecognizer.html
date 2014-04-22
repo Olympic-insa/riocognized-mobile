@@ -104,7 +104,7 @@
 
                 <div class="item item-input item-select">
                     <div class="input-label">
-                        Skin-Color
+                        Hair-Color
                     </div>
                     <select data-ng-model="form.hair_color">
                         <option>Blond</option>
@@ -119,8 +119,17 @@
                 <div class="item item-divider">How could you consider is fit?</div>
 
                 <div class="range">
+                    Skinny
+                    <input type="range" name="fit" min="0" max="6" value="3" data-ng-model="form.fit">
+                    Corpulent
+                </div>
+                
+                <!-- Question 11 -->
+                <div class="item item-divider">How tall is he/she?</div>
+
+                <div class="range">
                     Small ( < 1m50)
-                    <input type="range" name="fit" min="0" max="10" value="5" data-ng-model="form.fit">
+                    <input type="range" name="heigth" min="0" max="6" value="3" data-ng-model="form.heigth">
                     Tall ( > 2m00)
                 </div>
 
