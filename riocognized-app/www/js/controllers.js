@@ -19,7 +19,35 @@ angular.module('starter.controllers', [])
         })
 
         .controller('QuestionsCtrl', function($scope, $http, $ionicModal, $window, $location, Athlete, Athletes) {
-
+            $scope.sportSelected = false;
+            $scope.countrySelected = false;
+            $scope.pronom = {}
+            $scope.pronom.perso = "he/she";
+            $scope.pronom.posse = "his/her";
+            $scope.menOrWomen = function(value) {
+                if (value == "M") {
+                    $scope.pronom.perso = "he";
+                    $scope.pronom.posse = "his";
+                } else if (value == "F") {
+                    $scope.pronom.perso = "she";
+                    $scope.pronom.posse = "her";
+                    
+                }
+            }
+            $scope.showBibQuestion = function(value) {
+                if (value != "") {
+                    $scope.sportSelected = true;
+                } else {
+                    $scope.sportSelected = false;
+                }
+            }
+            $scope.showSuitQuestion = function(value) {
+                if (value != "") {
+                    $scope.countrySelected = true;
+                } else {
+                    $scope.countrySelected = false;
+                }
+            }
             $scope.search = {};
             // we will store our form data in this object
             $scope.form = {};
@@ -39,7 +67,7 @@ angular.module('starter.controllers', [])
                 animation: 'slide-in-up',
                 focusFirstInput: true
             });
-            $scope.reset = function(){
+            $scope.reset = function() {
                 $scope.form.gender = null;
                 $scope.form.racing = null;
                 $scope.search.sport = null;
@@ -51,8 +79,8 @@ angular.module('starter.controllers', [])
                 $scope.form.hair_color = null;
                 $scope.form.fit = null;
                 $scope.form.heigth = null;
-                
-                
+
+
             }
             $scope.recognize = function() {
                 var url = "http://olympic-insa.fr.nf:8083/api/athletes";
@@ -99,16 +127,17 @@ angular.module('starter.controllers', [])
                             }
                         })
                         .error(function(data, status) {
-                            if (data.message == "ATHLETE_NOT_FOUND"){
+                            if (data.message == "ATHLETE_NOT_FOUND") {
                                 // Try again
-                                alert("Sorry but there is no athlete with these criterias. We suggest to try again.");
                                 $scope.reset();
                                 $window.location.reload();
-                                
-                            }else if (data.message == "TOO_MANY_RESULTS"){
+
+                            } else if (data.message == "TOO_MANY_RESULTS") {
                                 // Let's try some new questions
+                                alert("Too many athletes were found let's add some new questions!");
+
                             }
-                            
+
                         });
             };
 
@@ -166,12 +195,12 @@ angular.module('starter.controllers', [])
         })
         .controller('AthletesResultCtrl', function($scope, Athletes, Athlete, $location) {
             $scope.athletes = Athletes.getAthletes();
-            $scope.athleteView = function (athlete){
+            $scope.athleteView = function(athlete) {
                 Athlete.setAthlete(athlete);
                 $location.url("/athleteresult");
-                
+
             }
-    
+
         })
         .controller('AthleteDetailCtrl', function($scope, $stateParams, $http) {
             var url = "http://olympic-insa.fr.nf:8083/api/athletes";
@@ -233,6 +262,7 @@ angular.module('starter.controllers', [])
             $scope.chooseCountry = function(count) {
 
                 $scope.search.country = count;
+                $scope.countrySelected = true;
                 $scope.modalCountry.hide();
             };
         })
@@ -244,6 +274,7 @@ angular.module('starter.controllers', [])
             $scope.chooseSport = function(count) {
 
                 $scope.search.sport = count;
+                $scope.sportSelected = true;
                 $scope.modalSport.hide();
             };
         });
