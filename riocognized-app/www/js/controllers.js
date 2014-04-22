@@ -18,7 +18,7 @@ angular.module('starter.controllers', [])
             //TODO
         })
 
-        .controller('QuestionsCtrl', function($scope, $http, $ionicModal, $location, Athlete, Athletes) {
+        .controller('QuestionsCtrl', function($scope, $http, $ionicModal, $window, $location, Athlete, Athletes) {
 
             $scope.search = {};
             // we will store our form data in this object
@@ -39,7 +39,21 @@ angular.module('starter.controllers', [])
                 animation: 'slide-in-up',
                 focusFirstInput: true
             });
-
+            $scope.reset = function(){
+                $scope.form.gender = null;
+                $scope.form.racing = null;
+                $scope.search.sport = null;
+                $scope.form.bib = null;
+                $scope.search.country = null;
+                $scope.form.race_suit = null;
+                $scope.form.skin_color = null;
+                $scope.form.hair_length = null;
+                $scope.form.hair_color = null;
+                $scope.form.fit = null;
+                $scope.form.heigth = null;
+                
+                
+            }
             $scope.recognize = function() {
                 var url = "http://olympic-insa.fr.nf:8083/api/athletes";
                 url = url + "?gender=" + $scope.form.gender;
@@ -60,7 +74,6 @@ angular.module('starter.controllers', [])
                     url = url + "&skin_color=" + $scope.form.skin_color;
                 }
                 if ($scope.form.hair_length != null) {
-                    alert($scope.search.hair_length);
                     url = url + "&hair_length=" + $scope.form.hair_length;
                 }
                 if ($scope.form.hair_color != null) {
@@ -77,9 +90,6 @@ angular.module('starter.controllers', [])
                 $http.get(url)
                         .success(function(data) {
                             if (data.length == 1) {
-
-                                ;
-
                                 Athlete.setAthlete(data[0]);
                                 //change view to athlete result
                                 $location.url("/athleteresult");
@@ -89,7 +99,16 @@ angular.module('starter.controllers', [])
                             }
                         })
                         .error(function(data, status) {
-                            alert(status, data);
+                            if (data.message == "ATHLETE_NOT_FOUND"){
+                                // Try again
+                                alert("Sorry but there is no athlete with these criterias. We suggest to try again.");
+                                $scope.reset();
+                                $window.location.reload();
+                                
+                            }else if (data.message == "TOO_MANY_RESULTS"){
+                                // Let's try some new questions
+                            }
+                            
                         });
             };
 
