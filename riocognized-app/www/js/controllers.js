@@ -18,7 +18,7 @@ angular.module('starter.controllers', [])
             //TODO
         })
 
-        .controller('QuestionsCtrl', function($scope, $http, $ionicModal,Athlete, Athletes) {
+        .controller('QuestionsCtrl', function($scope, $http, $ionicModal, $location, Athlete, Athletes) {
 
             $scope.search = {};
             // we will store our form data in this object
@@ -76,17 +76,19 @@ angular.module('starter.controllers', [])
                 }
                 $http.get(url)
                         .success(function(data) {
-                            if (data.length == 1){
-                                alert ("We have an uique answer");
-                                $scope.athlete = Athlete;
-                                $scope.athlete = data[0];
-                            }else{
-                                alert("We have multiple answers");
-                                $scope.athletes = Athletes;
-                                $scope.athletes = data;
+                            if (data.length == 1) {
+
+                                ;
+
+                                Athlete.setAthlete(data[0]);
+                                //change view to athlete result
+                                $location.url("/athleteresult");
+                            } else {
+                                Athletes.setAthletes(data);
+                                $location.url("/athletesresult");
                             }
                         })
-                        .error(function(data,status) {
+                        .error(function(data, status) {
                             alert(status, data);
                         });
             };
@@ -140,6 +142,18 @@ angular.module('starter.controllers', [])
 
 
 // A simple controller that shows a tapped item's data
+        .controller('AthleteResultCtrl', function($scope, Athlete) {
+            $scope.athlete = Athlete.getAthlete();
+        })
+        .controller('AthletesResultCtrl', function($scope, Athletes, Athlete, $location) {
+            $scope.athletes = Athletes.getAthletes();
+            $scope.athleteView = function (athlete){
+                Athlete.setAthlete(athlete);
+                $location.url("/athleteresult");
+                
+            }
+    
+        })
         .controller('AthleteDetailCtrl', function($scope, $stateParams, $http) {
             var url = "http://olympic-insa.fr.nf:8083/api/athletes";
             url = url + "/" + $stateParams.athleteId.toString();

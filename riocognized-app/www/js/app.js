@@ -94,6 +94,16 @@ angular.module('starter', ['ionic', 'starter.services', 'starter.controllers', '
                         url: '/athlete/:athleteId',
                         templateUrl: 'templates/athlete-detail.html',
                         controller: 'AthleteDetailCtrl'
+                    })
+                    .state('athlete-result', {
+                        url: '/athleteresult',
+                        templateUrl: 'templates/athleteresult.html',
+                        controller: 'AthleteResultCtrl'
+                    })
+                    .state('athletes-result', {
+                        url: '/athletesresult',
+                        templateUrl: 'templates/athletesresult.html',
+                        controller: 'AthletesResultCtrl'
                     });
 
             // if none of the above states are matched, use this as the fallback

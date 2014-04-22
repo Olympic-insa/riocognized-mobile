@@ -1,1 +1,1 @@
-
+angular.module('starter.directives', [])
