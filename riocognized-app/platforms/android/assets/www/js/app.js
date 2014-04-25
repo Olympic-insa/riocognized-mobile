@@ -8,7 +8,11 @@
 'use strict';
 angular.module('starter', ['ionic', 'starter.services', 'starter.controllers', 'starter.directives', 'starter.filters'])
 
-
+        .config(['$httpProvider', function($httpProvider) {
+                $httpProvider.defaults.useXDomain = true;
+                delete $httpProvider.defaults.headers.common['X-Requested-With'];
+            }
+        ])
         .config(function($stateProvider, $urlRouterProvider) {
 
             // Ionic uses AngularUI Router which uses the concept of states
@@ -56,15 +60,12 @@ angular.module('starter', ['ionic', 'starter.services', 'starter.controllers', '
 
                     .state('favorite', {
                         url: '/favorite',
-                        views: {
-                            'identify-tab': {
-                                templateUrl: 'templates/favorite.html',
-                                controller: 'FavoriteCtrl'
-                            }
-                        }
+                        templateUrl: 'templates/favorite.html',
+                        controller: 'FavoriteCtrl'
+
                     })
 
-                    .state('about', {
+                    .state('tab.about', {
                         url: '/about',
                         templateUrl: 'templates/about.html',
                         controller: 'AboutCtrl'
@@ -77,10 +78,32 @@ angular.module('starter', ['ionic', 'starter.services', 'starter.controllers', '
                         controller: 'AthleteIndexCtrl'
                     })
 
+                    .state('parameters', {
+                        url: '/parameters',
+                        templateUrl: 'templates/parameters.html',
+                        controller: 'ParametersCtrl'
+                    })
+
+                    .state('questionrecognize', {
+                        url: '/questionrecognize',
+                        templateUrl: 'templates/questionsrecognizer.html',
+                        controller: 'QuestionsCtrl'
+                    })
+
                     .state('athlete-detail', {
                         url: '/athlete/:athleteId',
                         templateUrl: 'templates/athlete-detail.html',
                         controller: 'AthleteDetailCtrl'
+                    })
+                    .state('athlete-result', {
+                        url: '/athleteresult',
+                        templateUrl: 'templates/athleteresult.html',
+                        controller: 'AthleteResultCtrl'
+                    })
+                    .state('athletes-result', {
+                        url: '/athletesresult',
+                        templateUrl: 'templates/athletesresult.html',
+                        controller: 'AthletesResultCtrl'
                     });
 
             // if none of the above states are matched, use this as the fallback

@@ -7,7 +7,7 @@
         </label>
         <button class="button button-clear" ng-click="modalCountry.hide()">Cancel</button>
     </div>
-    <ion-content has-header='true' scroll='true'>
+    <ion-content has-header='true' scroll='true' class="has-header">
         <div class="list">
             <a ng-repeat="pays in countries | countryFilter:countryToSearch" class="item" ng-click="chooseCountry(pays.name)">
                 <img class="inline country-flag"ng-src="img/png-country-squared-flat-res-32x32/{{pays.id}}.PNG"><h3 class="inline country-name">{{pays.name}}</h3>

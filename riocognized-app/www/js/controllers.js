@@ -18,12 +18,20 @@ angular.module('starter.controllers', [])
             //TODO
         })
 
-        .controller('QuestionsCtrl', function($scope, $http, $ionicModal, $window, $location, Athlete, Athletes) {
+        .controller('QuestionsCtrl', function($scope, $http, $ionicModal, $window, $location, Geolocation, Athlete, Athletes) {
+            $scope.search = {};
+            // we will store our form data in this object
+            $scope.form = {};
+            $scope.currentPosition = null;
+            
             $scope.sportSelected = false;
             $scope.countrySelected = false;
             $scope.pronom = {}
             $scope.pronom.perso = "he/she";
             $scope.pronom.posse = "his/her";
+            
+            
+            
             $scope.menOrWomen = function(value) {
                 if (value == "M") {
                     $scope.pronom.perso = "he";
@@ -31,7 +39,7 @@ angular.module('starter.controllers', [])
                 } else if (value == "F") {
                     $scope.pronom.perso = "she";
                     $scope.pronom.posse = "her";
-                    
+
                 }
             }
             $scope.showBibQuestion = function(value) {
@@ -48,10 +56,6 @@ angular.module('starter.controllers', [])
                     $scope.countrySelected = false;
                 }
             }
-            $scope.search = {};
-            // we will store our form data in this object
-            $scope.form = {};
-
             $ionicModal.fromTemplateUrl('templates/modal-list-sport.html', function(modal) {
                 $scope.modalSport = modal;
             }, {
@@ -79,13 +83,39 @@ angular.module('starter.controllers', [])
                 $scope.form.hair_color = null;
                 $scope.form.fit = null;
                 $scope.form.heigth = null;
+                stopWatchingPosition();
 
 
             }
+            $scope.getCurrentPosition = function() {
+                Geolocation.getCurrentPosition(successHandler);
+            };
+            $scope.startWatchingPosition = function() {
+                $scope.watchId = Geolocation.watchPosition(successHandler);
+            };
+
+            $scope.stopWatchingPosition = function() {
+                Geolocation.clearWatch($scope.watchId);
+                $scope.watchId = null;
+                $scope.currentPosition = null;
+            };
+
+            // Handlers
+
+            var successHandler = function(position) {
+                $scope.currentPosition = position;
+            };
+            $scope.startWatchingPosition();
+            
             $scope.recognize = function() {
                 var url = "http://olympic-insa.fr.nf:8083/api/athletes";
                 url = url + "?gender=" + $scope.form.gender;
                 url = url + "&racing=" + $scope.form.racing;
+                if ($scope.currentPosition != null) {
+                    //alert($scope.currentPosition.toSource());
+                    //console.log($scope.currentPosition);
+                    url = url + "&position=" + $scope.currentPosition.coords.latitude + "," + $scope.currentPosition.coords.longitude ;
+                }
                 if ($scope.search.sport != null) {
                     url = url + "&sport=" + $scope.search.sport;
                 }
@@ -119,10 +149,12 @@ angular.module('starter.controllers', [])
                         .success(function(data) {
                             if (data.length == 1) {
                                 Athlete.setAthlete(data[0]);
+                                $scope.reset();
                                 //change view to athlete result
                                 $location.url("/athleteresult");
                             } else {
                                 Athletes.setAthletes(data);
+                                $scope.reset();
                                 $location.url("/athletesresult");
                             }
                         })

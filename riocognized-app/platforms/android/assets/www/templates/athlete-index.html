@@ -4,7 +4,7 @@
   The 'pets' data comes from its $scope within PetIndexCtrl (controller.js)
 -->
 <ion-view title="Athletes Informations">
-    <div class="bar bar-subheader item-input-inset">
+    <ion-header-bar class="bar bar-subheader item-input-inset">
         <label class="item-input-wrapper">
             <i class="icon ion-ios7-search placeholder-icon"></i>
             <input type="search" placeholder="Search by Name" ng-model="stringToSearch" style="background:inherit">
@@ -12,7 +12,7 @@
         </label>
         <button class="button button-clear button-assertive" ng-click="hasSubSub = {top: ''};
             showSearchMenu();">More</button>
-    </div>
+    </ion-header-bar>
     <div class="bar-sub-slide-subheader animate-show" ng-show="searchMenuVisible">
         <div class="item-input-inset centrage">
             <label class="item item-input-wrapper item-icon-right nopad"  style="margin-right: 10px;">
@@ -25,13 +25,13 @@
             </label>
         </div>
     </div>
-    <ion-content has-header="true" has-subheader="true" has-tabs="true" scroll="true" ng-style="hasSubSub">
+    <ion-content has-subheader="true" has-tabs="true" scroll="true" ng-style="hasSubSub">
 
         <div class="list">
-            <a ng-repeat="athlete in athletes| filter:search | anySearch:stringToSearch | lazyLoad" class="item item-thumbnail-left" ui-sref='athlete-detail({athleteId: {{athlete.id}}})' href="#/tab/athlete/{{athlete.id}}">
+            <a ng-repeat="athlete in athletes| filter:search | anySearch:stringToSearch | lazyLoad" class="item item-thumbnail-left" ui-sref='athlete-detail({athleteId: {{athlete.id}}})'>
                 <img ng-src="{{athlete.image_url}}">
                 <h2>{{athlete.name}} {{athlete.surname}}</h2>
-                
+
                 <img class="inline country-flag"ng-src="img/png-country-squared-flat-res-32x32/{{athlete.country.id}}.PNG"><h4 class="inline country-name">{{athlete.country.name}}</h4>
                 <p>{{athlete.sport}}</p>
             </a>

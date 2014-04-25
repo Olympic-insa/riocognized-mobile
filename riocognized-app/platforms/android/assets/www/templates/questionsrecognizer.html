@@ -1,16 +1,143 @@
-<!DOCTYPE html>
-<!--
-To change this license header, choose License Headers in Project Properties.
-To change this template file, choose Tools | Templates
-and open the template in the editor.
--->
-<html>
-    <head>
-        <title>TODO supply a title</title>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    </head>
-    <body>
-        <div>TODO write content</div>
-    </body>
-</html>
+<ion-view title="Question {{question.id}}">
+    <ion-content has-header="true" has-tabs="true">
+        <form ng-submit="recognize(questions)">
+            <div id="messages" class="alert alert-success" data-ng-show="messages" data-ng-bind="messages"></div>
+            <div class="list">
+
+                <!-- Question 1 -->
+                <div class="item item-divider">Is your athlete a men or a women?</div>
+                <label class="item item-radio">
+                    <input type="radio" name="gender" data-ng-model="form.gender" value="M" ng-click="menOrWomen('M')">
+                    <div class="item-content">
+                        Male
+                    </div>
+                    <i class="radio-icon ion-checkmark"></i>
+                </label>
+                <label class="item item-radio">
+                    <input type="radio" name="gender" data-ng-model="form.gender" value="F" ng-click="menOrWomen('F')">
+                    <div class="item-content">
+                        Female
+                    </div>
+                    <i class="radio-icon ion-checkmark"></i>
+                </label>
+
+                <!-- Question 2 -->
+                <div class="item item-divider">Is {{pronom.perso}} competing right now?</div>
+                <label class="item item-radio">
+                    <input type="radio" name="racing" data-ng-model="form.racing" value="true">
+                    <div class="item-content">
+                        Yes
+                    </div>
+                    <i class="radio-icon ion-checkmark"></i>
+                </label>
+                <label class="item item-radio">
+                    <input type="radio" name="racing" data-ng-model="form.racing" value="false">
+                    <div class="item-content">
+                        No
+                    </div>
+                    <i class="radio-icon ion-checkmark"></i>
+                </label>
+
+                <!-- Question 3 -->
+                <div class="item item-divider">Which sport {{pronom.perso}} doing ? (leave blank if you don't know)</div>
+                <label class="item item-icon-right nopad">
+                    <i class="button button-icon icon ion-ios7-arrow-down" ng-click="modalSport.show()" style="margin-top:-6px"></i>
+                    <input type="text" placeholder="Sport" ng-model="search.sport" ng-change="showBibQuestion(value)">
+                </label>
+
+                <!-- Question 4 -->
+                <div class="item item-divider" ng-show="sportSelected">What is {{pronom.posse}} bib number ? (leave blank if you don't know)</div>
+                <label class="item nopad" ng-show="sportSelected">
+                    <input type="text" placeholder="Bib number" data-ng-model="form.bib">
+                </label>
+
+                <!-- Question 5 -->
+                <div class="item item-divider">Where does {{pronom.perso}} come from?</div>
+                <label class="item item-icon-right nopad">
+                    <input type="text" placeholder="Country" ng-model="search.country" ng-change="showSuitQuestion(value)">
+                    <i class="button button-icon icon ion-ios7-arrow-down" ng-click="modalCountry.show()" style="margin-top:-6px"></i>
+                </label>
+                <!-- Question 6 -->
+                <div class="item item-divider" ng-hide="countrySelected">What color is {{pronom.posse}} track suit or racing suit ?</div>
+                <div class="item item-input item-select"ng-hide="countrySelected">
+                    <div class="input-label">
+                        Suit color
+                    </div>
+                    <select data-ng-model="form.race_suit">
+                        <option>Black</option>
+                        <option>White</option>
+                        <option>Red</option>
+                        <option>Blue</option>
+                        <option>Green</option>
+                        <option>Yellow</option>
+                        <option>Orange</option>
+                        <option>Pink</option>
+                        <option>Other</option>
+                    </select>
+                </div>
+
+                <!-- Question 7 -->
+                <div class="item item-divider">What type of skin does {{pronom.perso}} have?</div>
+
+                <div class="item item-input item-select">
+                    <div class="input-label">
+                        Skin-Color
+                    </div>
+                    <select data-ng-model="form.skin_color">
+                        <option>Black</option>
+                        <option selected>White</option>
+                        <option>Asian</option>
+                        <option>Tanned</option>
+                    </select>
+                </div>
+
+                <!-- Question 8 -->
+                <div class="item item-divider">Move the range to {{pronom.posse}} approximate hair's length</div>
+                <div class="range">
+                    Long
+                    <input type="range" name="hairlength" min="0" max="6" value="3" data-ng-model="form.hair_length">
+                    Bald/Shaved
+                </div>
+
+                <!-- Question 9 -->
+                <div class="item item-divider">What hair color does {{pronom.perso}} have?</div>
+
+                <div class="item item-input item-select">
+                    <div class="input-label">
+                        Hair-Color
+                    </div>
+                    <select data-ng-model="form.hair_color">
+                        <option>Blond</option>
+                        <option selected>Black</option>
+                        <option>Brown</option>
+                        <option>Red</option>
+                        <option>White</option>
+                        <option>Other</option>
+                    </select>
+                </div>
+                <!-- Question 10 -->
+                <div class="item item-divider">How could you consider {{pronom.posse}} fit?</div>
+
+                <div class="range">
+                    Skinny
+                    <input type="range" name="fit" min="0" max="6" value="3" data-ng-model="form.fit">
+                    Corpulent
+                </div>
+                
+                <!-- Question 11 -->
+                <div class="item item-divider">How tall is {{pronom.perso}}?</div>
+
+                <div class="range">
+                    Small ( < 1m50)
+                    <input type="range" name="heigth" min="0" max="6" value="3" data-ng-model="form.heigth">
+                    Tall ( > 2m00)
+                </div>
+
+            </div>
+
+            <button type="submit" class="button button-full button-assertive">
+                Recognize This Athlete
+            </button>
+        </form>
+    </ion-content>
+</ion-view>

@@ -1,16 +1,25 @@
-<!DOCTYPE html>
-<!--
-To change this license header, choose License Headers in Project Properties.
-To change this template file, choose Tools | Templates
-and open the template in the editor.
--->
-<html>
-    <head>
-        <title>TODO supply a title</title>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    </head>
-    <body>
-        <div>TODO write content</div>
-    </body>
-</html>
+<ion-view title='{{athlete.name}} {{athlete.surname}}'>
+  <ion-content has-header="true" padding="true" class="has-header">
+      <div class ="row">
+          <div class="col col-33">
+              <img ng-src="{{athlete.image_url}}" style="max-width: 100%">
+          </div>
+          <div class="col">
+              <h3>{{athlete.name}} {{athlete.surname}}</h3>
+              <div class ="row">
+                  <div class="col"><img ng-src="img/png-country-squared-flat-res-72x72/{{athlete.country.id}}.PNG"></div>
+                  <div class="col country-name">{{athlete.country.name}}</div>
+              </div>
+              <div class ="row">
+                  <div class="col">Sport : </div>
+                  <div class="col">{{athlete.sport.id}}</div>
+              </div>
+              <div class ="row">
+                  <div class="col">Age : </div>
+                  <div class="col">{{athlete.age}}</div>
+              </div>
+          </div>
+      </div>
+    <p>{{ athlete.content }}</p>
+  </ion-content>
+</ion-view>
