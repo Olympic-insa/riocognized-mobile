@@ -83,10 +83,10 @@ angular.module('starter.controllers', [])
                 $scope.form.hair_color = null;
                 $scope.form.fit = null;
                 $scope.form.heigth = null;
-                stopWatchingPosition();
+                $scope.stopWatchingPosition();
 
 
-            }
+            };
             $scope.getCurrentPosition = function() {
                 Geolocation.getCurrentPosition(successHandler);
             };
