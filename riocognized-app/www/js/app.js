@@ -65,7 +65,7 @@ angular.module('starter', ['ionic', 'starter.services', 'starter.controllers', '
 
                     })
 
-                    .state('tab.about', {
+                    .state('about', {
                         url: '/about',
                         templateUrl: 'templates/about.html',
                         controller: 'AboutCtrl'

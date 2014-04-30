@@ -74,3 +74,11 @@ a.item:after, button.item:after{
     background-color: white;
 }
 
+#advert{
+    position:absolute;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 100, 100, 0.5);
+}

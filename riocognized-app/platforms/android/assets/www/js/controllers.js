@@ -23,15 +23,15 @@ angular.module('starter.controllers', [])
             // we will store our form data in this object
             $scope.form = {};
             $scope.currentPosition = null;
-            
+
             $scope.sportSelected = false;
             $scope.countrySelected = false;
             $scope.pronom = {}
             $scope.pronom.perso = "he/she";
             $scope.pronom.posse = "his/her";
-            
-            
-            
+
+
+
             $scope.menOrWomen = function(value) {
                 if (value == "M") {
                     $scope.pronom.perso = "he";
@@ -83,10 +83,10 @@ angular.module('starter.controllers', [])
                 $scope.form.hair_color = null;
                 $scope.form.fit = null;
                 $scope.form.heigth = null;
-                stopWatchingPosition();
+                $scope.stopWatchingPosition();
 
 
-            }
+            };
             $scope.getCurrentPosition = function() {
                 Geolocation.getCurrentPosition(successHandler);
             };
@@ -106,15 +106,15 @@ angular.module('starter.controllers', [])
                 $scope.currentPosition = position;
             };
             $scope.startWatchingPosition();
-            
+
             $scope.recognize = function() {
                 var url = "http://olympic-insa.fr.nf:8083/api/athletes";
                 url = url + "?gender=" + $scope.form.gender;
                 url = url + "&racing=" + $scope.form.racing;
                 if ($scope.currentPosition != null) {
                     //alert($scope.currentPosition.toSource());
-                    console.log($scope.currentPosition);
-                    url = url + "&position=" + $scope.currentPosition.coords.latitude + "," + $scope.currentPosition.coords.longitude ;
+                    //console.log($scope.currentPosition);
+                    url = url + "&position=" + $scope.currentPosition.coords.latitude + "," + $scope.currentPosition.coords.longitude;
                 }
                 if ($scope.search.sport != null) {
                     url = url + "&sport=" + $scope.search.sport;
@@ -179,44 +179,122 @@ angular.module('starter.controllers', [])
             //TODO
         })
 
-        .controller('AboutCtrl', function($scope) {
+        .controller('AboutCtrl', function($scope, $ionicModal, $timeout) {
             //TODO
+
+            $ionicModal.fromTemplateUrl('templates/modal-advert.html', {
+                scope: $scope,
+                animation: 'slide-in-up'
+            }).then(function(modal) {
+                $scope.modal = modal;
+                $scope.openModal();
+            });
+            $scope.openModal = function() {
+                $scope.modal.show();
+            };
+            $scope.closeModal = function() {
+                $scope.modal.hide();
+            };
+            //Cleanup the modal when we're done with it!
+            $scope.$on('$destroy', function() {
+                $scope.modal.remove();
+            });
+
+            $timeout(function() {
+                $scope.closeModal();
+            }, 5000);
+
         })
 
         .controller('FavoriteCtrl', function($scope) {
             //TODO
         })
 
-        .controller('PicturesRecognizeCtrl', function($scope, Camera, $http) {
-            Camera.getPicture(function(image) {
-                $scope.$apply(function() {
-                    $scope.imageData = "data:image/jpeg;base64," + image;
-                });
-                //envoyer image
-                $http({
-                    url: 'http://olympic-insa.fr.nf:8083/image/api/upload',
-                    method: "POST",
-                    data: "{\"name\": \"Name\",\"description\": \"metadata string\",\"content\": \"" + image + "\",\"contentType\": \"image/jpeg\"}"
-                })
-                        .then(function(data, status, headers, config) {
-                            // success
-                            alert(JSON.stringify(data, null, 4));
-                        },
-                                function(data, status, headers, config) { // optional
-                                    // failed
-                                    alert(JSON.stringify(data, null, 4));
-                                }
-                        );
-            }, function(error) {
-                $scope.$apply(function() {
-                    $scope.error = error;
-                });
-            }, {
-                destinationType: Camera.DestinationType.DATA_URL,
-                sourceType: Camera.PictureSourceType.CAMERA,
-                encodingType: Camera.EncodingType.JPEG,
-                quality: 20
+        .controller('PicturesRecognizeCtrl', function($scope, $ionicModal, Athlete, Camera, Recognition) {
+            $ionicModal.fromTemplateUrl('templates/modal-advert.html', {
+                scope: $scope,
+                animation: 'slide-in-up'
+            }).then(function(modal) {
+                $scope.modal = modal;
             });
+            $scope.openModal = function($timeout) {
+                $scope.modal.show();
+                $timeout(function() {
+                    alert("fsf");
+                    $scope.closeModal();
+                }, 20000);
+            };
+            $scope.closeModal = function() {
+                $scope.modal.hide();
+            };
+            //Cleanup the modal when we're done with it!
+            $scope.$on('$destroy', function() {
+                $scope.modal.remove();
+            });
+
+
+            Camera.getPicture().then(function(image) {
+                // Angular promise
+                $scope.imageData = "data:image/jpeg;base64," + image;
+                $scope.openModal();
+                Recognition.upload(image).then(function(data) {
+                    //Athlete.setAthlete(data[0]);
+                    alert("upload succeed");
+                }, function(reason) {
+                    alert("Upload failed");
+                }, function(notify) {
+                    alert("notify");
+                });
+                alert("we are here");
+
+
+            }, function(reason) {
+                alert(reason);
+            }, function(notify) {
+                alert("notify");
+            });
+
+            $ionicModal.fromTemplateUrl('templates/modal-advert.html', {
+                scope: $scope,
+                animation: 'slide-in-up'
+            }).then(function(modal) {
+                $scope.modal = modal;
+            });
+            $scope.openModal = function() {
+                $scope.modal.show();
+            };
+            $scope.closeModal = function() {
+                $scope.modal.hide();
+            };
+            //Cleanup the modal when we're done with it!
+            $scope.$on('$destroy', function() {
+                $scope.modal.remove();
+            });
+            //envoyer image
+//                $http({
+//                    url: 'http://olympic-insa.fr.nf:8083/image/api/upload',
+//                    method: "POST",
+//                    data: "{\"name\": \"Name\",\"description\": \"metadata string\",\"content\": \"" + image + "\",\"contentType\": \"image/jpeg\"}"
+//                })
+//                        .success(function(data) {
+//                            deferred.resolve(data);
+//                            alert(JSON.stringify(data, null, 4));
+//                        })
+//                        .error(function(data) {
+//                            deferred.reject();
+//                            alert(JSON.stringify(data, null, 4));
+//                        });
+//                        .then(function(data, status, headers, config) {
+//                            // success
+//                            
+//                            alert(JSON.stringify(data, null, 4));
+//                        },
+//                                function(data, status, headers, config) { // optional
+//                                    // failed
+//                                    alert(JSON.stringify(data, null, 4));
+//                                }
+//                        );
+
         })
 
 

@@ -31,9 +31,24 @@ angular.module('starter.services', [])
 
         .factory('Camera', function($q, $window) {
             return {
-                getPicture: function(onSuccess, onError, options) {
-                    $window.navigator.camera.getPicture(onSuccess, onError, options);
-                },
+                getPicture: function() {
+                    var deferred = $q.defer();
+                    $window.navigator.camera.getPicture(
+                            //OnSuccess
+                                    function(image) {
+                                        deferred.resolve(image);
+                                    }, function(error) {
+                                deferred.reject(error);
+                            },
+                                    {
+                                        destinationType: Camera.DestinationType.DATA_URL,
+                                        sourceType: Camera.PictureSourceType.CAMERA,
+                                        encodingType: Camera.EncodingType.JPEG,
+                                        quality: 20
+                                    }
+                            );
+                            return deferred.promise;
+                        },
                 cleanup: function(onSuccess, onError) {
                     $window.navigator.camera.cleanup(onSuccess, onError);
                 },
@@ -44,105 +59,126 @@ angular.module('starter.services', [])
                 Direction: Camera.Direction
             };
         })
-        .factory('Athlete', function() {
-            var Athlete = {};
-            return {
-                getAthlete: function() {
-                    return Athlete;
-                },
-                setAthlete: function(athlete) {
-                    Athlete = athlete;
-                    return;
-                }
-            }
-        })
-        .factory('Athletes', function() {
-            var Athletes = {};
-            return {
-                getAthletes: function() {
-                    return Athletes;
-                },
-                setAthletes: function(athletes) {
-                    Athletes = athletes;
-                    return;
-                }
-            }
-        })
-        .factory('Geolocation', function($rootScope) {
-            return {
-                /**
-                 * Plugin Get from https://github.com/xelita/angular-cordova-geolocation
-                 * 
-                 * Check the geolocation plugin availability.
-                 * @returns {boolean}
-                 */
-                checkGeolocationAvailability: function() {
-                    //$log.debug('starter.services.Geolocation.checkGeolocationAvailability.');
-                    if (!navigator.geolocation) {
-                        //$log.warn('Geolocation API is not available.');
-                        return false;
+                .factory('Recognition', function($q, $http) {
+                    return {
+                        upload: function(image) {
+                            var deferred = $q.defer();
+
+                            $http({
+                                url: 'http://olympic-insa.fr.nf:8083/image/api/upload',
+                                method: "POST",
+                                data: "{\"name\": \"Name\",\"description\": \"metadata string\",\"content\": \"" + image + "\",\"contentType\": \"image/jpeg\"}"
+                            })
+                                    .success(function(data) {
+                                        deferred.resolve(data);
+                                    })
+                                    .error(function(data) {
+                                        deferred.reject();
+                                    });
+                            return deferred.promise;
+                        }
+                    };
+
+                })
+                .factory('Athlete', function() {
+                    var Athlete = {};
+                    return {
+                        getAthlete: function() {
+                            return Athlete;
+                        },
+                        setAthlete: function(athlete) {
+                            Athlete = athlete;
+                            return;
+                        }
+                    };
+                })
+                .factory('Athletes', function() {
+                    var Athletes = {};
+                    return {
+                        getAthletes: function() {
+                            return Athletes;
+                        },
+                        setAthletes: function(athletes) {
+                            Athletes = athletes;
+                            return;
+                        }
                     }
-                    return true;
-                },
-                /**
-                 * Returns the device's current position to the geolocationSuccess callback with a Position object as the parameter.
-                 * For more information: https://github.com/apache/cordova-plugin-geolocation/blob/master/doc/index.md#navigatorgeolocationgetcurrentposition
-                 */
-                getCurrentPosition: function(successCallback, errorCallback, options) {
-                    //$log.debug('starter.services.Geolocation.getCurrentPosition.');
-                    // Checking API availability
-                    if (!this.checkGeolocationAvailability()) {
-                        return;
-                    }
+                })
+                .factory('Geolocation', function($rootScope) {
+                    return {
+                        /**
+                         * Plugin Get from https://github.com/xelita/angular-cordova-geolocation
+                         * 
+                         * Check the geolocation plugin availability.
+                         * @returns {boolean}
+                         */
+                        checkGeolocationAvailability: function() {
+                            //$log.debug('starter.services.Geolocation.checkGeolocationAvailability.');
+                            if (!navigator.geolocation) {
+                                //$log.warn('Geolocation API is not available.');
+                                return false;
+                            }
+                            return true;
+                        },
+                        /**
+                         * Returns the device's current position to the geolocationSuccess callback with a Position object as the parameter.
+                         * For more information: https://github.com/apache/cordova-plugin-geolocation/blob/master/doc/index.md#navigatorgeolocationgetcurrentposition
+                         */
+                        getCurrentPosition: function(successCallback, errorCallback, options) {
+                            //$log.debug('starter.services.Geolocation.getCurrentPosition.');
+                            // Checking API availability
+                            if (!this.checkGeolocationAvailability()) {
+                                return;
+                            }
 
-                    // API call
-                    navigator.geolocation.getCurrentPosition(
-                            function(position) {
-                                $rootScope.$apply(successCallback(position));
-                            },
-                            function(error) {
-                                $rootScope.$apply(errorCallback(error));
-                            },
-                            options
-                            );
-                },
-                /**
-                 * Returns the device's current position when a change in position is detected.
-                 * For more information: https://github.com/apache/cordova-plugin-geolocation/blob/master/doc/index.md#navigatorgeolocationwatchposition
-                 */
-                watchPosition: function(successCallback, errorCallback, options) {
-                    //$log.debug('cordovaGeolocationService.watchPosition.');
+                            // API call
+                            navigator.geolocation.getCurrentPosition(
+                                    function(position) {
+                                        $rootScope.$apply(successCallback(position));
+                                    },
+                                    function(error) {
+                                        $rootScope.$apply(errorCallback(error));
+                                    },
+                                    options
+                                    );
+                        },
+                        /**
+                         * Returns the device's current position when a change in position is detected.
+                         * For more information: https://github.com/apache/cordova-plugin-geolocation/blob/master/doc/index.md#navigatorgeolocationwatchposition
+                         */
+                        watchPosition: function(successCallback, errorCallback, options) {
+                            //$log.debug('cordovaGeolocationService.watchPosition.');
 
-                    // Checking API availability
-                    if (!this.checkGeolocationAvailability()) {
-                        return;
-                    }
+                            // Checking API availability
+                            if (!this.checkGeolocationAvailability()) {
+                                return;
+                            }
 
-                    // API call
-                    return navigator.geolocation.watchPosition(
-                            function(position) {
-                                $rootScope.$apply(successCallback(position));
-                            },
-                            function(error) {
-                                $rootScope.$apply(errorCallback(error));
-                            },
-                            options
-                            );
-                },
-                /**
-                 * Stop watching for changes to the device's location referenced by the watchID parameter.
-                 * For more information: https://github.com/apache/cordova-plugin-geolocation/blob/master/doc/index.md#navigatorgeolocationclearwatch
-                 */
-                clearWatch: function(watchID) {
-                    //$log.debug('cordovaGeolocationService.clearWatch.');
+                            // API call
+                            return navigator.geolocation.watchPosition(
+                                    function(position) {
+                                        $rootScope.$apply(successCallback(position));
+                                    },
+                                    function(error) {
+                                        $rootScope.$apply(errorCallback(error));
+                                    },
+                                    options
+                                    );
+                        },
+                        /**
+                         * Stop watching for changes to the device's location referenced by the watchID parameter.
+                         * For more information: https://github.com/apache/cordova-plugin-geolocation/blob/master/doc/index.md#navigatorgeolocationclearwatch
+                         */
+                        clearWatch: function(watchID) {
+                            //$log.debug('cordovaGeolocationService.clearWatch.');
 
-                    // Checking API availability
-                    if (!this.checkGeolocationAvailability()) {
-                        return;
-                    }
+                            // Checking API availability
+                            if (!this.checkGeolocationAvailability()) {
+                                return;
+                            }
 
-                    // API call
-                    navigator.geolocation.clearWatch(watchID);
-                }
-            };
-        });
+                            // API call
+                            navigator.geolocation.clearWatch(watchID);
+                        }
+                    };
+                });
