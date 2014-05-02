@@ -206,23 +206,43 @@ angular.module('starter.controllers', [])
 
         })
 
-        .controller('FavoriteCtrl', function($scope) {
+        .controller('FavoriteCtrl', function($scope, $ionicModal, $timeout) {
             //TODO
+
+            $ionicModal.fromTemplateUrl('templates/modal-advert.html', {
+                scope: $scope,
+                animation: 'slide-in-up'
+            }).then(function(modal) {
+                $scope.modal = modal;
+                $scope.openModal();
+            });
+            $scope.openModal = function() {
+                $scope.modal.show();
+            };
+            $scope.closeModal = function() {
+                $scope.modal.hide();
+            };
+            //Cleanup the modal when we're done with it!
+            $scope.$on('$destroy', function() {
+                $scope.modal.remove();
+            });
+
+            $timeout(function() {
+                $scope.closeModal();
+            }, 5000);
+
         })
 
-        .controller('PicturesRecognizeCtrl', function($scope, $ionicModal, Athlete, Camera, Recognition) {
+        .controller('PicturesRecognizeCtrl', function($scope, $ionicModal, $timeout, Athlete, Camera, Recognition) {
             $ionicModal.fromTemplateUrl('templates/modal-advert.html', {
                 scope: $scope,
                 animation: 'slide-in-up'
             }).then(function(modal) {
                 $scope.modal = modal;
             });
-            $scope.openModal = function($timeout) {
+            $scope.openModal = function() {
                 $scope.modal.show();
-                $timeout(function() {
-                    alert("fsf");
-                    $scope.closeModal();
-                }, 20000);
+
             };
             $scope.closeModal = function() {
                 $scope.modal.hide();
@@ -245,6 +265,10 @@ angular.module('starter.controllers', [])
                 }, function(notify) {
                     alert("notify");
                 });
+                $timeout(function() {
+                    alert("fsf");
+                    $scope.closeModal();
+                }, 5000);
                 alert("we are here");
 
 
