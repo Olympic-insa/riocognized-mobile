@@ -114,7 +114,7 @@ angular.module('starter.controllers', [])
                 if ($scope.currentPosition != null) {
                     //alert($scope.currentPosition.toSource());
                     //console.log($scope.currentPosition);
-                    url = url + "&position=" + $scope.currentPosition.coords.latitude + "," + $scope.currentPosition.coords.longitude;
+                    url = url + "&gps=" + $scope.currentPosition.coords.latitude + "," + $scope.currentPosition.coords.longitude;
                 }
                 if ($scope.search.sport != null) {
                     url = url + "&sport=" + $scope.search.sport;
@@ -233,7 +233,7 @@ angular.module('starter.controllers', [])
 
         })
 
-        .controller('PicturesRecognizeCtrl', function($scope, $ionicModal, $timeout, Athlete, Camera, Recognition) {
+        .controller('PicturesRecognizeCtrl', function($scope, $ionicModal, $timeout, $location, Athlete, Camera, ImageUpload, Recognition) {
             $ionicModal.fromTemplateUrl('templates/modal-advert.html', {
                 scope: $scope,
                 animation: 'slide-in-up'
@@ -258,18 +258,27 @@ angular.module('starter.controllers', [])
                 $scope.imageData = "data:image/jpeg;base64," + image;
                 $scope.openModal();
                 Recognition.upload(image).then(function(data) {
+
                     //Athlete.setAthlete(data[0]);
-                    alert("upload succeed");
+                    var url = "http://lynxlabs.fr.nf:8083/image/download/"+data.id;
+                    Recognition.recognize(url).then(function(response) {
+                        alert(response[0].athlete);
+                        Athlete.setAthlete(response[0].athlete);
+                        $location.url("/athleteresult");
+                    }, function(reason) {
+                        alert("Recognition failed because of :" + JSON.stringify(reason, null, 4));
+                    }, function(notify) {
+                        alert("notify");
+                    });
+
                 }, function(reason) {
-                    alert("Upload failed");
+                    alert("Upload failed because of :" + reason);
                 }, function(notify) {
                     alert("notify");
                 });
                 $timeout(function() {
-                    alert("fsf");
                     $scope.closeModal();
                 }, 5000);
-                alert("we are here");
 
 
             }, function(reason) {

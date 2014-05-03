@@ -73,7 +73,39 @@ angular.module('starter.services', [])
                                         deferred.resolve(data);
                                     })
                                     .error(function(data) {
-                                        deferred.reject();
+                                        deferred.reject(data);
+                                    });
+                            return deferred.promise;
+                        },
+                        recognize: function(url) {
+                            var deferred = $q.defer();
+                            $http.get("http://lynxlabs.fr.nf:8083/recognition/api/recognize?url="+url)
+                                    .success(function(response) {
+                                        deferred.resolve(response);
+                                    })
+                                    .error(function(error) {
+                                        deferred.reject(error);
+                                    });
+                            return deferred.promise;
+                        }
+                    };
+
+                })
+                .factory('ImageUpload', function($q, $http) {
+                    return {
+                        upload: function(image) {
+                            var deferred = $q.defer();
+
+                            $http({
+                                url: 'http://olympic-insa.fr.nf:8083/image/api/upload',
+                                method: "POST",
+                                data: "{\"name\": \"Name\",\"description\": \"metadata string\",\"content\": \"" + image + "\",\"contentType\": \"image/jpeg\"}"
+                            })
+                                    .success(function(data) {
+                                        deferred.resolve(data);
+                                    })
+                                    .error(function(data) {
+                                        deferred.reject(data);
                                     });
                             return deferred.promise;
                         }

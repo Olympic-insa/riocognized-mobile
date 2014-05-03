@@ -73,7 +73,18 @@ angular.module('starter.services', [])
                                         deferred.resolve(data);
                                     })
                                     .error(function(data) {
-                                        deferred.reject();
+                                        deferred.reject(data);
+                                    });
+                            return deferred.promise;
+                        },
+                        recognize: function(url) {
+                            var deferred = $q.defer();
+                            $http.get("http://lynxlabs.fr.nf:8083/recognition/api/recognize?url="+url)
+                                    .success(function(response) {
+                                        deferred.resolve(response);
+                                    })
+                                    .error(function(error) {
+                                        deferred.reject(error);
                                     });
                             return deferred.promise;
                         }
