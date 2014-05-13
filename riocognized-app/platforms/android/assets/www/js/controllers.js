@@ -252,49 +252,36 @@ angular.module('starter.controllers', [])
                 $scope.modal.remove();
             });
 
+            $scope.takePicture = function() {
+                Camera.getPicture().then(function(image) {
+                    // Angular promise
+                    $scope.imageData = "data:image/jpeg;base64," + image;
+                    $scope.openModal();
+                    Recognition.upload(image).then(function(data) {
+                        Athlete.setAthlete(data[0].athlete);
+                        $location.url("/athleteresult");
 
-            Camera.getPicture().then(function(image) {
-                // Angular promise
-                $scope.imageData = "data:image/jpeg;base64," + image;
-                $scope.openModal();
-                Recognition.upload(image).then(function(data) {
-                    Athlete.setAthlete(data[0].athlete);
-                    $location.url("/athleteresult");
+                    }, function(reason) {
+                        if (reason.message == "INVALID_OR_EMPTY_CONTENT") {
+                            alert("No Athlete recognized, try again!");
+                        } else {
+                            alert("Check your internet connexion and try again!");
+                        }
+                        $scope.takePicture();
+                    });
+                    $timeout(function() {
+                        $scope.closeModal();
+                    }, 5000);
+
 
                 }, function(reason) {
-                    if (reason.message == "INVALID_OR_EMPTY_CONTENT"){
-                        alert("No Athlete recognized, try again!");
-                    }else{
-                        alert("Check your internet connexion and try again!");
-                    }
+                    alert(reason);
+                }, function(notify) {
+                    alert("notify");
                 });
-                $timeout(function() {
-                    $scope.closeModal();
-                }, 5000);
-
-
-            }, function(reason) {
-                alert(reason);
-            }, function(notify) {
-                alert("notify");
-            });
-
-            $ionicModal.fromTemplateUrl('templates/modal-advert.html', {
-                scope: $scope,
-                animation: 'slide-in-up'
-            }).then(function(modal) {
-                $scope.modal = modal;
-            });
-            $scope.openModal = function() {
-                $scope.modal.show();
             };
-            $scope.closeModal = function() {
-                $scope.modal.hide();
-            };
-            //Cleanup the modal when we're done with it!
-            $scope.$on('$destroy', function() {
-                $scope.modal.remove();
-            });
+            $scope.takePicture();
+
             //envoyer image
 //                $http({
 //                    url: 'http://olympic-insa.fr.nf:8083/image/api/upload',
@@ -354,9 +341,9 @@ angular.module('starter.controllers', [])
             $http.get(url, {cache: true}).success(function(data) {
                 $scope.athletes = data;
                 $scope.max = data.length;
-                if(data.length >= 10){
+                if (data.length >= 10) {
                     $rootScope.counter = 10;
-                }else{
+                } else {
                     $rootScope.counter = data.length;
                 }
             });
