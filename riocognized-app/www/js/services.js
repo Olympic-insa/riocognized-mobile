@@ -65,7 +65,7 @@ angular.module('starter.services', [])
                             var deferred = $q.defer();
 
                             $http({
-                                url: 'http://olympic-insa.fr.nf:8083/image/api/upload',
+                                url: 'http://olympic-insa.fr.nf:8083/recognition/api/upload',
                                 method: "POST",
                                 data: "{\"name\": \"Name\",\"description\": \"metadata string\",\"content\": \"" + image + "\",\"contentType\": \"image/jpeg\"}"
                             })

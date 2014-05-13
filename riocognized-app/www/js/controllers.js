@@ -233,7 +233,7 @@ angular.module('starter.controllers', [])
 
         })
 
-        .controller('PicturesRecognizeCtrl', function($scope, $ionicModal, $timeout, $location, Athlete, Camera, ImageUpload, Recognition) {
+        .controller('PicturesRecognizeCtrl', function($scope, $ionicModal, $timeout, $location, Athlete, Camera, Recognition) {
             $ionicModal.fromTemplateUrl('templates/modal-advert.html', {
                 scope: $scope,
                 animation: 'slide-in-up'
@@ -258,23 +258,15 @@ angular.module('starter.controllers', [])
                 $scope.imageData = "data:image/jpeg;base64," + image;
                 $scope.openModal();
                 Recognition.upload(image).then(function(data) {
-
-                    //Athlete.setAthlete(data[0]);
-                    var url = "http://lynxlabs.fr.nf:8083/image/download/"+data.id;
-                    Recognition.recognize(url).then(function(response) {
-                        alert(response[0].athlete);
-                        Athlete.setAthlete(response[0].athlete);
-                        $location.url("/athleteresult");
-                    }, function(reason) {
-                        alert("Recognition failed because of :" + JSON.stringify(reason, null, 4));
-                    }, function(notify) {
-                        alert("notify");
-                    });
+                    Athlete.setAthlete(data[0].athlete);
+                    $location.url("/athleteresult");
 
                 }, function(reason) {
-                    alert("Upload failed because of :" + reason);
-                }, function(notify) {
-                    alert("notify");
+                    if (reason.message == "INVALID_OR_EMPTY_CONTENT"){
+                        alert("No Athlete recognized, try again!");
+                    }else{
+                        alert("Check your internet connexion and try again!");
+                    }
                 });
                 $timeout(function() {
                     $scope.closeModal();
@@ -342,7 +334,7 @@ angular.module('starter.controllers', [])
                 Athlete.setAthlete(athlete);
                 $location.url("/athleteresult");
 
-            }
+            };
 
         })
         .controller('AthleteDetailCtrl', function($scope, $stateParams, $http) {
@@ -362,6 +354,11 @@ angular.module('starter.controllers', [])
             $http.get(url, {cache: true}).success(function(data) {
                 $scope.athletes = data;
                 $scope.max = data.length;
+                if(data.length >= 10){
+                    $rootScope.counter = 10;
+                }else{
+                    $rootScope.counter = data.length;
+                }
             });
             $scope.loadMoreItems = function() {
                 $rootScope.counter += 1;
