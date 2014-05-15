@@ -100,7 +100,7 @@ angular.module('starter.controllers', [])
                 var url = "http://olympic-insa.fr.nf:8083/api/athletes";
                 url = url + "?gender=" + $scope.form.gender;
                 url = url + "&racing=" + $scope.form.racing;
-                if ($scope.currentPosition != null) {
+                if ($scope.currentPosition != null && $scope.form.racing == "true") {
                     //alert($scope.currentPosition.toSource());
                     //console.log($scope.currentPosition);
                     url = url + "&gps=" + $scope.currentPosition.coords.latitude + "," + $scope.currentPosition.coords.longitude;
@@ -115,16 +115,16 @@ angular.module('starter.controllers', [])
                     url = url + "&country=" + $scope.search.country;
                 }
                 if ($scope.form.race_suit != null) {
-                    url = url + "&race_suit=" + $scope.form.race_suit;
+                    url = url + "&race_suit=" + $scope.form.race_suit.toLowerCase();
                 }
                 if ($scope.form.skin_color != null) {
-                    url = url + "&skin_color=" + $scope.form.skin_color;
+                    url = url + "&skin_color=" + $scope.form.skin_color.toLowerCase();
                 }
                 if ($scope.form.hair_length != null) {
                     url = url + "&hair_length=" + $scope.form.hair_length;
                 }
                 if ($scope.form.hair_color != null) {
-                    url = url + "&hair_color=" + $scope.form.hair_color;
+                    url = url + "&hair_color=" + $scope.form.hair_color.toLowerCase();
                 }
                 if ($scope.form.fit != null) {
 
@@ -137,11 +137,13 @@ angular.module('starter.controllers', [])
                 $http.get(url)
                         .success(function(data) {
                             if (data.length == 1) {
+                                alert("result");
                                 Athlete.setAthlete(data[0]);
                                 $scope.reset();
                                 //change view to athlete result
                                 $location.url("/athleteresult");
                             } else {
+                                alert("results");
                                 Athletes.setAthletes(data);
                                 $scope.reset();
                                 $location.url("/athletesresult");
@@ -150,8 +152,9 @@ angular.module('starter.controllers', [])
                         .error(function(data, status) {
                             if (data.message == "ATHLETE_NOT_FOUND") {
                                 // Try again
-                                $scope.reset();
-                                $window.location.reload();
+                                alert("Athlete not found, try again!");
+                                //$scope.reset();
+                                //$window.location.reload();
                             } else if (data.message == "TOO_MANY_RESULTS") {
                                 // Let's try some new questions
                                 alert("Too many athletes were found let's add some new questions!");
