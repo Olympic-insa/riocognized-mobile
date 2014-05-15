@@ -23,15 +23,11 @@ angular.module('starter.controllers', [])
             // we will store our form data in this object
             $scope.form = {};
             $scope.currentPosition = null;
-
             $scope.sportSelected = false;
             $scope.countrySelected = false;
             $scope.pronom = {}
             $scope.pronom.perso = "he/she";
             $scope.pronom.posse = "his/her";
-
-
-
             $scope.menOrWomen = function(value) {
                 if (value == "M") {
                     $scope.pronom.perso = "he";
@@ -39,7 +35,6 @@ angular.module('starter.controllers', [])
                 } else if (value == "F") {
                     $scope.pronom.perso = "she";
                     $scope.pronom.posse = "her";
-
                 }
             }
             $scope.showBibQuestion = function(value) {
@@ -63,7 +58,6 @@ angular.module('starter.controllers', [])
                 animation: 'slide-in-up',
                 focusFirstInput: true
             });
-
             $ionicModal.fromTemplateUrl('templates/modal-list-country.html', function(modal) {
                 $scope.modalCountry = modal;
             }, {
@@ -84,8 +78,6 @@ angular.module('starter.controllers', [])
                 $scope.form.fit = null;
                 $scope.form.heigth = null;
                 $scope.stopWatchingPosition();
-
-
             };
             $scope.getCurrentPosition = function() {
                 Geolocation.getCurrentPosition(successHandler);
@@ -93,20 +85,17 @@ angular.module('starter.controllers', [])
             $scope.startWatchingPosition = function() {
                 $scope.watchId = Geolocation.watchPosition(successHandler);
             };
-
             $scope.stopWatchingPosition = function() {
                 Geolocation.clearWatch($scope.watchId);
                 $scope.watchId = null;
                 $scope.currentPosition = null;
             };
-
             // Handlers
 
             var successHandler = function(position) {
                 $scope.currentPosition = position;
             };
             $scope.startWatchingPosition();
-
             $scope.recognize = function() {
                 var url = "http://olympic-insa.fr.nf:8083/api/athletes";
                 url = url + "?gender=" + $scope.form.gender;
@@ -163,16 +152,13 @@ angular.module('starter.controllers', [])
                                 // Try again
                                 $scope.reset();
                                 $window.location.reload();
-
                             } else if (data.message == "TOO_MANY_RESULTS") {
                                 // Let's try some new questions
                                 alert("Too many athletes were found let's add some new questions!");
-
                             }
 
                         });
             };
-
         })
 
         .controller('ParametersCtrl', function($scope) {
@@ -199,11 +185,9 @@ angular.module('starter.controllers', [])
             $scope.$on('$destroy', function() {
                 $scope.modal.remove();
             });
-
             $timeout(function() {
                 $scope.closeModal();
             }, 5000);
-
         })
 
         .controller('FavoriteCtrl', function($scope, $ionicModal, $timeout) {
@@ -226,14 +210,12 @@ angular.module('starter.controllers', [])
             $scope.$on('$destroy', function() {
                 $scope.modal.remove();
             });
-
             $timeout(function() {
                 $scope.closeModal();
             }, 5000);
-
         })
 
-        .controller('PicturesRecognizeCtrl', function($scope, $ionicModal, $timeout, $location, Athlete, Camera, Recognition) {
+        .controller('PicturesRecognizeCtrl', function($scope, $q, $ionicModal, $timeout, $location, Athlete, Camera, Recognition) {
             $ionicModal.fromTemplateUrl('templates/modal-advert.html', {
                 scope: $scope,
                 animation: 'slide-in-up'
@@ -242,7 +224,6 @@ angular.module('starter.controllers', [])
             });
             $scope.openModal = function() {
                 $scope.modal.show();
-
             };
             $scope.closeModal = function() {
                 $scope.modal.hide();
@@ -254,14 +235,19 @@ angular.module('starter.controllers', [])
 
             $scope.takePicture = function() {
                 Camera.getPicture().then(function(image) {
-                    // Angular promise
-                    $scope.imageData = "data:image/jpeg;base64," + image;
+                    //After taking a picture open Advertissement
                     $scope.openModal();
-                    Recognition.upload(image).then(function(data) {
-                        Athlete.setAthlete(data[0].athlete);
+                    //
+                    $q.all([
+                        Recognition.upload(image),
+                        $timeout(function() {
+                            $scope.closeModal();
+                        }, 5000)
+                    ]).then(function(data) {
+                        alert(JSON.stringify(data, null, 4));
+                        Athlete.setAthlete(data[0][0].athlete);
                         $location.url("/athleteresult");
-
-                    }, function(reason) {
+                    },function(reason){
                         if (reason.message == "INVALID_OR_EMPTY_CONTENT") {
                             alert("No Athlete recognized, try again!");
                         } else {
@@ -269,19 +255,14 @@ angular.module('starter.controllers', [])
                         }
                         $scope.takePicture();
                     });
-                    $timeout(function() {
-                        $scope.closeModal();
-                    }, 5000);
-
-
+                    // Angular promise
+                    $scope.imageData = "data:image/jpeg;base64," + image;
+                    
                 }, function(reason) {
                     alert(reason);
-                }, function(notify) {
-                    alert("notify");
                 });
             };
             $scope.takePicture();
-
             //envoyer image
 //                $http({
 //                    url: 'http://olympic-insa.fr.nf:8083/image/api/upload',
@@ -320,9 +301,7 @@ angular.module('starter.controllers', [])
             $scope.athleteView = function(athlete) {
                 Athlete.setAthlete(athlete);
                 $location.url("/athleteresult");
-
             };
-
         })
         .controller('AthleteDetailCtrl', function($scope, $stateParams, $http) {
             var url = "http://olympic-insa.fr.nf:8083/api/athletes";
