@@ -40,22 +40,22 @@
 
                 <!-- Question 3 -->
                 <div class="item item-divider">Which sport {{pronom.perso}} doing ? (leave blank if you don't know)</div>
-                <label class="item item-icon-right nopad">
-                    <i class="button button-icon icon ion-ios7-arrow-down" ng-click="modalSport.show()" style="margin-top:-6px"></i>
+                <div class="item item-icon-right nopad">
+                    <i class="button button-icon icon ion-ios7-arrow-down" ng-click="modalSport.show();" style="margin-top:-6px"></i>
                     <input type="text" placeholder="Sport" ng-model="search.sport" ng-change="showBibQuestion(value)">
-                </label>
+                </div>
 
                 <!-- Question 4 -->
                 <div class="item item-divider" ng-show="sportSelected">What is {{pronom.posse}} bib number ? (leave blank if you don't know)</div>
-                <label class="item nopad" ng-show="sportSelected">
+                <div class="item nopad" ng-show="sportSelected">
                     <input type="text" placeholder="Bib number" data-ng-model="form.bib">
-                </label>
+                </div>
 
                 <!-- Question 5 -->
                 <div class="item item-divider">Where does {{pronom.perso}} come from?</div>
                 <label class="item item-icon-right nopad">
                     <input type="text" placeholder="Country" ng-model="search.country" ng-change="showSuitQuestion(value)">
-                    <i class="button button-icon icon ion-ios7-arrow-down" ng-click="modalCountry.show()" style="margin-top:-6px"></i>
+                    <i class="button button-icon icon ion-ios7-arrow-down" ng-click="modalCountry.show();" style="margin-top:-6px"></i>
                 </label>
                 <!-- Question 6 -->
                 <div class="item item-divider" ng-hide="countrySelected">What color is {{pronom.posse}} track suit or racing suit ?</div>

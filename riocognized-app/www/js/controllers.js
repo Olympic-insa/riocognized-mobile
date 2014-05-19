@@ -55,15 +55,13 @@ angular.module('starter.controllers', [])
                 $scope.modalSport = modal;
             }, {
                 scope: $scope,
-                animation: 'slide-in-up',
-                focusFirstInput: true
+                animation: 'slide-in-up'
             });
             $ionicModal.fromTemplateUrl('templates/modal-list-country.html', function(modal) {
                 $scope.modalCountry = modal;
             }, {
                 scope: $scope,
-                animation: 'slide-in-up',
-                focusFirstInput: true
+                animation: 'slide-in-up'
             });
             $scope.reset = function() {
                 $scope.form.gender = null;
@@ -137,13 +135,11 @@ angular.module('starter.controllers', [])
                 $http.get(url)
                         .success(function(data) {
                             if (data.length == 1) {
-                                alert("result");
                                 Athlete.setAthlete(data[0]);
                                 $scope.reset();
                                 //change view to athlete result
                                 $location.url("/athleteresult");
                             } else {
-                                alert("results");
                                 Athletes.setAthletes(data);
                                 $scope.reset();
                                 $location.url("/athletesresult");
@@ -157,7 +153,7 @@ angular.module('starter.controllers', [])
                                 //$window.location.reload();
                             } else if (data.message == "TOO_MANY_RESULTS") {
                                 // Let's try some new questions
-                                alert("Too many athletes were found let's add some new questions!");
+                                alert("Too many athletes were found please try to add more details");
                             }
 
                         });
@@ -169,53 +165,12 @@ angular.module('starter.controllers', [])
         })
 
         .controller('AboutCtrl', function($scope, $ionicModal, $timeout) {
-            //TODO
 
-            $ionicModal.fromTemplateUrl('templates/modal-advert.html', {
-                scope: $scope,
-                animation: 'slide-in-up'
-            }).then(function(modal) {
-                $scope.modal = modal;
-                $scope.openModal();
-            });
-            $scope.openModal = function() {
-                $scope.modal.show();
-            };
-            $scope.closeModal = function() {
-                $scope.modal.hide();
-            };
-            //Cleanup the modal when we're done with it!
-            $scope.$on('$destroy', function() {
-                $scope.modal.remove();
-            });
-            $timeout(function() {
-                $scope.closeModal();
-            }, 5000);
         })
 
-        .controller('FavoriteCtrl', function($scope, $ionicModal, $timeout) {
+        .controller('FavoriteCtrl', function($scope) {
             //TODO
 
-            $ionicModal.fromTemplateUrl('templates/modal-advert.html', {
-                scope: $scope,
-                animation: 'slide-in-up'
-            }).then(function(modal) {
-                $scope.modal = modal;
-                $scope.openModal();
-            });
-            $scope.openModal = function() {
-                $scope.modal.show();
-            };
-            $scope.closeModal = function() {
-                $scope.modal.hide();
-            };
-            //Cleanup the modal when we're done with it!
-            $scope.$on('$destroy', function() {
-                $scope.modal.remove();
-            });
-            $timeout(function() {
-                $scope.closeModal();
-            }, 5000);
         })
 
         .controller('PicturesRecognizeCtrl', function($scope, $q, $ionicModal, $timeout, $location, Athlete, Camera, Recognition) {
@@ -247,7 +202,6 @@ angular.module('starter.controllers', [])
                             $scope.closeModal();
                         }, 5000)
                     ]).then(function(data) {
-                        alert(JSON.stringify(data, null, 4));
                         Athlete.setAthlete(data[0][0].athlete);
                         $location.url("/athleteresult");
                     },function(reason){
@@ -262,7 +216,11 @@ angular.module('starter.controllers', [])
                     $scope.imageData = "data:image/jpeg;base64," + image;
                     
                 }, function(reason) {
-                    alert(reason);
+                    if (reason == "Camera cancelled.") {
+                            $location.url("/riohome");
+                        }else{
+                    alert(JSON.stringify(reason, null, 4));
+                        };
                 });
             };
             $scope.takePicture();
@@ -352,15 +310,36 @@ angular.module('starter.controllers', [])
                 $scope.modalCountry = modal;
             }, {
                 scope: $scope,
-                animation: 'slide-in-up',
-                focusFirstInput: true
+                animation: 'slide-in-up'
+                
             });
+            $scope.openModalCountry = function() {
+                $scope.modalCountry.show();
+            };
+            $scope.closeModalCountry = function() {
+                $scope.modalCountry.hide();
+            };
+            //Cleanup the modal when we're done with it!
+            $scope.$on('$destroy', function() {
+                $scope.modalCountry.remove();
+            });
+            
             $ionicModal.fromTemplateUrl('templates/modal-list-sport.html', function(modal) {
                 $scope.modalSport = modal;
             }, {
                 scope: $scope,
                 animation: 'slide-in-up',
                 focusFirstInput: true
+            });
+            $scope.openModalSport = function() {
+                $scope.modalSport.show();
+            };
+            $scope.closeModalSport = function() {
+                $scope.modalSport.hide();
+            };
+            //Cleanup the modal when we're done with it!
+            $scope.$on('$destroy', function() {
+                $scope.modalSport.remove();
             });
         })
 

@@ -15,14 +15,14 @@
     </ion-header-bar>
     <div class="bar-sub-slide-subheader animate-show" ng-show="searchMenuVisible">
         <div class="item-input-inset centrage">
-            <label class="item item-input-wrapper item-icon-right nopad"  style="margin-right: 10px;">
+            <div class="item item-input-wrapper item-icon-right nopad"  style="margin-right: 10px;">
                 <input type="text" placeholder="Country" ng-model="search.country">
-                <i class="button button-icon icon ion-ios7-arrow-down" ng-click="modalCountry.show()" style="margin-top:-6px"></i>
-            </label>
-            <label class="item item-input-wrapper item-icon-right nopad">
-                <i class="button button-icon icon ion-ios7-arrow-down" ng-click="modalSport.show()" style="margin-top:-6px"></i>
+                <i class="button button-icon icon ion-ios7-arrow-down" ng-click="openModalCountry();" style="margin-top:-6px"></i>
+            </div>
+            <div class="item item-input-wrapper item-icon-right nopad">
+                <i class="button button-icon icon ion-ios7-arrow-down" ng-click="openModalSport();" style="margin-top:-6px"></i>
                 <input type="text" placeholder="Sport" ng-model="search.sport">
-            </label>
+            </div>
         </div>
     </div>
     <ion-content has-subheader="true" has-tabs="true" scroll="true" ng-style="hasSubSub">
