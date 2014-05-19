@@ -135,13 +135,11 @@ angular.module('starter.controllers', [])
                 $http.get(url)
                         .success(function(data) {
                             if (data.length == 1) {
-                                alert("result");
                                 Athlete.setAthlete(data[0]);
                                 $scope.reset();
                                 //change view to athlete result
                                 $location.url("/athleteresult");
                             } else {
-                                alert("results");
                                 Athletes.setAthletes(data);
                                 $scope.reset();
                                 $location.url("/athletesresult");
@@ -155,7 +153,7 @@ angular.module('starter.controllers', [])
                                 //$window.location.reload();
                             } else if (data.message == "TOO_MANY_RESULTS") {
                                 // Let's try some new questions
-                                alert("Too many athletes were found let's add some new questions!");
+                                alert("Too many athletes were found please try to add more details");
                             }
 
                         });

@@ -50,9 +50,9 @@ a.item:after, button.item:after{
 }
 
 .centrage{
-  margin-left: auto;
-  margin-right: auto;
-  width: 100%;
+    margin-left: auto;
+    margin-right: auto;
+    width: 100%;
 }
 
 .nopad{
@@ -67,7 +67,9 @@ a.item:after, button.item:after{
 }
 
 .country-name{
-    vertical-align: super;
+    padding-top: 23px;
+    font-weight: bold;
+    font-size: 250%;
 }
 
 .item-select{
@@ -81,4 +83,18 @@ a.item:after, button.item:after{
     width: 100%;
     height: 100%;
     background-color: rgba(0, 100, 100, 0.5);
+}
+
+.caracteristic-title{
+    color: $assertive;
+    font-weight: bold;
+}
+
+.caracteristic-value{
+    margin-left: 10px;
+}
+
+.row + .row {
+margin-top: 0px;
+padding-top: 5px;
 }

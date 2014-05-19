@@ -5925,8 +5925,8 @@ a.button {
   width: 100%; }
 
 .row + .row {
-  margin-top: -5px;
-  padding-top: 0; }
+  /* margin-top: -5px; */
+  /* padding-top: 0; */ }
 
 .col {
   -webkit-box-flex: 1;
