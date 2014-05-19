@@ -55,15 +55,13 @@ angular.module('starter.controllers', [])
                 $scope.modalSport = modal;
             }, {
                 scope: $scope,
-                animation: 'slide-in-up',
-                focusFirstInput: true
+                animation: 'slide-in-up'
             });
             $ionicModal.fromTemplateUrl('templates/modal-list-country.html', function(modal) {
                 $scope.modalCountry = modal;
             }, {
                 scope: $scope,
-                animation: 'slide-in-up',
-                focusFirstInput: true
+                animation: 'slide-in-up'
             });
             $scope.reset = function() {
                 $scope.form.gender = null;
@@ -170,27 +168,25 @@ angular.module('starter.controllers', [])
 
         .controller('AboutCtrl', function($scope, $ionicModal, $timeout) {
             //TODO
-
-            $ionicModal.fromTemplateUrl('templates/modal-advert.html', {
+            $ionicModal.fromTemplateUrl('templates/modal-list-country.html', function(modal) {
+                $scope.modalCountry = modal;
+            }, {
                 scope: $scope,
                 animation: 'slide-in-up'
-            }).then(function(modal) {
-                $scope.modal = modal;
-                $scope.openModal();
+                
             });
+            
+
             $scope.openModal = function() {
-                $scope.modal.show();
+                $scope.modalCountry.show();
             };
             $scope.closeModal = function() {
-                $scope.modal.hide();
+                $scope.modalCountry.hide();
             };
             //Cleanup the modal when we're done with it!
             $scope.$on('$destroy', function() {
-                $scope.modal.remove();
+                $scope.modalCountry.remove();
             });
-            $timeout(function() {
-                $scope.closeModal();
-            }, 5000);
         })
 
         .controller('FavoriteCtrl', function($scope, $ionicModal, $timeout) {
@@ -247,7 +243,6 @@ angular.module('starter.controllers', [])
                             $scope.closeModal();
                         }, 5000)
                     ]).then(function(data) {
-                        alert(JSON.stringify(data, null, 4));
                         Athlete.setAthlete(data[0][0].athlete);
                         $location.url("/athleteresult");
                     },function(reason){
@@ -262,7 +257,7 @@ angular.module('starter.controllers', [])
                     $scope.imageData = "data:image/jpeg;base64," + image;
                     
                 }, function(reason) {
-                    alert(reason);
+                    alert("reason");
                 });
             };
             $scope.takePicture();
@@ -352,15 +347,36 @@ angular.module('starter.controllers', [])
                 $scope.modalCountry = modal;
             }, {
                 scope: $scope,
-                animation: 'slide-in-up',
-                focusFirstInput: true
+                animation: 'slide-in-up'
+                
             });
+            $scope.openModalCountry = function() {
+                $scope.modalCountry.show();
+            };
+            $scope.closeModalCountry = function() {
+                $scope.modalCountry.hide();
+            };
+            //Cleanup the modal when we're done with it!
+            $scope.$on('$destroy', function() {
+                $scope.modalCountry.remove();
+            });
+            
             $ionicModal.fromTemplateUrl('templates/modal-list-sport.html', function(modal) {
                 $scope.modalSport = modal;
             }, {
                 scope: $scope,
                 animation: 'slide-in-up',
                 focusFirstInput: true
+            });
+            $scope.openModalSport = function() {
+                $scope.modalSport.show();
+            };
+            $scope.closeModalSport = function() {
+                $scope.modalSport.hide();
+            };
+            //Cleanup the modal when we're done with it!
+            $scope.$on('$destroy', function() {
+                $scope.modalSport.remove();
             });
         })
 

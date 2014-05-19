@@ -7,14 +7,14 @@
                 <!-- Question 1 -->
                 <div class="item item-divider">Is your athlete a men or a women?</div>
                 <label class="item item-radio">
-                    <input type="radio" name="gender" data-ng-model="form.gender" value="M" ng-click="menOrWomen('M')">
+                    <input type="radio" name="gender" data-ng-model="form.gender" value="M" ng-click="menOrWomen('M')" required>
                     <div class="item-content">
                         Male
                     </div>
                     <i class="radio-icon ion-checkmark"></i>
                 </label>
                 <label class="item item-radio">
-                    <input type="radio" name="gender" data-ng-model="form.gender" value="F" ng-click="menOrWomen('F')">
+                    <input type="radio" name="gender" data-ng-model="form.gender" value="F" ng-click="menOrWomen('F')" required>
                     <div class="item-content">
                         Female
                     </div>
@@ -24,14 +24,14 @@
                 <!-- Question 2 -->
                 <div class="item item-divider">Is {{pronom.perso}} competing right now?</div>
                 <label class="item item-radio">
-                    <input type="radio" name="racing" data-ng-model="form.racing" value="true">
+                    <input type="radio" name="racing" data-ng-model="form.racing" value="true" required>
                     <div class="item-content">
                         Yes
                     </div>
                     <i class="radio-icon ion-checkmark"></i>
                 </label>
                 <label class="item item-radio">
-                    <input type="radio" name="racing" data-ng-model="form.racing" value="false">
+                    <input type="radio" name="racing" data-ng-model="form.racing" value="false" required>
                     <div class="item-content">
                         No
                     </div>
@@ -95,7 +95,7 @@
                 <div class="item item-divider">Move the range to {{pronom.posse}} approximate hair's length</div>
                 <div class="range">
                     Bald/Shaved
-                    <input type="range" name="hairlength" min="0" max="6" value="3" data-ng-model="form.hair_length">
+                    <input type="range" name="hairlength" min="0" max="6" data-ng-model="form.hair_length">
                     Long
                 </div>
 
@@ -120,7 +120,7 @@
 
                 <div class="range">
                     Skinny
-                    <input type="range" name="fit" min="0" max="6" value="3" data-ng-model="form.fit">
+                    <input type="range" name="fit" min="0" max="6" data-ng-model="form.fit">
                     Corpulent
                 </div>
 
@@ -129,7 +129,7 @@
 
                 <div class="range">
                     Small ( < 1m50)
-                    <input type="range" name="heigth" min="0" max="6" value="3" data-ng-model="form.heigth">
+                    <input type="range" name="heigth" min="0" max="6" data-ng-model="form.heigth">
                     Tall ( > 2m00)
                 </div>
 
