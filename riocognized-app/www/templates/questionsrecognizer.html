@@ -1,4 +1,9 @@
-<ion-view title="Question {{question.id}}">
+<ion-view title="Questions">
+    <ion-nav-buttons side="right">
+      <button class="button button-clear" ng-click="reset()">
+        Clear
+      </button>
+    </ion-nav-buttons>
     <ion-content has-header="true" has-tabs="true">
         <form ng-submit="recognize(questions)">
             <div id="messages" class="alert alert-success" data-ng-show="messages" data-ng-bind="messages"></div>
