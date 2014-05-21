@@ -118,17 +118,14 @@ angular.module('starter.services', [])
                 .factory('Reader', function($rootScope) {
 
                     function gotFS(fileSystem) {
-                        alert("gotFS");
-                        fileSystem.root.getFile("history.json", null, gotFileEntry, fail);
+                        fileSystem.root.getFile("history.json", {create: true, exclusive: false}, gotFileEntry, fail);
                     }
 
                     function gotFileEntry(fileEntry) {
-                        alert("got FileEntry");
                         fileEntry.file(gotFile, fail);
                     }
 
                     function gotFile(file) {
-                        alert("got File");
                         readAsText(file);
                     }
 
@@ -137,7 +134,6 @@ angular.module('starter.services', [])
                         var reader = new FileReader();
                         reader.onloadend = function(evt) {
                             $rootScope.history = JSON.parse(evt.target.result);
-                            alert("history : " + $rootScope.history);
                         };
                         reader.readAsText(file);
                     }
@@ -149,7 +145,6 @@ angular.module('starter.services', [])
 
                     return {
                         getJSON: function() {
-                            alert("getJson");
                             window.requestFileSystem(LocalFileSystem.PERSISTENT, 0, gotFS, fail);
                             return;
                         }

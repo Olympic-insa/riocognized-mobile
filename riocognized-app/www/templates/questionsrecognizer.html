@@ -5,7 +5,7 @@
       </button>
     </ion-nav-buttons>
     <ion-content has-header="true" has-tabs="true">
-        <form ng-submit="recognize(questions)">
+        <form ng-submit="recognize()">
             <div id="messages" class="alert alert-success" data-ng-show="messages" data-ng-bind="messages"></div>
             <div class="list">
 
@@ -29,14 +29,14 @@
                 <!-- Question 2 -->
                 <div class="item item-divider">Is {{pronom.perso}} competing right now?</div>
                 <label class="item item-radio">
-                    <input type="radio" name="racing" data-ng-model="form.racing" value="true" required>
+                    <input type="radio" name="racing" data-ng-model="form.racing" value="true">
                     <div class="item-content">
                         Yes
                     </div>
                     <i class="radio-icon ion-checkmark"></i>
                 </label>
                 <label class="item item-radio">
-                    <input type="radio" name="racing" data-ng-model="form.racing" value="false" required>
+                    <input type="radio" name="racing" data-ng-model="form.racing" value="false">
                     <div class="item-content">
                         No
                     </div>

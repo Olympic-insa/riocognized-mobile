@@ -99,6 +99,7 @@ angular.module('starter.controllers', [])
             };
             $scope.startWatchingPosition();
             $scope.recognize = function() {
+                alert("recognize");
                 var url = "http://olympic-insa.fr.nf:8083/api/athletes";
                 url = url + "?gender=" + $scope.form.gender;
                 url = url + "&racing=" + $scope.form.racing;
@@ -107,53 +108,47 @@ angular.module('starter.controllers', [])
                     //console.log($scope.currentPosition);
                     url = url + "&gps=" + $scope.currentPosition.coords.latitude + "," + $scope.currentPosition.coords.longitude;
                 }
-                ;
                 if ($scope.search.sport != null) {
                     url = url + "&sport=" + $scope.search.sport;
                 }
-                ;
                 if ($scope.form.bib != null) {
                     url = url + "&bib=" + $scope.form.bib;
                 }
-                ;
                 if ($scope.search.country != null) {
                     url = url + "&country=" + $scope.search.country;
                 }
-                ;
                 if ($scope.form.race_suit != null) {
                     url = url + "&race_suit=" + $scope.form.race_suit.toLowerCase();
                 }
-                ;
                 if ($scope.form.skin_color != null) {
                     url = url + "&skin_color=" + $scope.form.skin_color.toLowerCase();
                 }
-                ;
                 if ($scope.form.hair_length != null) {
                     url = url + "&hair_length=" + $scope.form.hair_length;
                 }
-                ;
                 if ($scope.form.hair_color != null) {
                     url = url + "&hair_color=" + $scope.form.hair_color.toLowerCase();
                 }
-                ;
                 if ($scope.form.fit != null) {
 
                     url = url + "&fit=" + $scope.form.fit;
                 }
-                ;
                 if ($scope.form.heigth != null) {
 
                     url = url + "&heigth=" + $scope.form.heigth;
                 }
-                ;
+                
                 $http.get(url)
                         .success(function(data) {
                             if (data.length == 1) {
+                                var athlete = data[0];
                                 Athlete.setAthlete(data[0]);
-
-                                $rootScope.history.push(data[0]);
+                                athlete.type="question";
+                                var tab_mois=new Array("January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December");
+                                var date = new Date();
+                                athlete.date= date.getDate() + " " + tab_mois[date.getMonth()] + " " + date.getFullYear();
+                                $rootScope.history.push(athlete);
                                 Writer.writeJSON($rootScope.history);
-
                                 $scope.reset();
                                 //change view to athlete result
                                 $location.url("/athleteresult");
