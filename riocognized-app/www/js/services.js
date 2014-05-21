@@ -79,7 +79,7 @@ angular.module('starter.services', [])
                         },
                         recognize: function(url) {
                             var deferred = $q.defer();
-                            $http.get("http://lynxlabs.fr.nf:8083/recognition/api/recognize?url="+url)
+                            $http.get("http://lynxlabs.fr.nf:8083/recognition/api/recognize?url=" + url)
                                     .success(function(response) {
                                         deferred.resolve(response);
                                     })
@@ -113,7 +113,75 @@ angular.module('starter.services', [])
                             Athletes = athletes;
                             return;
                         }
+                    };
+                })
+                .factory('Reader', function($rootScope) {
+
+                    function gotFS(fileSystem) {
+                        alert("gotFS");
+                        fileSystem.root.getFile("history.json", null, gotFileEntry, fail);
                     }
+
+                    function gotFileEntry(fileEntry) {
+                        alert("got FileEntry");
+                        fileEntry.file(gotFile, fail);
+                    }
+
+                    function gotFile(file) {
+                        alert("got File");
+                        readAsText(file);
+                    }
+
+
+                    function readAsText(file) {
+                        var reader = new FileReader();
+                        reader.onloadend = function(evt) {
+                            $rootScope.history = JSON.parse(evt.target.result);
+                            alert("history : " + $rootScope.history);
+                        };
+                        reader.readAsText(file);
+                    }
+
+                    function fail(evt) {
+                        alert("Fail " +evt.target.error.code);
+                    }
+
+
+                    return {
+                        getJSON: function() {
+                            alert("getJson");
+                            window.requestFileSystem(LocalFileSystem.PERSISTENT, 0, gotFS, fail);
+                            return;
+                        }
+                    };
+                })
+                .factory('Writer', function() {
+                    var JsonToWrite = "{[]}";
+
+                    function gotFS(fileSystem) {
+                        fileSystem.root.getFile("history.json", {create: true, exclusive: false}, gotFileEntry, fail);
+                    }
+                    
+                    function gotFileEntry(fileEntry) {
+                        fileEntry.createWriter(gotFileWriter, fail);
+                    }
+
+                    function gotFileWriter(writer) {
+                        
+                        writer.write(JsonToWrite);
+                        alert("Write is done");
+                    }
+
+                    function fail(error) {
+                        alert("Can't write " +error.code);
+                    }
+                    return {
+                        writeJSON: function(jsonToWrite) {
+                            JsonToWrite = JSON.stringify(jsonToWrite);
+                            window.requestFileSystem(LocalFileSystem.PERSISTENT, 0, gotFS, fail);
+                            return ;
+                        }
+                    };
                 })
                 .factory('Geolocation', function($rootScope) {
                     return {

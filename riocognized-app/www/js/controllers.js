@@ -14,18 +14,22 @@ angular.module('starter.controllers', [])
             //TODO
         })
 
-        .controller('RioHomeCtrl', function($scope) {
-            //TODO
+        .controller('RioHomeCtrl', function($rootScope, $scope, Reader, $ionicPlatform) {
+            $rootScope.history = [];
+            $ionicPlatform.ready(function() {
+                Reader.getJSON();
+            });
+
         })
 
-        .controller('QuestionsCtrl', function($scope, $http, $ionicModal, $window, $location, Geolocation, Athlete, Athletes) {
+        .controller('QuestionsCtrl', function($rootScope, $scope, $http, $ionicModal, $window, $location, Geolocation, Athlete, Athletes, Writer) {
             $scope.search = {};
             // we will store our form data in this object
             $scope.form = {};
             $scope.currentPosition = null;
             $scope.sportSelected = false;
             $scope.countrySelected = false;
-            $scope.pronom = {}
+            $scope.pronom = {};
             $scope.pronom.perso = "he/she";
             $scope.pronom.posse = "his/her";
             $scope.menOrWomen = function(value) {
@@ -36,21 +40,21 @@ angular.module('starter.controllers', [])
                     $scope.pronom.perso = "she";
                     $scope.pronom.posse = "her";
                 }
-            }
+            };
             $scope.showBibQuestion = function(value) {
                 if (value != "") {
                     $scope.sportSelected = true;
                 } else {
                     $scope.sportSelected = false;
                 }
-            }
+            };
             $scope.showSuitQuestion = function(value) {
                 if (value != "") {
                     $scope.countrySelected = true;
                 } else {
                     $scope.countrySelected = false;
                 }
-            }
+            };
             $ionicModal.fromTemplateUrl('templates/modal-list-sport.html', function(modal) {
                 $scope.modalSport = modal;
             }, {
@@ -103,39 +107,53 @@ angular.module('starter.controllers', [])
                     //console.log($scope.currentPosition);
                     url = url + "&gps=" + $scope.currentPosition.coords.latitude + "," + $scope.currentPosition.coords.longitude;
                 }
+                ;
                 if ($scope.search.sport != null) {
                     url = url + "&sport=" + $scope.search.sport;
                 }
+                ;
                 if ($scope.form.bib != null) {
                     url = url + "&bib=" + $scope.form.bib;
                 }
+                ;
                 if ($scope.search.country != null) {
                     url = url + "&country=" + $scope.search.country;
                 }
+                ;
                 if ($scope.form.race_suit != null) {
                     url = url + "&race_suit=" + $scope.form.race_suit.toLowerCase();
                 }
+                ;
                 if ($scope.form.skin_color != null) {
                     url = url + "&skin_color=" + $scope.form.skin_color.toLowerCase();
                 }
+                ;
                 if ($scope.form.hair_length != null) {
                     url = url + "&hair_length=" + $scope.form.hair_length;
                 }
+                ;
                 if ($scope.form.hair_color != null) {
                     url = url + "&hair_color=" + $scope.form.hair_color.toLowerCase();
                 }
+                ;
                 if ($scope.form.fit != null) {
 
                     url = url + "&fit=" + $scope.form.fit;
                 }
+                ;
                 if ($scope.form.heigth != null) {
 
                     url = url + "&heigth=" + $scope.form.heigth;
                 }
+                ;
                 $http.get(url)
                         .success(function(data) {
                             if (data.length == 1) {
                                 Athlete.setAthlete(data[0]);
+
+                                $rootScope.history.push(data[0]);
+                                Writer.writeJSON($rootScope.history);
+
                                 $scope.reset();
                                 //change view to athlete result
                                 $location.url("/athleteresult");
@@ -164,8 +182,7 @@ angular.module('starter.controllers', [])
             //TODO
         })
 
-        .controller('AboutCtrl', function($scope, $ionicModal, $timeout) {
-
+        .controller('AboutCtrl', function($rootScope, $scope, $ionicModal, $timeout, Reader, Writer) {
         })
 
         .controller('FavoriteCtrl', function($scope) {
@@ -173,7 +190,7 @@ angular.module('starter.controllers', [])
 
         })
 
-        .controller('PicturesRecognizeCtrl', function($scope, $q, $ionicModal, $timeout, $location, Athlete, Camera, Recognition) {
+        .controller('PicturesRecognizeCtrl', function($rootScope, $scope, $q, $ionicModal, $timeout, $location, Athlete, Camera, Recognition, Writer) {
             $ionicModal.fromTemplateUrl('templates/modal-advert.html', {
                 scope: $scope,
                 animation: 'slide-in-up'
@@ -203,8 +220,10 @@ angular.module('starter.controllers', [])
                         }, 5000)
                     ]).then(function(data) {
                         Athlete.setAthlete(data[0][0].athlete);
+                        $rootScope.history.push(data[0][0].athlete);
+                        Writer.writeJSON($rootScope.history);
                         $location.url("/athleteresult");
-                    },function(reason){
+                    }, function(reason) {
                         if (reason.message == "INVALID_OR_EMPTY_CONTENT") {
                             alert("No Athlete recognized, try again!");
                         } else {
@@ -214,13 +233,14 @@ angular.module('starter.controllers', [])
                     });
                     // Angular promise
                     $scope.imageData = "data:image/jpeg;base64," + image;
-                    
+
                 }, function(reason) {
                     if (reason == "Camera cancelled.") {
-                            $location.url("/riohome");
-                        }else{
-                    alert(JSON.stringify(reason, null, 4));
-                        };
+                        $location.url("/riohome");
+                    } else {
+                        alert(JSON.stringify(reason, null, 4));
+                    }
+                    ;
                 });
             };
             $scope.takePicture();
@@ -311,7 +331,7 @@ angular.module('starter.controllers', [])
             }, {
                 scope: $scope,
                 animation: 'slide-in-up'
-                
+
             });
             $scope.openModalCountry = function() {
                 $scope.modalCountry.show();
@@ -323,7 +343,7 @@ angular.module('starter.controllers', [])
             $scope.$on('$destroy', function() {
                 $scope.modalCountry.remove();
             });
-            
+
             $ionicModal.fromTemplateUrl('templates/modal-list-sport.html', function(modal) {
                 $scope.modalSport = modal;
             }, {
@@ -354,6 +374,8 @@ angular.module('starter.controllers', [])
                 $scope.modalCountry.hide();
             };
         })
+
+
 
         .controller('ModalCtrlSport', function($scope, $http) {
             $http.get('http://olympic-insa.fr.nf:8083/api/sports').success(function(data) {

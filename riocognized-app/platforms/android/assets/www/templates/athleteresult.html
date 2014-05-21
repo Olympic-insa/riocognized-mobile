@@ -7,19 +7,22 @@
           <div class="col">
               <h3>{{athlete.name}} {{athlete.surname}}</h3>
               <div class ="row">
-                  <div class="col"><img ng-src="img/png-country-squared-flat-res-72x72/{{athlete.country.id}}.PNG"></div>
-                  <div class="col country-name">{{athlete.country.name}}</div>
+                  <div><img ng-src="img/png-country-squared-flat-res-72x72/{{athlete.country.id}}.PNG"></div>
+                  <div class="country-name caracteristic-value">{{athlete.country.name}}</div>
               </div>
               <div class ="row">
-                  <div class="col">Sport : </div>
-                  <div class="col">{{athlete.sport.id}}</div>
+                  <div class="caracteristic-title" >Sport : </div>
+                  <div class="caracteristic-value">{{athlete.sport.id}}</div>
               </div>
               <div class ="row">
-                  <div class="col">Age : </div>
-                  <div class="col">{{athlete.age}}</div>
+                  <div class="caracteristic-title">Age : </div>
+                  <div class="caracteristic-value">{{athlete.age}}</div>
+              </div>
+              <div class = "row description">
+                  <p>{{ athlete.content }}</p>
               </div>
           </div>
       </div>
-    <p>{{ athlete.content }}</p>
+    
   </ion-content>
 </ion-view>

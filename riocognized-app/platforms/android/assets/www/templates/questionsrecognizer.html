@@ -58,10 +58,10 @@
 
                 <!-- Question 5 -->
                 <div class="item item-divider">Where does {{pronom.perso}} come from?</div>
-                <label class="item item-icon-right nopad">
+                <div class="item item-icon-right nopad">
                     <input type="text" placeholder="Country" ng-model="search.country" ng-change="showSuitQuestion(value)">
                     <i class="button button-icon icon ion-ios7-arrow-down" ng-click="modalCountry.show();" style="margin-top:-6px"></i>
-                </label>
+                </div>
                 <!-- Question 6 -->
                 <div class="item item-divider" ng-hide="countrySelected">What color is {{pronom.posse}} track suit or racing suit ?</div>
                 <div class="item item-input item-select"ng-hide="countrySelected">

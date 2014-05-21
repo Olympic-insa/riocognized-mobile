@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8" standalone="no"?>
 <widget xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0" id="com.coolappz.riocognized_app" version="1.0.0">
-    <name>riocognized_app</name>
+    <name>Riocognized</name>
     <description>Cordova Application</description>
-    <author email="info@com.coolappz" href="http://www.coolappz.com">clement</author>
+    <author email="clement.fmy@gmail.com" href="http://www.lynxlabs.fr.nf">clement</author>
     <access origin="*"/>
     <preference name="fullscreen" value="true"/>
     <preference name="webviewbounce" value="true"/>
