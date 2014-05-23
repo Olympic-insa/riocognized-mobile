@@ -164,7 +164,6 @@ angular.module('starter.services', [])
                     function gotFileWriter(writer) {
                         
                         writer.write(JsonToWrite);
-                        alert("Write is done");
                     }
 
                     function fail(error) {

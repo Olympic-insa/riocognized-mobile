@@ -1,28 +1,31 @@
 <ion-view title='{{athlete.name}} {{athlete.surname}}'>
   <ion-content has-header="true" padding="true" class="has-header">
-      <div class ="row">
-          <div class="col col-33">
-              <img ng-src="{{athlete.image_url}}" style="max-width: 100%">
-          </div>
-          <div class="col">
-              <h3>{{athlete.name}} {{athlete.surname}}</h3>
-              <div class ="row">
-                  <div><img ng-src="img/png-country-squared-flat-res-72x72/{{athlete.country.id}}.PNG"></div>
-                  <div class="country-name caracteristic-value">{{athlete.country.name}}</div>
-              </div>
-              <div class ="row">
-                  <div class="caracteristic-title" >Sport : </div>
-                  <div class="caracteristic-value">{{athlete.sport.id}}</div>
-              </div>
-              <div class ="row">
-                  <div class="caracteristic-title">Age : </div>
-                  <div class="caracteristic-value">{{athlete.age}}</div>
-              </div>
-              <div class = "row description">
-                  <p>{{ athlete.content }}</p>
-              </div>
-          </div>
-      </div>
+        <div class ="row responsive-sd">
+            <div class="col col-50" ng-show="switchtrue">
+                <img ng-src="{{athlete.image_url}}" style="max-width: 100%">
+            </div>
+            <div class="col col-50" style="position: relative;" ng-hide="switchtrue">
+                <img ng-src="{{athlete.picture}}" style="max-width: 100%" adjustimg>
+            </div>
+            <div class="col">
+                <h3>{{athlete.name}} {{athlete.surname}}</h3>
+                <div class ="row">
+                    <div><img ng-src="img/png-country-squared-flat-res-72x72/{{athlete.country.id}}.PNG"></div>
+                    <div class="country-name caracteristic-value">{{athlete.country.name}}</div>
+                </div>
+                <div class ="row">
+                    <div class="caracteristic-title" >Sport</div>
+                    <div class="caracteristic-value">{{athlete.sport.id}}</div>
+                </div>
+                <div class ="row">
+                    <div class="caracteristic-title">Age </div>
+                    <div class="caracteristic-value">{{athlete.age}}</div>
+                </div>
+            </div>
+        </div>
+        <div class = "row description">
+            <p>{{ athlete.content}}</p>
+        </div>
     
   </ion-content>
 </ion-view>

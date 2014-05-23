@@ -7294,7 +7294,7 @@ a.item:after, button.item:after {
 .country-name {
   padding-top: 23px;
   font-weight: bold;
-  font-size: 250%; }
+  font-size: 200%; }
 
 .item-select {
   background-color: white; }
@@ -7312,10 +7312,15 @@ a.item:after, button.item:after {
   font-weight: bold; }
 
 .caracteristic-value {
-  margin-left: 10px; }
+  margin-left: 10px;
+  font-weight: bold; }
 
 .row + .row {
   margin-top: 0px;
   padding-top: 5px; }
+
+.typepicture {
+  border-color: #ebc3bd;
+  background-color: #f5dedb; }
 
 /*# sourceMappingURL=app.css.map */

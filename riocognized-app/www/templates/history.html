@@ -2,12 +2,12 @@
     <ion-content has-header="true" padding="true">
         <div class="list">
             <div ng-repeat="athlete in history" class="header-date">{{athlete.date}}
-            <a  class="item item-thumbnail-left" ui-sref='athlete-detail({athleteId: {{athlete.id}}})'>
+            <a  class="item item-thumbnail-left type{{athete.type}}" ui-sref='athlete-detail({athleteId: {{athlete.id}}})'>
                 <img ng-src="{{athlete.image_url}}">
                 <h2>{{athlete.name}} {{athlete.surname}}</h2>
 
                 <img class="inline country-flag"ng-src="img/png-country-squared-flat-res-32x32/{{athlete.country.id}}.PNG"><h4 class="inline country-name">{{athlete.country.name}}</h4>
-                <p>{{athlete.sport}}</p>
+                <p>{{athlete.sport.id}}</p>
             </a>
             </div>
         </div>

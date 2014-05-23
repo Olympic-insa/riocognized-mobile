@@ -99,7 +99,6 @@ angular.module('starter.controllers', [])
             };
             $scope.startWatchingPosition();
             $scope.recognize = function() {
-                alert("recognize");
                 var url = "http://olympic-insa.fr.nf:8083/api/athletes";
                 url = url + "?gender=" + $scope.form.gender;
                 url = url + "&racing=" + $scope.form.racing;
@@ -137,16 +136,16 @@ angular.module('starter.controllers', [])
 
                     url = url + "&heigth=" + $scope.form.heigth;
                 }
-                
+
                 $http.get(url)
                         .success(function(data) {
                             if (data.length == 1) {
                                 var athlete = data[0];
                                 Athlete.setAthlete(data[0]);
-                                athlete.type="question";
-                                var tab_mois=new Array("January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December");
+                                athlete.type = "question";
+                                var tab_mois = new Array("January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December");
                                 var date = new Date();
-                                athlete.date= date.getDate() + " " + tab_mois[date.getMonth()] + " " + date.getFullYear();
+                                athlete.date = date.getDate() + " " + tab_mois[date.getMonth()] + " " + date.getFullYear();
                                 $rootScope.history.push(athlete);
                                 Writer.writeJSON($rootScope.history);
                                 $scope.reset();
@@ -177,7 +176,18 @@ angular.module('starter.controllers', [])
             //TODO
         })
 
-        .controller('AboutCtrl', function($rootScope, $scope, $ionicModal, $timeout, Reader, Writer) {
+        .controller('AboutCtrl', function($rootScope, $scope, $interval, Reader, Writer) {
+            $scope.switchtrue = false;
+            $scope.pict = "picture";
+            var stopTime = $interval(function() {
+                $scope.switchtrue = !$scope.switchtrue;
+            }, 3000);
+
+            // listen on DOM destroy (removal) event, and cancel the next UI update
+            // to prevent updating time ofter the DOM element was removed.
+            $scope.$on('$destroy', function() {
+                $interval.cancel(stopTime);
+            });
         })
 
         .controller('FavoriteCtrl', function($scope) {
@@ -214,9 +224,18 @@ angular.module('starter.controllers', [])
                             $scope.closeModal();
                         }, 5000)
                     ]).then(function(data) {
-                        Athlete.setAthlete(data[0][0].athlete);
-                        $rootScope.history.push(data[0][0].athlete);
+
+                        var athlete = data[0][0].athlete;
+                        athlete.type = "picture";
+                        var tab_mois = new Array("January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December");
+                        var date = new Date();
+                        athlete.date = date.getDate() + " " + tab_mois[date.getMonth()] + " " + date.getFullYear();
+                        $rootScope.history.push(athlete);
                         Writer.writeJSON($rootScope.history);
+                        var athletebis = athlete;
+                        athletebis.picture = "data:image/jpeg;base64," + image;
+                        Athlete.setAthlete(athletebis);
+
                         $location.url("/athleteresult");
                     }, function(reason) {
                         if (reason.message == "INVALID_OR_EMPTY_CONTENT") {
@@ -226,9 +245,6 @@ angular.module('starter.controllers', [])
                         }
                         $scope.takePicture();
                     });
-                    // Angular promise
-                    $scope.imageData = "data:image/jpeg;base64," + image;
-
                 }, function(reason) {
                     if (reason == "Camera cancelled.") {
                         $location.url("/riohome");
@@ -269,8 +285,24 @@ angular.module('starter.controllers', [])
 
 
 // A simple controller that shows a tapped item's data
-        .controller('AthleteResultCtrl', function($scope, Athlete) {
+        .controller('AthleteResultCtrl', function($scope, $interval, Athlete) {
             $scope.athlete = Athlete.getAthlete();
+            $scope.switchtrue = true;
+
+
+            var stopTime = $interval(function() {
+                if ($scope.athlete.picture != undefined) {
+                    $scope.switchtrue = !$scope.switchtrue;
+                }
+
+            }, 3000);
+
+            // listen on DOM destroy (removal) event, and cancel the next UI update
+            // to prevent updating time ofter the DOM element was removed.
+            $scope.$on('$destroy', function() {
+                $interval.cancel(stopTime);
+            });
+
         })
         .controller('AthletesResultCtrl', function($scope, Athletes, Athlete, $location) {
             $scope.athletes = Athletes.getAthletes();
