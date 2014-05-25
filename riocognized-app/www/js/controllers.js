@@ -150,11 +150,12 @@ angular.module('starter.controllers', [])
                                 Writer.writeJSON($rootScope.history);
                                 $scope.reset();
                                 //change view to athlete result
-                                $location.url("/athleteresult");
+                                $location.url("/menu/athleteresult");
                             } else {
+                                alert
                                 Athletes.setAthletes(data);
                                 $scope.reset();
-                                $location.url("/athletesresult");
+                                $location.url("/menu/athletesresult");
                             }
                         })
                         .error(function(data, status) {
@@ -236,7 +237,7 @@ angular.module('starter.controllers', [])
                         athletebis.picture = "data:image/jpeg;base64," + image;
                         Athlete.setAthlete(athletebis);
 
-                        $location.url("/athleteresult");
+                        $location.url("/menu/athleteresult");
                     }, function(reason) {
                         if (reason.message == "INVALID_OR_EMPTY_CONTENT") {
                             alert("No Athlete recognized, try again!");
@@ -247,7 +248,7 @@ angular.module('starter.controllers', [])
                     });
                 }, function(reason) {
                     if (reason == "Camera cancelled.") {
-                        $location.url("/riohome");
+                        $location.url("menu/tabs/riohome");
                     } else {
                         alert(JSON.stringify(reason, null, 4));
                     }
@@ -308,7 +309,7 @@ angular.module('starter.controllers', [])
             $scope.athletes = Athletes.getAthletes();
             $scope.athleteView = function(athlete) {
                 Athlete.setAthlete(athlete);
-                $location.url("/athleteresult");
+                $location.url("/menu/athleteresult");
             };
         })
         .controller('AthleteDetailCtrl', function($scope, $stateParams, $http) {

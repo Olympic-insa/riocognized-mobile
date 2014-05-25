@@ -20,15 +20,21 @@ angular.module('starter', ['ionic', 'starter.services', 'starter.controllers', '
             // Set up the various states which the app can be in.
             // Each state's controller can be found in controllers.js
             $stateProvider
-
+            
+                    .state('menu', {
+                        url: "/menu",
+                        abstract: true,
+                        templateUrl: "templates/menu.html"
+                    })
+                    
                     // setup an abstract state for the tabs directive
-                    .state('tab', {
+                    .state('menu.tab', {
                         url: "/tab",
                         abstract: true,
                         templateUrl: "templates/tabs.html"
                     })
                     // History tab
-                    .state('tab.history', {
+                    .state('menu.tab.history', {
                         url: '/history',
                         views: {
                             'history-tab': {
@@ -38,7 +44,7 @@ angular.module('starter', ['ionic', 'starter.services', 'starter.controllers', '
                         }
                     })
                     // RioHome tab
-                    .state('tab.home', {
+                    .state('menu.tab.home', {
                         url: '/riohome',
                         views: {
                             'home-tab': {
@@ -48,7 +54,7 @@ angular.module('starter', ['ionic', 'starter.services', 'starter.controllers', '
                         }
                     })
                     // Picture tab
-                    .state('tab.recognize', {
+                    .state('menu.tab.recognize', {
                         url: '/picturesrecognizer',
                         views: {
                             'recognize-tab': {
@@ -58,56 +64,56 @@ angular.module('starter', ['ionic', 'starter.services', 'starter.controllers', '
                         }
                     })
 
-                    .state('favorite', {
+                    .state('menu.favorite', {
                         url: '/favorite',
                         templateUrl: 'templates/favorite.html',
                         controller: 'FavoriteCtrl'
 
                     })
 
-                    .state('about', {
+                    .state('menu.about', {
                         url: '/about',
                         templateUrl: 'templates/about.html',
                         controller: 'AboutCtrl'
 
                     })
 
-                    .state('athletes-index', {
+                    .state('menu.athletes-index', {
                         url: '/athletes',
                         templateUrl: 'templates/athlete-index.html',
                         controller: 'AthleteIndexCtrl'
                     })
 
-                    .state('parameters', {
+                    .state('menu.parameters', {
                         url: '/parameters',
                         templateUrl: 'templates/parameters.html',
                         controller: 'ParametersCtrl'
                     })
 
-                    .state('questionrecognize', {
+                    .state('menu.questionrecognize', {
                         url: '/questionrecognize',
                         templateUrl: 'templates/questionsrecognizer.html',
                         controller: 'QuestionsCtrl'
                     })
 
-                    .state('athlete-detail', {
+                    .state('menu.athlete-detail', {
                         url: '/athlete/:athleteId',
                         templateUrl: 'templates/athlete-detail.html',
                         controller: 'AthleteDetailCtrl'
                     })
-                    .state('athlete-result', {
+                    .state('menu.athlete-result', {
                         url: '/athleteresult',
                         templateUrl: 'templates/athleteresult.html',
                         controller: 'AthleteResultCtrl'
                     })
-                    .state('athletes-result', {
+                    .state('menu.athletes-result', {
                         url: '/athletesresult',
                         templateUrl: 'templates/athletesresult.html',
                         controller: 'AthletesResultCtrl'
                     });
 
             // if none of the above states are matched, use this as the fallback
-            $urlRouterProvider.otherwise('/tab/riohome');
+            $urlRouterProvider.otherwise('/menu/tab/riohome');
 
         });
 
