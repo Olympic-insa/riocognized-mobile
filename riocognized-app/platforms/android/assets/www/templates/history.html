@@ -2,7 +2,7 @@
     <ion-content has-header="true" padding="true">
         <div class="list">
             <div ng-repeat="athlete in history" class="header-date">{{athlete.date}}
-            <a  class="item item-thumbnail-left type{{athete.type}}" ui-sref='athlete-detail({athleteId: {{athlete.id}}})'>
+            <a  class="item item-thumbnail-left type{{athete.type}}" ui-sref='menu.athlete-detail({athleteId: {{athlete.id}}})'>
                 <img ng-src="{{athlete.image_url}}">
                 <h2>{{athlete.name}} {{athlete.surname}}</h2>
 

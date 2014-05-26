@@ -106,3 +106,11 @@ padding-top: 5px;
 
     background-color: #f5dedb;
 }
+
+input[disabled] {
+    background-color: rgba(5, 5, 5, 0.5);
+}
+
+p {
+    text-align: justify;
+}

@@ -64,7 +64,7 @@ angular.module('starter', ['ionic', 'starter.services', 'starter.controllers', '
                         }
                     })
 
-                    .state('menu.tab.favorite', {
+                    .state('menu.favorite', {
                         url: '/favorite',
                         templateUrl: 'templates/favorite.html',
                         controller: 'FavoriteCtrl'

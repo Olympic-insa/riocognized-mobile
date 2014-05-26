@@ -32,6 +32,7 @@ angular.module('starter.controllers', [])
             $scope.pronom = {};
             $scope.pronom.perso = "he/she";
             $scope.pronom.posse = "his/her";
+
             $scope.menOrWomen = function(value) {
                 if (value == "M") {
                     $scope.pronom.perso = "he";
@@ -305,11 +306,16 @@ angular.module('starter.controllers', [])
             });
 
         })
-        .controller('AthletesResultCtrl', function($scope, Athletes, Athlete, $location) {
+        .controller('AthletesResultCtrl', function($scope, Athletes, Athlete,$http, $location) {
             $scope.athletes = Athletes.getAthletes();
             $scope.athleteView = function(athlete) {
-                Athlete.setAthlete(athlete);
-                $location.url("/menu/athleteresult");
+                var url = "http://olympic-insa.fr.nf:8083/api/athletes";
+                url = url + "/" + athlete.id.toString();
+                $http.get(url).success(function(data) {
+                    Athlete.setAthlete(data);
+                    $location.url("/menu/athleteresult");
+                });
+                
             };
         })
         .controller('AthleteDetailCtrl', function($scope, $stateParams, $http) {

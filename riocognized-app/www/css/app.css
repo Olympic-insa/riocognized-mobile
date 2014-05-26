@@ -7323,4 +7323,10 @@ a.item:after, button.item:after {
   border-color: #ebc3bd;
   background-color: #f5dedb; }
 
+input[disabled] {
+  background-color: rgba(5, 5, 5, 0.5); }
+
+p {
+  text-align: justify; }
+
 /*# sourceMappingURL=app.css.map */

@@ -97,10 +97,10 @@
                 </div>
 
                 <!-- Question 8 -->
-                <div class="item item-divider">Move the range to {{pronom.posse}} approximate hair's length</div>
+                <div class="item item-divider" ng-click="hairDisabled = !hairDisabled" ng-init="hairDisabled = true">Move the range to {{pronom.posse}} approximate hair's length</div>
                 <div class="range">
                     Bald/Shaved
-                    <input type="range" name="hairlength" min="0" max="6" data-ng-model="form.hair_length">
+                    <input type="range" name="hairlength" min="0" max="6" data-ng-model="form.hair_length" ng-disabled="hairDisabled">
                     Long
                 </div>
 
@@ -113,7 +113,7 @@
                     </div>
                     <select data-ng-model="form.hair_color">
                         <option>Blond</option>
-                        <option selected>Black</option>
+                        <option>Black</option>
                         <option>Brown</option>
                         <option>Red</option>
                         <option>White</option>
@@ -121,20 +121,20 @@
                     </select>
                 </div>
                 <!-- Question 10 -->
-                <div class="item item-divider">How would you consider {{pronom.posse}} fit?</div>
+                <div class="item item-divider" ng-click="fitDisabled = !fitDisabled" ng-init="fitDisabled = true">How would you consider {{pronom.posse}} fit?</div>
 
                 <div class="range">
                     Skinny
-                    <input type="range" name="fit" min="0" max="6" data-ng-model="form.fit">
+                    <input type="range" name="fit" min="0" max="6" data-ng-model="form.fit" ng-disabled="fitDisabled">
                     Corpulent
                 </div>
 
                 <!-- Question 11 -->
-                <div class="item item-divider">How tall is {{pronom.perso}}?</div>
+                <div class="item item-divider" ng-click="heigthDisabled = !heigthDisabled" ng-init="heigthDisabled = true">How tall is {{pronom.perso}}?</div>
 
-                <div class="range">
+                <div class="range" >
                     Small ( < 1m50)
-                    <input type="range" name="heigth" min="0" max="6" data-ng-model="form.heigth">
+                    <input type="range" name="heigth" min="0" max="6" data-ng-model="form.heigth" ng-disabled="heigthDisabled">
                     Tall ( > 2m00)
                 </div>
 
