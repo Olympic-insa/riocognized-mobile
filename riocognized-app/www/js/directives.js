@@ -3,12 +3,12 @@ angular.module('starter.directives', [])
         .directive('adjustimg', function() {
             return function(scope, element, attrs) {
                 element.on('load', function() {
-                    alert("here");
+                    //alert("here");
                     var height = element[0].clientHeight;
                     var width = element[0].clientWidth;
-                    alert("height :"+height+"  width : "+width);
+                    //alert("height :"+height+"  width : "+width);
                     if (height / width > 1) {
-                        alert(width);
+                        //alert(width);
                         var top = (height - width) / 2;
                         var bottom = top + width;
                         element.css("clip", "rect(" + top + "px," + width + "px," + bottom + "px,0px)");
@@ -25,7 +25,7 @@ angular.module('starter.directives', [])
                         element.css("left", "-" + left + "px");
                         element.parent().css("width",heigth+"px");
                     }else{
-                        alert("image is already squared or problem with height and width");
+                        //alert("image is already squared or problem with height and width");
                     }
                 });
 
