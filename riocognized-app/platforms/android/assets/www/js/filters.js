@@ -1,6 +1,11 @@
 'use strict';
 angular.module('starter.filters', [])
 
+        .filter('newlines', function(text) {
+            return text.replace(/\n/g, '<br/>');
+        })
+
+
         .filter('lazyLoad', function($rootScope) {
 
             return function(athletes) {
@@ -11,42 +16,54 @@ angular.module('starter.filters', [])
             };
 
         })
-        
+
         .filter('anySearch', function() {
             return function(athletes, stringToSearch) {
                 var athletesFiltered = new Array();
-                if(!stringToSearch){return athletes;};
-                if(!athletes){return athletesFiltered;};
-                angular.forEach(athletes, function(athlete){
-                    if ( athlete.name.toLowerCase().indexOf(stringToSearch.toLowerCase()) !== -1){
+                if (!stringToSearch) {
+                    return athletes;
+                }
+                ;
+                if (!athletes) {
+                    return athletesFiltered;
+                }
+                ;
+                angular.forEach(athletes, function(athlete) {
+                    if (athlete.name.toLowerCase().indexOf(stringToSearch.toLowerCase()) !== -1) {
                         athletesFiltered.push(athlete);
-                    }else if(athlete.surname.toLowerCase().indexOf(stringToSearch.toLowerCase()) !== -1){
+                    } else if (athlete.surname.toLowerCase().indexOf(stringToSearch.toLowerCase()) !== -1) {
                         athletesFiltered.push(athlete);
                     }//else if( athlete.country.toLowerCase().indexOf(stringToSearch.toLowerCase()) !== -1){
-                     //   athletesFiltered.push(athlete);
+                    //   athletesFiltered.push(athlete);
                     //}else if(athlete.sport.toLowerCase().indexOf(stringToSearch.toLowerCase()) !== -1){
                     //    athletesFiltered.push(athlete);
                     //}
 
                 });
                 return athletesFiltered;
-               
+
             };
 
         })
         .filter('countryFilter', function() {
             return function(countries, countryToSearch) {
                 var countriesFiltered = new Array();
-                if(!countryToSearch){return countries;};
-                if(!countries){return countriesFiltered;};
-                angular.forEach(countries, function(country){
-                    if(country.toLowerCase().indexOf(countryToSearch.toLowerCase()) !== -1){
+                if (!countryToSearch) {
+                    return countries;
+                }
+                ;
+                if (!countries) {
+                    return countriesFiltered;
+                }
+                ;
+                angular.forEach(countries, function(country) {
+                    if (country.toLowerCase().indexOf(countryToSearch.toLowerCase()) !== -1) {
                         countriesFiltered.push(country);
                     }
 
                 });
                 return countriesFiltered;
-               
+
             };
 
         });

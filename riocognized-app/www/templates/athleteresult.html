@@ -24,7 +24,7 @@
             </div>
         </div>
         <div class = "row description">
-            <p>{{ athlete.content}}</p>
+            <p ng-bind-html="athlete.content | newlines"></p>
         </div>
     
   </ion-content>

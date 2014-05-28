@@ -153,7 +153,6 @@ angular.module('starter.controllers', [])
                                 //change view to athlete result
                                 $location.url("/menu/athleteresult");
                             } else {
-                                alert
                                 Athletes.setAthletes(data);
                                 $scope.reset();
                                 $location.url("/menu/athletesresult");
