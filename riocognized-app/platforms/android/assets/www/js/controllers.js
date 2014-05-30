@@ -241,8 +241,11 @@ angular.module('starter.controllers', [])
                     }, function(reason) {
                         if (reason.message == "INVALID_OR_EMPTY_CONTENT") {
                             alert("No Athlete recognized, try again!");
-                        } else {
+                        } else if (reason.message =="NOT_RECOGNIZED"){
+                            alert("The athlete was not recognized try again or try with questions!")
+                        }else{
                             alert("Check your internet connexion and try again!");
+                            alert(JSON.stringify(reason, null, 4));
                         }
                         $scope.takePicture();
                     });

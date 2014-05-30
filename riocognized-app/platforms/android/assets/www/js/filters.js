@@ -1,8 +1,17 @@
 'use strict';
 angular.module('starter.filters', [])
 
-        .filter('newlines', function(text) {
-            return text.replace(/\n/g, '<br/>');
+        .filter('newlines', function() {
+            return function(text) {
+                if (text != undefined){
+                    var newtext = text.replace(/\/n/g, '<br/>');
+                    return newtext;
+                }else{
+                    return;
+                }
+                
+            };
+
         })
 
 
@@ -11,8 +20,7 @@ angular.module('starter.filters', [])
             return function(athletes) {
                 if (athletes) {
                     return athletes.slice(0, $rootScope.counter);
-                }
-                ;
+                };
             };
 
         })
