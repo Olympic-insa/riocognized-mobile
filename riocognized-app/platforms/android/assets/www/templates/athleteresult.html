@@ -1,5 +1,5 @@
 <ion-view title='{{athlete.name}} {{athlete.surname}}'>
-  <ion-content has-header="true" padding="true" class="has-header">
+    <ion-content has-header="true" padding="true" class="has-header">
         <div class ="row responsive-sd">
             <div class="col col-50" ng-show="switchtrue">
                 <img ng-src="{{athlete.image_url}}" style="max-width: 100%">
@@ -26,6 +26,16 @@
         <div class = "row description">
             <p ng-bind-html="athlete.content | newlines"></p>
         </div>
-    
-  </ion-content>
+        <div class = "favorite-athlete">
+            <button ng-hide="favorite" ng-click="addFavorite()">
+                <i class="ion-ios7-heart-outline" ></i>
+                Add this athlete to my favorites
+            </button>
+            <button ng-show="favorite" ng-click="removeFavorite()">
+                <i class="ion-ios7-heart" ></i>
+                Delete this athlete from my favorites
+            </button>
+        </div>
+
+    </ion-content>
 </ion-view>

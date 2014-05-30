@@ -139,7 +139,7 @@ angular.module('starter.services', [])
                     }
 
                     function fail(evt) {
-                        alert("Fail " +evt.target.error.code);
+                        alert("Fail " + evt.target.error.code);
                     }
 
 
@@ -156,27 +156,94 @@ angular.module('starter.services', [])
                     function gotFS(fileSystem) {
                         fileSystem.root.getFile("history.json", {create: true, exclusive: false}, gotFileEntry, fail);
                     }
-                    
+
                     function gotFileEntry(fileEntry) {
                         fileEntry.createWriter(gotFileWriter, fail);
                     }
 
                     function gotFileWriter(writer) {
-                        
+
                         writer.write(JsonToWrite);
                     }
 
                     function fail(error) {
-                        alert("Can't write " +error.code);
+                        alert("Can't write " + error.code);
                     }
                     return {
                         writeJSON: function(jsonToWrite) {
                             JsonToWrite = JSON.stringify(jsonToWrite);
                             window.requestFileSystem(LocalFileSystem.PERSISTENT, 0, gotFS, fail);
-                            return ;
+                            return;
                         }
                     };
                 })
+                .factory('Favorite', function($rootScope) {
+                    var JsonToWrite = "{[]}";
+
+
+                    function gotFSread(fileSystem) {
+                        fileSystem.root.getFile("favorites.json", {create: true, exclusive: false}, gotFileEntryread, fail);
+                    }
+
+                    function gotFileEntryread(fileEntry) {
+                        fileEntry.file(gotFile, fail);
+                    }
+
+                    function gotFile(file) {
+                        readAsText(file);
+                    }
+
+
+                    function readAsText(file) {
+                        var reader = new FileReader();
+                        reader.onloadend = function(evt) {
+                            $rootScope.favorites = JSON.parse(evt.target.result);
+                        };
+                        reader.readAsText(file);
+                    }
+
+                    function fail(evt) {
+                        alert("Fail " + evt.target.error.code);
+                    }
+
+                    function gotFSwrite(fileSystem) {
+                        fileSystem.root.getFile("favorites.json", {create: true, exclusive: false}, gotFileEntrywrite, fail);
+                    }
+
+                    function gotFileEntrywrite(fileEntry) {
+                        fileEntry.createWriter(gotFileWriter, fail);
+                    }
+
+                    function gotFileWriter(writer) {
+
+                        writer.write(JsonToWrite);
+                    }
+
+
+                    return {
+                        checkFavorite: function(id) {
+                            alert("checkFavorite");
+                            var lengthFavorites = $rootScope.favorites.length;
+                            alert("length : "+$rootScope.favorites.length);
+                            alert(JSON.stringify($rootScope.favorites, null, 4));
+                            for (var i = 0; i < lengthFavorites; i++) {
+                                if ($rootScope.favorites[i].id == id) {
+                                    return true;
+                                }
+                            }
+                        },
+                        getJSON: function() {
+                            window.requestFileSystem(LocalFileSystem.PERSISTENT, 0, gotFSread, fail);
+                            return;
+                        },
+                        writeJSON: function(jsonToWrite) {
+                            JsonToWrite = JSON.stringify(jsonToWrite);
+                            window.requestFileSystem(LocalFileSystem.PERSISTENT, 0, gotFSwrite, fail);
+                            return;
+                        }
+                    };
+                }
+                )
                 .factory('Geolocation', function($rootScope) {
                     return {
                         /**

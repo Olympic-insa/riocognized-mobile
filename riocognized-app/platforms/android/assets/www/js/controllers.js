@@ -14,10 +14,12 @@ angular.module('starter.controllers', [])
             //TODO
         })
 
-        .controller('RioHomeCtrl', function($rootScope, $scope, Reader, $ionicPlatform) {
+        .controller('RioHomeCtrl', function($rootScope, $scope, Reader, Favorite, $ionicPlatform) {
             $rootScope.history = [];
+            $rootScope.favorites = [];
             $ionicPlatform.ready(function() {
                 Reader.getJSON();
+                Favorite.getJSON();
             });
 
         })
@@ -235,15 +237,15 @@ angular.module('starter.controllers', [])
                         Writer.writeJSON($rootScope.history);
                         var athletebis = athlete;
                         athletebis.picture = "data:image/jpeg;base64," + image;
-                        Athlete.setAthlete(athletebis);
+                        Athlete.setAthlete(athlete);//bis);
 
                         $location.url("/menu/athleteresult");
                     }, function(reason) {
                         if (reason.message == "INVALID_OR_EMPTY_CONTENT") {
                             alert("No Athlete recognized, try again!");
-                        } else if (reason.message =="NOT_RECOGNIZED"){
+                        } else if (reason.message == "NOT_RECOGNIZED") {
                             alert("The athlete was not recognized try again or try with questions!")
-                        }else{
+                        } else {
                             alert("Check your internet connexion and try again!");
                             alert(JSON.stringify(reason, null, 4));
                         }
@@ -289,8 +291,16 @@ angular.module('starter.controllers', [])
 
 
 // A simple controller that shows a tapped item's data
-        .controller('AthleteResultCtrl', function($scope, $interval, Athlete) {
+        .controller('AthleteResultCtrl', function($rootScope, $scope, $interval, Athlete, Favorite) {
             $scope.athlete = Athlete.getAthlete();
+            alert("AthleResult");
+            if (Favorite.checkFavorite($scope.athlete.id)) {
+                $scope.athlete.favorite = true;
+
+            } else {
+                $scope.athlete.favorite = false;
+            }
+            alert("Favorite athletes? "+$scope.athlete.favorite);
             $scope.switchtrue = true;
 
 
@@ -307,8 +317,24 @@ angular.module('starter.controllers', [])
                 $interval.cancel(stopTime);
             });
 
+            $scope.addFavorite = function() {
+                $rootScope.favorites.push($scope.athlete);
+                Favorite.writeJSON($rootScope.favorites);
+
+            };
+
+            $scope.removeFavorite = function() {
+                for (var i = 0; i < $rootScope.favorites.length; i++) {
+                    if ($rootScope.favorites[i].id == $scope.athlete.id) {
+                        $rootScope.favorites.splice(i, 1);
+                    }
+                }
+                Favorite.writeJSON($rootScope.favorites);
+
+            };
+
         })
-        .controller('AthletesResultCtrl', function($scope, Athletes, Athlete,$http, $location) {
+        .controller('AthletesResultCtrl', function($scope, Athletes, Athlete, $http, $location) {
             $scope.athletes = Athletes.getAthletes();
             $scope.athleteView = function(athlete) {
                 var url = "http://olympic-insa.fr.nf:8083/api/athletes";
@@ -317,16 +343,43 @@ angular.module('starter.controllers', [])
                     Athlete.setAthlete(data);
                     $location.url("/menu/athleteresult");
                 });
-                
+
             };
         })
-        .controller('AthleteDetailCtrl', function($scope, $stateParams, $http) {
+        .controller('AthleteDetailCtrl', function($rootScope, $scope, $stateParams, $http, Favorite) {
             var url = "http://olympic-insa.fr.nf:8083/api/athletes";
             url = url + "/" + $stateParams.athleteId.toString();
             $http.get(url).success(function(data) {
                 $scope.athlete = data;
+                if (Favorite.checkFavorite(data.id)) {
+                    alert("cet athlete est dans vos favoris");
+                    $scope.athlete.favorite = true;
+
+                } else {
+                    $scope.athlete.favorite = false;
+                }
             });
-            $scope.showMenuButton = false;
+
+            $scope.addFavorite = function() {
+                alert("addFavorite");
+                $rootScope.favorites.push($scope.athlete);
+                alert(JSON.stringify($rootScope.favorites, null, 4));
+                Favorite.writeJSON($rootScope.favorites);
+
+            };
+
+            $scope.removeFavorite = function() {
+                for (var i = 0; i < $rootScope.favorites.length; i++) {
+                    if ($rootScope.favorites[i].id == $scope.athlete.id) {
+                        $rootScope.favorites.splice(i, 1);
+                    }
+                }
+                Favorite.writeJSON($rootScope.favorites);
+
+            };
+
+
+
         })
 
         .controller('AthleteIndexCtrl', function($rootScope, $scope, $http, $ionicModal) {
