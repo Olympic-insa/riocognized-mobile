@@ -24,7 +24,7 @@ angular.module('starter.controllers', [])
 
         })
 
-        .controller('QuestionsCtrl', function($rootScope, $scope, $http, $ionicModal, $window, $location, Geolocation, Athlete, Athletes, Writer) {
+        .controller('QuestionsCtrl', function($rootScope, $scope, $http, $ionicModal, $window, $location, Geolocation, Athletes, Writer) {
             $scope.search = {};
             // we will store our form data in this object
             $scope.form = {};
@@ -144,7 +144,6 @@ angular.module('starter.controllers', [])
                         .success(function(data) {
                             if (data.length == 1) {
                                 var athlete = data[0];
-                                Athlete.setAthlete(data[0]);
                                 var athletebis = athlete;
                                 athletebis.type = "question";
                                 var tab_mois = new Array("January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December");
@@ -154,7 +153,7 @@ angular.module('starter.controllers', [])
                                 Writer.writeJSON($rootScope.history);
                                 $scope.reset();
                                 //change view to athlete result
-                                $location.url("/menu/athleteresult");
+                                $location.url("/menu/athlete/"+data[0].id.toString());
                             } else {
                                 Athletes.setAthletes(data);
                                 $scope.reset();
@@ -199,7 +198,7 @@ angular.module('starter.controllers', [])
 
         })
 
-        .controller('PicturesRecognizeCtrl', function($rootScope, $scope, $q, $ionicModal, $timeout, $location, Athlete, Camera, Recognition, Writer) {
+        .controller('PicturesRecognizeCtrl', function($rootScope, $scope, $q, $ionicModal, $timeout, $location, Camera, Recognition, Writer) {
             $ionicModal.fromTemplateUrl('templates/modal-advert.html', {
                 scope: $scope,
                 animation: 'slide-in-up'
@@ -238,9 +237,7 @@ angular.module('starter.controllers', [])
                         Writer.writeJSON($rootScope.history);
                         //var athletebis = athlete;
                         //athletebis.picture = "data:image/jpeg;base64," + image;
-                        Athlete.setAthlete(athlete);//bis);
-
-                        $location.url("/menu/athleteresult");
+                        $location.url("/menu/athlete/"+data[0][0].athlete.id.toString());
                     }, function(reason) {
                         if (reason.message == "INVALID_OR_EMPTY_CONTENT") {
                             alert("No Athlete recognized, try again!");
@@ -291,69 +288,10 @@ angular.module('starter.controllers', [])
 
 
 
-// A simple controller that shows a tapped item's data
-        .controller('AthleteResultCtrl', function($rootScope, $scope, $interval, Athlete, Favorite) {
-            $scope.athlete = Athlete.getAthlete();
-            $scope.athlete.favorite = false;
-            if (Favorite.checkFavorite($scope.athlete.id)) {
-                $scope.athlete.favorite = true;
-
-
-            } else {
-                $scope.athlete.favorite = false;
-
-            }
-            alert("Favorite athletes? "+$scope.athlete.favorite);
-            $scope.switchtrue = true;
-
-
-            var stopTime = $interval(function() {
-                if ($scope.athlete.picture != undefined) {
-                    $scope.switchtrue = !$scope.switchtrue;
-                }
-
-            }, 3000);
-
-            // listen on DOM destroy (removal) event, and cancel the next UI update
-            // to prevent updating time ofter the DOM element was removed.
-            $scope.$on('$destroy', function() {
-                $interval.cancel(stopTime);
-            });
-
-            $scope.addFavorite = function() {
-                alert("Athlete added !");
-                $scope.athlete.favorite = true;
-                $rootScope.favorites.push($scope.athlete);
-                Favorite.writeJSON($rootScope.favorites);
-
-            };
-
-            $scope.removeFavorite = function() {
-                for (var i = 0; i < $rootScope.favorites.length; i++) {
-                    if ($rootScope.favorites[i].id == $scope.athlete.id) {
-                        $rootScope.favorites.splice(i, 1);
-                    }
-                }
-                
-                Favorite.writeJSON($rootScope.favorites);
-                $scope.athlete.favorite = false;
-                alert("Athlete deleted !");
-
-            };
-
-        })
-        .controller('AthletesResultCtrl', function($scope, Athletes, Athlete, $http, $location) {
+        .controller('AthletesResultCtrl', function($scope, Athletes) {
             $scope.athletes = Athletes.getAthletes();
-            $scope.athleteView = function(athlete) {
-                var url = "http://olympic-insa.fr.nf:8083/api/athletes";
-                url = url + "/" + athlete.id.toString();
-                $http.get(url).success(function(data) {
-                    Athlete.setAthlete(data);
-                    $location.url("/menu/athleteresult");
-                });
-
-            };
         })
+        
         .controller('AthleteDetailCtrl', function($rootScope, $scope, $stateParams, $http, Favorite) {
             var url = "http://olympic-insa.fr.nf:8083/api/athletes";
             url = url + "/" + $stateParams.athleteId.toString();

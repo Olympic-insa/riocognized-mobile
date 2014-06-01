@@ -91,18 +91,6 @@ angular.module('starter.services', [])
                     };
 
                 })
-                .factory('Athlete', function() {
-                    var Athlete = {};
-                    return {
-                        getAthlete: function() {
-                            return Athlete;
-                        },
-                        setAthlete: function(athlete) {
-                            Athlete = athlete;
-                            return;
-                        }
-                    };
-                })
                 .factory('Athletes', function() {
                     var Athletes = {};
                     return {
