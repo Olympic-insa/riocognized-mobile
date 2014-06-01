@@ -101,11 +101,6 @@ angular.module('starter', ['ionic', 'starter.services', 'starter.controllers', '
                         templateUrl: 'templates/athlete-detail.html',
                         controller: 'AthleteDetailCtrl'
                     })
-                    .state('menu.athlete-result', {
-                        url: '/athleteresult',
-                        templateUrl: 'templates/athleteresult.html',
-                        controller: 'AthleteResultCtrl'
-                    })
                     .state('menu.athletes-result', {
                         url: '/athletesresult',
                         templateUrl: 'templates/athletesresult.html',
