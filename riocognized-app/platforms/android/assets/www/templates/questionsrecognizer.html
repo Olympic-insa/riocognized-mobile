@@ -1,8 +1,8 @@
 <ion-view title="Questions">
     <ion-nav-buttons side="right">
-      <button class="button button-clear" ng-click="reset()">
-        Clear
-      </button>
+        <button class="button button-clear" ng-click="reset()">
+            Clear
+        </button>
     </ion-nav-buttons>
     <ion-content has-header="true" has-tabs="true">
         <form ng-submit="recognize()">
@@ -44,7 +44,7 @@
                 </label>
 
                 <!-- Question 3 -->
-                <div class="item item-divider">Which sport does {{pronom.perso}} do? (leave blank if you don't know)</div>
+                <div class="item item-divider">Which sport does {{pronom.perso}} do?</div>
                 <div class="item item-icon-right nopad">
                     <i class="button button-icon icon ion-ios7-arrow-down" ng-click="modalSport.show();" style="margin-top:-6px"></i>
                     <input type="text" placeholder="Sport" ng-model="search.sport" ng-change="showBibQuestion(value)">
@@ -57,18 +57,18 @@
                 </div>
 
                 <!-- Question 5 -->
-                <div class="item item-divider">Where does {{pronom.perso}} come from?</div>
-                <div class="item item-icon-right nopad">
-                    <input type="text" placeholder="Country" ng-model="search.country" ng-change="showSuitQuestion(value)">
+                <div class="item item-divider" ng-click="countryDisabled = !countryDisabled" ng-init="countryDisabled = true">Where does {{pronom.perso}} come from?</div>
+                <div class="item item-icon-right nopad" ng-class="{disable: countryDisabled}">
+                    <input type="text" placeholder="Country" ng-model="search.country" ng-change="showSuitQuestion(value)" ng-disabled="countryDisabled">
                     <i class="button button-icon icon ion-ios7-arrow-down" ng-click="modalCountry.show();" style="margin-top:-6px"></i>
                 </div>
                 <!-- Question 6 -->
-                <div class="item item-divider" ng-hide="countrySelected">What color is {{pronom.posse}} track suit or racing suit ?</div>
-                <div class="item item-input item-select"ng-hide="countrySelected">
+                <div class="item item-divider" ng-hide="countrySelected" ng-click="suitDisabled = !suitDisabled" ng-init="suitDisabled = true">What color is {{pronom.posse}} track suit or racing suit ?</div>
+                <div class="item item-input item-select"ng-hide="countrySelected" ng-class="{disable: suitDisabled}">
                     <div class="input-label">
                         Suit color
                     </div>
-                    <select data-ng-model="form.race_suit">
+                    <select data-ng-model="form.race_suit" ng-disabled="suitDisabled">
                         <option>Black</option>
                         <option>White</option>
                         <option>Red</option>
@@ -82,13 +82,13 @@
                 </div>
 
                 <!-- Question 7 -->
-                <div class="item item-divider">What type of skin does {{pronom.perso}} have?</div>
+                <div class="item item-divider" ng-click="skinDisabled = !skinDisabled" ng-init="skinDisabled = true">What type of skin does {{pronom.perso}} have?</div>
 
-                <div class="item item-input item-select">
+                <div class="item item-input item-select" ng-class="{disable: skinDisabled}">
                     <div class="input-label">
                         Skin-Color
                     </div>
-                    <select data-ng-model="form.skin_color">
+                    <select data-ng-model="form.skin_color" ng-disabled="skinDisabled">
                         <option>Black</option>
                         <option selected>White</option>
                         <option>Asian</option>
@@ -97,21 +97,22 @@
                 </div>
 
                 <!-- Question 8 -->
-                <div class="item item-divider" ng-click="hairDisabled = !hairDisabled" ng-init="hairDisabled = true">Move the range to {{pronom.posse}} approximate hair's length</div>
-                <div class="range">
-                    Bald/Shaved
-                    <input type="range" name="hairlength" min="0" max="6" data-ng-model="form.hair_length" ng-disabled="hairDisabled">
-                    Long
+                <div ng-class="{disable: hairDisabled}">
+                    <div class="item item-divider" ng-click="hairDisabled = !hairDisabled" ng-init="hairDisabled = true">Move the range to {{pronom.posse}} approximate hair's length</div>
+                    <div class="range" >
+                        Bald/Shaved
+                        <input type="range" name="hairlength" min="0" max="6" data-ng-model="form.hair_length" ng-disabled="hairDisabled">
+                        Long
+                    </div>
                 </div>
-
                 <!-- Question 9 -->
-                <div class="item item-divider">What color  are {{pronom.perso}} hair?</div>
+                <div class="item item-divider" ng-click="haircolorDisabled = !haircolorDisabled" ng-init="haircolorDisabled = true">What color  are {{pronom.perso}} hair?</div>
 
-                <div class="item item-input item-select">
+                <div class="item item-input item-select" ng-class="{disable: haircolorDisabled}">
                     <div class="input-label">
                         Hair-Color
                     </div>
-                    <select data-ng-model="form.hair_color">
+                    <select data-ng-model="form.hair_color" ng-disabled="haircolorDisabled">
                         <option>Blond</option>
                         <option>Black</option>
                         <option>Brown</option>
@@ -123,7 +124,7 @@
                 <!-- Question 10 -->
                 <div class="item item-divider" ng-click="fitDisabled = !fitDisabled" ng-init="fitDisabled = true">How would you consider {{pronom.posse}} fit?</div>
 
-                <div class="range">
+                <div class="range" ng-class="{disable: fitDisabled}">
                     Skinny
                     <input type="range" name="fit" min="0" max="6" data-ng-model="form.fit" ng-disabled="fitDisabled">
                     Corpulent
@@ -132,7 +133,7 @@
                 <!-- Question 11 -->
                 <div class="item item-divider" ng-click="heigthDisabled = !heigthDisabled" ng-init="heigthDisabled = true">How tall is {{pronom.perso}}?</div>
 
-                <div class="range" >
+                <div class="range" ng-class="{disable: heigthDisabled}">
                     Small ( < 1m50)
                     <input type="range" name="heigth" min="0" max="6" data-ng-model="form.heigth" ng-disabled="heigthDisabled">
                     Tall ( > 2m00)

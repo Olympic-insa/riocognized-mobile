@@ -24,7 +24,21 @@ angular.module('starter.controllers', [])
 
         })
 
-        .controller('QuestionsCtrl', function($rootScope, $scope, $http, $ionicModal, $window, $location, Geolocation, Athletes, Writer) {
+        .controller('QuestionsCtrl', function($rootScope, $scope, $http, $ionicPopup, $timeout, $ionicModal, $window, $location, Geolocation, Athletes, Writer) {
+
+            $scope.showPopup = function() {
+                $scope.data = {}
+
+                // An elaborate, custom popup
+                var myPopup = $ionicPopup.show({
+                    title: 'Questions',
+                    template: "<p>Tap optionals questions to enable or disable them !</p>"
+                });
+                $timeout(function() {
+                    myPopup.close(); //close the popup after 3 seconds for some reason
+                }, 3000);
+            };
+            $scope.showPopup();
             $scope.search = {};
             // we will store our form data in this object
             $scope.form = {};
@@ -152,7 +166,7 @@ angular.module('starter.controllers', [])
                                 Writer.writeJSON($rootScope.history);
                                 $scope.reset();
                                 //change view to athlete result
-                                $location.url("/menu/athlete/"+data[0].id.toString());
+                                $location.url("/menu/athlete/" + data[0].id.toString());
                             } else {
                                 Athletes.setAthletes(data);
                                 $scope.reset();
@@ -174,8 +188,10 @@ angular.module('starter.controllers', [])
             };
         })
 
-        .controller('ParametersCtrl', function($scope) {
-            //TODO
+        .controller('ParametersCtrl', function($scope, $ionicPopup, $timeout) {
+
+
+
         })
 
         .controller('AboutCtrl', function($rootScope, $scope, $interval, Reader, Writer) {
@@ -236,7 +252,7 @@ angular.module('starter.controllers', [])
                         Writer.writeJSON($rootScope.history);
                         //var athletebis = athlete;
                         //athletebis.picture = "data:image/jpeg;base64," + image;
-                        $location.url("/menu/athlete/"+data[0][0].athlete.id.toString());
+                        $location.url("/menu/athlete/" + data[0][0].athlete.id.toString());
                     }, function(reason) {
                         if (reason.message == "INVALID_OR_EMPTY_CONTENT") {
                             alert("No Athlete recognized, try again!");
@@ -290,7 +306,7 @@ angular.module('starter.controllers', [])
         .controller('AthletesResultCtrl', function($scope, Athletes) {
             $scope.athletes = Athletes.getAthletes();
         })
-        
+
         .controller('AthleteDetailCtrl', function($rootScope, $scope, $stateParams, $http, Favorite) {
             var url = "http://olympic-insa.fr.nf:8083/api/athletes";
             url = url + "/" + $stateParams.athleteId.toString();
@@ -310,7 +326,7 @@ angular.module('starter.controllers', [])
                 $scope.athlete.favorite = true;
                 $rootScope.favorites.push($scope.athlete);
                 Favorite.writeJSON($rootScope.favorites);
-                
+
 
             };
 
