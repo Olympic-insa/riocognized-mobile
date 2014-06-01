@@ -145,11 +145,12 @@ angular.module('starter.controllers', [])
                             if (data.length == 1) {
                                 var athlete = data[0];
                                 Athlete.setAthlete(data[0]);
-                                athlete.type = "question";
+                                var athletebis = athlete;
+                                athletebis.type = "question";
                                 var tab_mois = new Array("January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December");
                                 var date = new Date();
-                                athlete.date = date.getDate() + " " + tab_mois[date.getMonth()] + " " + date.getFullYear();
-                                $rootScope.history.push(athlete);
+                                athletebis.date = date.getDate() + " " + tab_mois[date.getMonth()] + " " + date.getFullYear();
+                                $rootScope.history.push(athletebis);
                                 Writer.writeJSON($rootScope.history);
                                 $scope.reset();
                                 //change view to athlete result
@@ -235,8 +236,8 @@ angular.module('starter.controllers', [])
                         athlete.date = date.getDate() + " " + tab_mois[date.getMonth()] + " " + date.getFullYear();
                         $rootScope.history.push(athlete);
                         Writer.writeJSON($rootScope.history);
-                        var athletebis = athlete;
-                        athletebis.picture = "data:image/jpeg;base64," + image;
+                        //var athletebis = athlete;
+                        //athletebis.picture = "data:image/jpeg;base64," + image;
                         Athlete.setAthlete(athlete);//bis);
 
                         $location.url("/menu/athleteresult");
@@ -293,12 +294,14 @@ angular.module('starter.controllers', [])
 // A simple controller that shows a tapped item's data
         .controller('AthleteResultCtrl', function($rootScope, $scope, $interval, Athlete, Favorite) {
             $scope.athlete = Athlete.getAthlete();
-            alert("AthleResult");
+            $scope.athlete.favorite = false;
             if (Favorite.checkFavorite($scope.athlete.id)) {
                 $scope.athlete.favorite = true;
 
+
             } else {
                 $scope.athlete.favorite = false;
+
             }
             alert("Favorite athletes? "+$scope.athlete.favorite);
             $scope.switchtrue = true;
@@ -319,6 +322,7 @@ angular.module('starter.controllers', [])
 
             $scope.addFavorite = function() {
                 alert("Athlete added !");
+                $scope.athlete.favorite = true;
                 $rootScope.favorites.push($scope.athlete);
                 Favorite.writeJSON($rootScope.favorites);
 
@@ -330,7 +334,10 @@ angular.module('starter.controllers', [])
                         $rootScope.favorites.splice(i, 1);
                     }
                 }
+                
                 Favorite.writeJSON($rootScope.favorites);
+                $scope.athlete.favorite = false;
+                alert("Athlete deleted !");
 
             };
 
@@ -352,17 +359,18 @@ angular.module('starter.controllers', [])
             url = url + "/" + $stateParams.athleteId.toString();
             $http.get(url).success(function(data) {
                 $scope.athlete = data;
+                $scope.athlete.favorite = false;
                 if (Favorite.checkFavorite(data.id)) {
-                    alert("cet athlete est dans vos favoris");
                     $scope.athlete.favorite = true;
-
                 } else {
                     $scope.athlete.favorite = false;
+
                 }
             });
 
             $scope.addFavorite = function() {
                 alert("Athlete added !");
+                $scope.athlete.favorite = true;
                 $rootScope.favorites.push($scope.athlete);
                 Favorite.writeJSON($rootScope.favorites);
                 
@@ -370,12 +378,14 @@ angular.module('starter.controllers', [])
             };
 
             $scope.removeFavorite = function() {
+                $scope.athlete.favorite = false;
                 for (var i = 0; i < $rootScope.favorites.length; i++) {
                     if ($rootScope.favorites[i].id == $scope.athlete.id) {
                         $rootScope.favorites.splice(i, 1);
                     }
                 }
                 Favorite.writeJSON($rootScope.favorites);
+                alert("Athlete deleted !");
 
             };
 

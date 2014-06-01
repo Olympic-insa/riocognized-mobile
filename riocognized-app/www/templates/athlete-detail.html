@@ -30,16 +30,16 @@
         <div class = "row description">
             <p ng-bind-html="athlete.content | newlines"></p>
         </div>
-        <div class = "favorite-athlete">
-            <a ng-hide="favorite" ng-click="addFavorite()">
+        
+            <button class = "button button-assertive" ng-show="!athlete.favorite" ng-click="addFavorite()">
                 <i class="ion-ios7-heart-outline" ></i>
                 Add this athlete to my favorites
-            </a>
-            <a ng-show="favorite" ng-click="removeFavorite()">
+            </button>
+            <button class = "button button-assertive" ng-show="athlete.favorite" ng-click="removeFavorite()">
                 <i class="ion-ios7-heart" ></i>
                 Delete this athlete from my favorites
-            </a>
-        </div>
+            </button>
+        
 
 
     </ion-content>

@@ -222,10 +222,7 @@ angular.module('starter.services', [])
 
                     return {
                         checkFavorite: function(id) {
-                            alert("checkFavorite");
                             var lengthFavorites = $rootScope.favorites.length;
-                            alert("length : "+$rootScope.favorites.length);
-                            alert(JSON.stringify($rootScope.favorites, null, 4));
                             for (var i = 0; i < lengthFavorites; i++) {
                                 if ($rootScope.favorites[i].id == id) {
                                     return true;
