@@ -144,12 +144,11 @@ angular.module('starter.controllers', [])
                         .success(function(data) {
                             if (data.length == 1) {
                                 var athlete = data[0];
-                                var athletebis = athlete;
-                                athletebis.type = "question";
+                                athlete.type = "question";
                                 var tab_mois = new Array("January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December");
                                 var date = new Date();
-                                athletebis.date = date.getDate() + " " + tab_mois[date.getMonth()] + " " + date.getFullYear();
-                                $rootScope.history.push(athletebis);
+                                athlete.date = date.getDate() + " " + tab_mois[date.getMonth()] + " " + date.getFullYear();
+                                $rootScope.history.push(athlete);
                                 Writer.writeJSON($rootScope.history);
                                 $scope.reset();
                                 //change view to athlete result
