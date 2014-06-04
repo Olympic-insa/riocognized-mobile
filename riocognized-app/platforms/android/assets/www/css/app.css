@@ -7325,6 +7325,9 @@ a.item:after, button.item:after {
   background-color: rgba(5, 5, 5, 0.3);
   background: repeating-linear-gradient(45deg, #bf3826, #bf3826 10px, #f3f3f3 10px, #f3f3f3 20px); }
 
+input[disabled] {
+  background-color: rgba(5, 5, 5, 0.3); }
+
 p {
   text-align: justify; }
 

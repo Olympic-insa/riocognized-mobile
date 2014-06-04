@@ -213,7 +213,7 @@ angular.module('starter.controllers', [])
 
         })
 
-        .controller('PicturesRecognizeCtrl', function($rootScope, $scope, $q, $ionicModal, $timeout, $location, Camera, Recognition, Writer) {
+        .controller('PicturesRecognizeCtrl', function($rootScope, $scope, $q, $ionicModal, $timeout, $location, Camera, Recognition, Writer, Athlete) {
             $ionicModal.fromTemplateUrl('templates/modal-advert.html', {
                 scope: $scope,
                 animation: 'slide-in-up'
@@ -242,7 +242,6 @@ angular.module('starter.controllers', [])
                             $scope.closeModal();
                         }, 5000)
                     ]).then(function(data) {
-
                         var athlete = data[0][0].athlete;
                         athlete.type = "picture";
                         var tab_mois = new Array("January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December");
@@ -252,7 +251,9 @@ angular.module('starter.controllers', [])
                         Writer.writeJSON($rootScope.history);
                         //var athletebis = athlete;
                         //athletebis.picture = "data:image/jpeg;base64," + image;
-                        $location.url("/menu/athlete/" + data[0][0].athlete.id.toString());
+                        Athlete.setAthlete(athlete);
+
+                        $location.url("/menu/athlete/null");
                     }, function(reason) {
                         if (reason.message == "INVALID_OR_EMPTY_CONTENT") {
                             alert("No Athlete recognized, try again!");
@@ -307,20 +308,32 @@ angular.module('starter.controllers', [])
             $scope.athletes = Athletes.getAthletes();
         })
 
-        .controller('AthleteDetailCtrl', function($rootScope, $scope, $stateParams, $http, Favorite) {
-            var url = "http://olympic-insa.fr.nf:8083/api/athletes";
-            url = url + "/" + $stateParams.athleteId.toString();
-            $http.get(url).success(function(data) {
-                $scope.athlete = data;
+        .controller('AthleteDetailCtrl', function($rootScope, $scope, $stateParams, $http, Favorite, Athlete) {
+
+
+            if ($stateParams.athleteId == "null") {
+                $scope.athlete = Athlete.getAthlete();
                 $scope.athlete.favorite = false;
-                if (Favorite.checkFavorite(data.id)) {
+                if (Favorite.checkFavorite($scope.athlete.id)) {
                     $scope.athlete.favorite = true;
                 } else {
                     $scope.athlete.favorite = false;
 
                 }
-            });
+            } else {
+                var url = "http://olympic-insa.fr.nf:8083/api/athletes";
+                url = url + "/" + $stateParams.athleteId.toString();
+                $http.get(url).success(function(data) {
+                    $scope.athlete = data;
+                    $scope.athlete.favorite = false;
+                    if (Favorite.checkFavorite(data.id)) {
+                        $scope.athlete.favorite = true;
+                    } else {
+                        $scope.athlete.favorite = false;
 
+                    }
+                });
+            }
             $scope.addFavorite = function() {
                 alert("Athlete added !");
                 $scope.athlete.favorite = true;

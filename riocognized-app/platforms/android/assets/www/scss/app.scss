@@ -117,6 +117,10 @@ padding-top: 5px;
 );
 }
 
+input[disabled]{
+    background-color: rgba(5, 5, 5, 0.3);
+}
+
 p {
     text-align: justify;
 }
