@@ -58,20 +58,20 @@ angular.module('starter.controllers', [])
                     $scope.pronom.posse = "her";
                 }
             };
-            $scope.showBibQuestion = function(value) {
-                if (value != "") {
-                    $scope.sportSelected = true;
-                } else {
-                    $scope.sportSelected = false;
-                }
-            };
-            $scope.showSuitQuestion = function(value) {
-                if (value != "") {
-                    $scope.countrySelected = true;
-                } else {
-                    $scope.countrySelected = false;
-                }
-            };
+//            $scope.showBibQuestion = function(value) {
+//                if (value != "") {
+//                    $scope.sportSelected = true;
+//                } else {
+//                    $scope.sportSelected = false;
+//                }
+//            };
+//            $scope.showSuitQuestion = function(value) {
+//                if (value != "") {
+//                    $scope.countrySelected = true;
+//                } else {
+//                    $scope.countrySelected = false;
+//                }
+//            };
             $ionicModal.fromTemplateUrl('templates/modal-list-sport.html', function(modal) {
                 $scope.modalSport = modal;
             }, {
@@ -242,7 +242,6 @@ angular.module('starter.controllers', [])
                             $scope.closeModal();
                         }, 5000)
                     ]).then(function(data) {
-                        alert("answer");
                         var athlete = data[0][0].athlete;
                         athlete.type = "picture";
                         var tab_mois = new Array("January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December");

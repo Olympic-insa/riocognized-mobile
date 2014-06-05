@@ -58,20 +58,20 @@ angular.module('starter.controllers', [])
                     $scope.pronom.posse = "her";
                 }
             };
-            $scope.showBibQuestion = function(value) {
-                if (value != "") {
-                    $scope.sportSelected = true;
-                } else {
-                    $scope.sportSelected = false;
-                }
-            };
-            $scope.showSuitQuestion = function(value) {
-                if (value != "") {
-                    $scope.countrySelected = true;
-                } else {
-                    $scope.countrySelected = false;
-                }
-            };
+//            $scope.showBibQuestion = function(value) {
+//                if (value != "") {
+//                    $scope.sportSelected = true;
+//                } else {
+//                    $scope.sportSelected = false;
+//                }
+//            };
+//            $scope.showSuitQuestion = function(value) {
+//                if (value != "") {
+//                    $scope.countrySelected = true;
+//                } else {
+//                    $scope.countrySelected = false;
+//                }
+//            };
             $ionicModal.fromTemplateUrl('templates/modal-list-sport.html', function(modal) {
                 $scope.modalSport = modal;
             }, {

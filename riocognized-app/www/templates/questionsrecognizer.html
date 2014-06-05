@@ -47,24 +47,24 @@
                 <div class="item item-divider">Which sport does {{pronom.perso}} do?</div>
                 <div class="item item-icon-right nopad">
                     <i class="button button-icon icon ion-ios7-arrow-down" ng-click="modalSport.show();" style="margin-top:-6px"></i>
-                    <input type="text" placeholder="Sport" ng-model="search.sport" ng-change="showBibQuestion(value)">
+                    <input type="text" placeholder="Sport" ng-model="search.sport" ><!--ng-change="showBibQuestion(value)">-->
                 </div>
 
                 <!-- Question 4 -->
-                <div class="item item-divider" ng-show="sportSelected">What is {{pronom.posse}} bib number ? (leave blank if you don't know)</div>
-                <div class="item nopad" ng-show="sportSelected">
-                    <input type="text" placeholder="Bib number" data-ng-model="form.bib">
+                <div class="item item-divider" ng-click="bibDisabled = !bibDisabled" ng-init="bibDisabled = true">What is {{pronom.posse}} bib number ? (leave blank if you don't know)</div>
+                <div class="item nopad" ng-class="{disable: bibDisabled}">
+                    <input type="text" placeholder="Bib number" data-ng-model="form.bib" ng-disabled="bibDisabled">
                 </div>
 
                 <!-- Question 5 -->
                 <div class="item item-divider" ng-click="countryDisabled = !countryDisabled" ng-init="countryDisabled = true">Where does {{pronom.perso}} come from?</div>
                 <div class="item item-icon-right nopad" ng-class="{disable: countryDisabled}">
-                    <input type="text" placeholder="Country" ng-model="search.country" ng-change="showSuitQuestion(value)" ng-disabled="countryDisabled">
+                    <input type="text" placeholder="Country" ng-model="search.country" ng-disabled="countryDisabled"><!--ng-change="showSuitQuestion(value)"-->
                     <i class="button button-icon icon ion-ios7-arrow-down" ng-click="modalCountry.show();" style="margin-top:-6px"></i>
                 </div>
                 <!-- Question 6 -->
-                <div class="item item-divider" ng-hide="countrySelected" ng-click="suitDisabled = !suitDisabled" ng-init="suitDisabled = true">What color is {{pronom.posse}} track suit or racing suit ?</div>
-                <div class="item item-input item-select"ng-hide="countrySelected" ng-class="{disable: suitDisabled}">
+                <div class="item item-divider" ng-click="suitDisabled = !suitDisabled" ng-init="suitDisabled = true">What color is {{pronom.posse}} track suit or racing suit ?</div>
+                <div class="item item-input item-select" ng-class="{disable: suitDisabled}">
                     <div class="input-label">
                         Suit color
                     </div>
@@ -106,7 +106,7 @@
                     </div>
                 </div>
                 <!-- Question 9 -->
-                <div class="item item-divider" ng-click="haircolorDisabled = !haircolorDisabled" ng-init="haircolorDisabled = true">What color  are {{pronom.perso}} hair?</div>
+                <div class="item item-divider" ng-click="haircolorDisabled = !haircolorDisabled" ng-init="haircolorDisabled = true">What is {{pronom.posse}} hair color?</div>
 
                 <div class="item item-input item-select" ng-class="{disable: haircolorDisabled}">
                     <div class="input-label">
