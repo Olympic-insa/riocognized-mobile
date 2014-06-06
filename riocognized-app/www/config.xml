@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8" standalone="no"?>
-<widget xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0" id="com.coolappz.riocognized_app" version="1.0.0">
+<widget xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0" id="fr.lynxlabs.riocognized" version="1.0.0">
     <name>Riocognized</name>
     <description>Cordova Application</description>
     <author email="clement.fmy@gmail.com" href="http://www.lynxlabs.fr.nf">clement</author>
