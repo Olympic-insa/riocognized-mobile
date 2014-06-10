@@ -122,7 +122,7 @@ angular.module('starter.controllers', [])
                 if ($scope.currentPosition != null && $scope.form.racing == "true") {
                     //alert($scope.currentPosition.toSource());
                     //console.log($scope.currentPosition);
-                    url = url + "&gps=" + $scope.currentPosition.coords.latitude + "," + $scope.currentPosition.coords.longitude;
+                    //url = url + "&gps=" + $scope.currentPosition.coords.latitude + "," + $scope.currentPosition.coords.longitude;
                 }
                 if ($scope.search.sport != null) {
                     url = url + "&sport=" + $scope.search.sport;
@@ -177,11 +177,12 @@ angular.module('starter.controllers', [])
                             if (data.message == "ATHLETE_NOT_FOUND") {
                                 // Try again
                                 alert("Athlete not found, try again!");
-                                //$scope.reset();
+                                $scope.reset();
                                 //$window.location.reload();
                             } else if (data.message == "TOO_MANY_RESULTS") {
                                 // Let's try some new questions
                                 alert("Too many athletes were found please try to add more details");
+                                $scope.reset();
                             }
 
                         });
@@ -240,7 +241,7 @@ angular.module('starter.controllers', [])
                         Recognition.upload(image),
                         $timeout(function() {
                             $scope.closeModal();
-                        }, 5000)
+                        }, 14000)
                     ]).then(function(data) {
                         var athlete = data[0][0].athlete;
                         athlete.type = "picture";
@@ -258,7 +259,9 @@ angular.module('starter.controllers', [])
                         if (reason.message == "INVALID_OR_EMPTY_CONTENT") {
                             alert("No Athlete recognized, try again!");
                         } else if (reason.message == "NOT_RECOGNIZED") {
-                            alert("The athlete was not recognized try again or try with questions!")
+                            alert("The athlete was not recognized try again or try with questions!");
+                        } else if (reason.message == "NO_FACE_DETECTED") {
+                            alert("The athlete was not recognized try again or try with questions!");
                         } else {
                             alert("Check your internet connexion and try again!");
                             alert(JSON.stringify(reason, null, 4));
