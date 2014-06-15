@@ -118,7 +118,10 @@ angular.module('starter.controllers', [])
             $scope.recognize = function() {
                 var url = "http://olympic-insa.fr.nf:8083/api/athletes";
                 url = url + "?gender=" + $scope.form.gender;
-                url = url + "&racing=" + $scope.form.racing;
+                  if ($scope.form.racing == true) {
+                    url = url + "&racing=" + $scope.form.racing;
+                }
+                
                 if ($scope.currentPosition != null && $scope.form.racing == "true") {
                     //alert($scope.currentPosition.toSource());
                     //console.log($scope.currentPosition);
