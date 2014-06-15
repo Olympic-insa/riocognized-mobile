@@ -241,7 +241,7 @@ angular.module('starter.controllers', [])
                         Recognition.upload(image),
                         $timeout(function() {
                             $scope.closeModal();
-                        }, 14000)
+                        }, 4000)
                     ]).then(function(data) {
                         var athlete = data[0][0].athlete;
                         athlete.type = "picture";
